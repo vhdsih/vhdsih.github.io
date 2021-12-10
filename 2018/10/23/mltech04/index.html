@@ -13,25 +13,25 @@
 <meta property="og:site_name" content="vhdsih">
 <meta property="og:description" content="《机器学习技法》系列课程（四） 本章将引入Soft-Margin SVM以解决overfit问题，提高对错误点的忍受程度！">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/1.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/6.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/7.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/8.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/9.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/10.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/11.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/12.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/13.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/14.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/15.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/10/23/mltech04/16.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//1.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//6.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//7.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//8.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//9.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//10.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//11.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//12.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//13.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//14.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//15.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//16.png">
 <meta property="article:published_time" content="2018-10-23T02:54:40.000Z">
 <meta property="article:modified_time" content="2021-12-10T07:41:11.489Z">
 <meta property="article:author" content="vhdsih">
 <meta property="article:tag" content="林轩田">
 <meta property="article:tag" content="video-note">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/23/mltech04/1.png">
+<meta name="twitter:image" content="https://vhdsih.github.io/.io//1.png">
     
     
       
@@ -182,7 +182,7 @@
 <li>模型要求必须没有错误点，必须将所有数据正确区分。</li>
 </ol>
 <p>然而，我们看一个例子：</p>
-<p><img src="/2018/10/23/mltech04/1.png" alt="example"> </p>
+<p><img src="/.io//1.png" alt="example"> </p>
 <p>如果我们一定要求要将所有的点正确分开，那么我们就必须选择一个4次的特征转换（右图）。然而，实际上图一的一次特征转换得到的分类结果更好，尽管里面有很少量的点没有正确区分。</p>
 <p>现在我们回忆我们之前所学的内容：当我们第一次接触PLA算法，遇到不能线性分开的数据是怎样处理的？我们使用的是Pocket，尽管我们不能找到一个将所有点都正确分开的超平面，但是我们可以选择一个犯错最少的。我们可以将这种思想和我们一直使用的hard-margin SVM结合，得到一种能够忍受一些错误点的soft-margin SVM：</p>
 <div aling="center"> ![conbination](2.png) 
@@ -198,30 +198,30 @@
 
 <p>下面将引入对偶。</p>
 <h2 id="Dual-Problem"><a href="#Dual-Problem" class="headerlink" title="Dual Problem"></a>Dual Problem</h2><p>类似于我们在Dual SVM中讲解的内容，对于我们已经得到的soft-margin svm，它的复杂度仍然依赖于Z空间的复杂度d~，此时我们要去除这个复杂度，因此我们要引入对偶。而引入对偶我们使用了一个重要的工具是拉格朗日乘数法，因为在soft margin svm中我们又新引入了一个参数，且对它有新的约束：大于等于0，由此，我们的拉格朗日乘数就变为了：αn和βn:</p>
-<p><img src="/2018/10/23/mltech04/6.png" alt="lagrange"> </p>
+<p><img src="/.io//6.png" alt="lagrange"> </p>
 <p>同样类似于我们学过的Dual SVM的推导，我们的问题继续化简：</p>
-<p><img src="/2018/10/23/mltech04/7.png" alt="simplify dual svm"> </p>
+<p><img src="/.io//7.png" alt="simplify dual svm"> </p>
 <p>根据梯度下降法，最小值点在梯度为0处，我们分别对参数求偏导数，令其结果为0。首先处理ξn:</p>
-<p><img src="/2018/10/23/mltech04/8.png" alt="simplify dual svm"> </p>
+<p><img src="/.io//8.png" alt="simplify dual svm"> </p>
 <p>此时可将原问题化简为：</p>
-<p><img src="/2018/10/23/mltech04/9.png" alt="simplify dual svm"> </p>
+<p><img src="/.io//9.png" alt="simplify dual svm"> </p>
 <p>现在这个形式和我们的hard-margin svm类似，我们分别对b和w求偏导数，令其为0：</p>
-<p><img src="/2018/10/23/mltech04/10.png" alt="simplify dual svm"> </p>
+<p><img src="/.io//10.png" alt="simplify dual svm"> </p>
 <p>最终得到soft margin svm的dual形式：</p>
-<p><img src="/2018/10/23/mltech04/11.png" alt="simplify dual svm"> </p>
+<p><img src="/.io//11.png" alt="simplify dual svm"> </p>
 <p>现在我们可以使用QP解决该问题！</p>
 <h2 id="Messages-behind-Soft-Margin-SVM"><a href="#Messages-behind-Soft-Margin-SVM" class="headerlink" title="Messages behind Soft-Margin SVM"></a>Messages behind Soft-Margin SVM</h2><p>现在我们可以利用QP解决soft margin svm：</p>
-<p><img src="/2018/10/23/mltech04/12.png" alt="qp for soft margin svm"> </p>
+<p><img src="/.io//12.png" alt="qp for soft margin svm"> </p>
 <p>大部分内容和hard-margin问题是相同的，并且它的灵活性更强。但是我们还需要考虑如何求解b这个问题。</p>
-<p><img src="/2018/10/23/mltech04/13.png" alt="get b"> </p>
+<p><img src="/.io//13.png" alt="get b"> </p>
 <p>如上图，我们求解hard-margin svm问题，由互补松弛条件，我们找到一个支撑向量就能求解b。而对于soft-margin svm，同样存在这个条件，区别是它的条件有两个。如果我们找到了一个支撑向量，此时并不能计算出b。我们根据第二个条件，如果令C和αn不相等，则ξn=0，此时我们可以计算b。我们把0 &lt; αn &lt; C的点称为自由支撑向量(free SV)。</p>
 <p>因此我们也可以引入核函数：</p>
-<p><img src="/2018/10/23/mltech04/14.png" alt="kernel soft margin svm"> </p>
+<p><img src="/.io//14.png" alt="kernel soft margin svm"> </p>
 <p>那么我们该怎样选择C的大小呢，我们看一看使用高斯核函数的soft-margin svm使用不同的C的效果：</p>
-<p><img src="/2018/10/23/mltech04/15.png" alt="gaossian kernel soft margin svm"> </p>
+<p><img src="/.io//15.png" alt="gaossian kernel soft margin svm"> </p>
 <p>C越大，分类界面越瘦，对噪音的容忍程度越低 - 发生了overfit！因此我们的svm现在仍然会发生过学习，所以在选择参数的时候必须要仔细！</p>
 <p>最后我们看一看αn的物理意义是什么。我们已知它满足两个条件：</p>
-<p><img src="/2018/10/23/mltech04/16.png" alt="complementary slackness"> </p>
+<p><img src="/.io//16.png" alt="complementary slackness"> </p>
 <p>根据这个条件，我们将考虑3种不同情况：</p>
 <ol>
 <li>αn = 0，此时ξn = 0，其表示该点不是SV，点大部分落在正确的一侧。</li>

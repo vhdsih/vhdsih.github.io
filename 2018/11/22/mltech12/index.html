@@ -13,21 +13,21 @@
 <meta property="og:site_name" content="vhdsih">
 <meta property="og:description" content="《机器学习技法》系列课程（十二）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/1.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/2.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/3.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/4.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/5.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/6.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/7.png">
-<meta property="og:image" content="https://vhdsih.github.io/2018/11/22/mltech12/9.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//1.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//2.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//3.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//4.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//5.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//6.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//7.png">
+<meta property="og:image" content="https://vhdsih.github.io/.io//9.png">
 <meta property="article:published_time" content="2018-11-22T05:23:55.000Z">
 <meta property="article:modified_time" content="2021-12-10T07:41:11.505Z">
 <meta property="article:author" content="vhdsih">
 <meta property="article:tag" content="林轩田">
 <meta property="article:tag" content="video-note">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://vhdsih.github.io/2018/11/22/mltech12/1.png">
+<meta name="twitter:image" content="https://vhdsih.github.io/.io//1.png">
     
     
       
@@ -171,7 +171,7 @@
 <span id="more"></span>
 
 <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>我们已经了解了Perceptron，将多个Perceptron进行线性组合，其数学表示为：</p>
-<p><img src="/2018/11/22/mltech12/1.png"></p>
+<p><img src="/.io//1.png"></p>
 <p>其包含两层权重:wt和αt。此时它能够实现更复杂的边界划分，比如，它能够实现AND、OR、NOT等边界的划分。</p>
 <p>实际上，如果我们使用更多数量的Perceptron，它的能力会更强，这也是Aggregation的特性之一，同样，模型的复杂度也会变大，会更容易overfitting。如果我们想要使用Perceptron去构造一个圆形边界的分类器，当使用了足够多的Perceptrons，其将会逼近一个平滑的边界。</p>
 <p>然而，局限在于，简单的Perceptron的融合无法实现XOR，因为XOR的数据并不是线性可分的，这就导致我们根本不能使用Linear Aggregation Models。</p>
@@ -179,20 +179,20 @@
 <h2 id="Neural-Network-Hypothesis"><a href="#Neural-Network-Hypothesis" class="headerlink" title="Neural Network Hypothesis"></a>Neural Network Hypothesis</h2><p>我们首先来看神经网络的输出部分。它的最后一层运算只是一个线性的运算，任何一种线性模型都可以运用到这个地方：线性分类、线性回归、逻辑回归等。</p>
 <p>为了简单起见，接下来我们仅仅讨论最后一层使用线性回归（Regression）的神经网络（使用平方误差函数）。</p>
 <p>然后我们看神经网络中间部分。此时它并不能使用任意的激活函数。首先，我们不能使用线性的激活函数，如果我们使用了，我们又何必将模型搞得这么复杂但是最后能力却很差。同样，也很少使用sign函数，因为这个函数的输出是离散的，它的值域为{-1， 1}，所以它是不可导的，从而导致很难最佳化。很多情况，我们使用tanh：</p>
-<p><img src="/2018/11/22/mltech12/2.png"> </p>
+<p><img src="/.io//2.png"> </p>
 <p>它与逻辑回归中的函数θ（sigmoid）很像，tanh(x) = 2θ(2x) - 1，即相当于对sigmoid进行放缩。</p>
 <p>神经网络实际上就是输入向量x，经过多个隐含层，其中每一个隐含层的输出都作为下一个层的输入，最终预测得到结果y。在这个过程中，我们可以将每一个层都看作是在做特征转换，它从数据中学习到这个转换。而转换的关键在于每一层的权重weight。神经网络可以看作是每一层都在做Pattern extraction。</p>
 <h2 id="Neural-Network-Learning"><a href="#Neural-Network-Learning" class="headerlink" title="Neural Network Learning"></a>Neural Network Learning</h2><p>那么该如果学习权重weight呢？我们的目标是学习到合适的权重最小化最终的Ein，如果我们的神经网络只有一个隐含层，实际上它就是一个对Perceptron进行简单的Aggregation，那么我们可以使用Gradient Boosting来决定每一个神经元。如果是MLP呢，就不这么简单了。我们一般采用链导法则来计算梯度，从而使用梯度下降的方法完成这个任务。</p>
 <p>神经网络的Error可以表示如下：</p>
-<p><img src="/2018/11/22/mltech12/3.png"> </p>
+<p><img src="/.io//3.png"> </p>
 <p>对于最后一层的输出，其error关于对应weight的偏导数，以及任意一个神经元的偏导数可以表示为如下：</p>
-<p><img src="/2018/11/22/mltech12/4.png"> </p>
+<p><img src="/.io//4.png"> </p>
 <p>其中sn代表当前神经元的输入。对于任意神经元，其中我们用δj来表示当前神经元的偏导数。很容易知道：</p>
-<p><img src="/2018/11/22/mltech12/5.png"> </p>
+<p><img src="/.io//5.png"> </p>
 <p>那么对于其他任意神经元的δj该怎样表示呢？首先我们看相邻的输入si的关系：</p>
-<p><img src="/2018/11/22/mltech12/6.png"> </p>
+<p><img src="/.io//6.png"> </p>
 <p>由此，我们可以推导相邻层的导数关系如下：</p>
-<p><img src="/2018/11/22/mltech12/7.png"> </p>
+<p><img src="/.io//7.png"> </p>
 <p>这也就说明了当前层相对于误差的导数可以从后一层的传播（误差反向传播）。</p>
 <p>最后，我们总结误差反向传播算法：</p>
 <div aling="center"> ![](8.png) 
@@ -202,7 +202,7 @@
 <p>此外，我们从VC维度的角度来看神经网络，使用tanh的Neural Network，其vc dimension等于O(VD)，其中V=神经元的数目，D=权重的数目。我们使用多层神经网络，一方面能够拟合”anything“，另一方面，如果神经元数目过多也会造成过拟合。解决过拟合我们就需要weght-decay regularizer。</p>
 <p>但是如果使用L2 regularizer，会把所有的权重变小，但是所有权重都不会为0。我们需要更稀疏的权重来更有效地降低模型复杂度。但是由于L1 regularizer在部分点上不可导，所以也不能使用。</p>
 <p>解决这个问题一般有两个选择：1是在L2的基础上添加缩放；2是早一点结束训练过程，优化过程不要持续那么久。</p>
-<p><img src="/2018/11/22/mltech12/9.png"> </p>
+<p><img src="/.io//9.png"> </p>
 <blockquote>
 <p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习技法》课程！</p>
 </blockquote>
