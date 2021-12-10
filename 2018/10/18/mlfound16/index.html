@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习基石》系列课程（十六） 基石最后一课，技法见！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="16 Three Learning Principles">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/18/mlfound16/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习基石》系列课程（十六） 基石最后一课，技法见！">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/18/mlfound16/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/18/mlfound16/2.png">
+<meta property="article:published_time" content="2018-10-18T12:43:29.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.469Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/18/mlfound16/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>16 Three Learning Principles</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/19/mltech01/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/17/mlfound15/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/18/mlfound16/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/18/mlfound16/&text=16 Three Learning Principles"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/18/mlfound16/&is_video=false&description=16 Three Learning Principles"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=16 Three Learning Principles&body=Check out this article: https://vhdsih.github.io/2018/10/18/mlfound16/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/18/mlfound16/&name=16 Three Learning Principles&description=&lt;p&gt;《机器学习基石》系列课程（十六）&lt;/p&gt;
+&lt;p&gt;基石最后一课，技法见！&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/18/mlfound16/&t=16 Three Learning Principles"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Occam%E2%80%99s-Razor"><span class="toc-number">1.</span> <span class="toc-text">Occam’s Razor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sampling-Bias"><span class="toc-number">2.</span> <span class="toc-text">Sampling Bias</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Snooping"><span class="toc-number">3.</span> <span class="toc-text">Data Snooping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Power-of-Three"><span class="toc-number">4.</span> <span class="toc-text">Power of Three</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        16 Three Learning Principles
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-18T12:43:29.000Z" itemprop="datePublished">2018-10-18</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习基石》系列课程（十六）</p>
+<p>基石最后一课，技法见！</p>
+<span id="more"></span>
+
+<!-- toc -->
+
+<ul>
+<li><a href="#occam-s-razor">Occam’s Razor</a></li>
+<li><a href="#sampling-bias">Sampling Bias</a></li>
+<li><a href="#data-snooping">Data Snooping</a></li>
+<li><a href="#power-of-three">Power of Three</a></li>
+</ul>
+<!-- tocstop -->
+
+<h2 id="Occam’s-Razor"><a href="#Occam’s-Razor" class="headerlink" title="Occam’s Razor"></a>Occam’s Razor</h2><blockquote>
+<p>entia non sunt multiplicanda praeter necessitatem (entities must not be multiplied beyond necessity) — William of Occam (1287-1347)</p>
+</blockquote>
+<blockquote>
+<p>如无必要，勿增实体！</p>
+</blockquote>
+<p>奥卡姆剃刀定律告诉我们能够fit数据的最简单的模型是最好的。那么什么是简单？其有两方面的解释：</p>
+<ol>
+<li>Hypothesis h是简单的，也就是它有较少的参数。</li>
+<li>Hypothesis Set H是简单的，其包含的hypothese较少，模型的复杂度更低。</li>
+</ol>
+<p>简单的更好，我们可以从数学上进行证明（比如VC理论）。同时，我们也可一这样思考：一个更简单的H，它的成长函数更小，也就从而从概率上来讲就很难完美地fit我们的数据。反过来说，如果我们真的找到了能够fit数据的h，那么往往这个h就很有意义。</p>
+<h2 id="Sampling-Bias"><a href="#Sampling-Bias" class="headerlink" title="Sampling Bias"></a>Sampling Bias</h2><p>解决Learning问题过程中要注意数据抽样的分布。如果我们的数据在抽样存在偏差，那么我们学习到的结果也就会存在偏差，从而导致学习的效果很差！</p>
+<p>因为真实的数据的分布是P1(x|y)，但是我们学习（或者在模型选择过程）是在P2(x|y)上完成的，P1 != P2，那么我们的VC保证也就失败了，导致Ein和Eout相差很大，学习失败！</p>
+<p>同时，我们也要关心真实的数据应用场景，我们未必一定采用随机采样才是最好的方法，要根据实际的测试数据的分布来决定！</p>
+<h2 id="Data-Snooping"><a href="#Data-Snooping" class="headerlink" title="Data Snooping"></a>Data Snooping</h2><p>我们在Learning过程中不能”偷看数据”，如果我们这样做了，就不能保证VC是安全的。一方面，我们训练模型和选择模型过程不能使用测试集，否则虽然结果看起来很好，世界上测试结果根本没有意义。另一方面，如果针对相同的问题，前人做出了结果，但是比做的更好，在这个过程中实际上我们在一定程度上也偷看了数据，因为我们”站在了巨人的肩膀上”了！<br>实际上这个问题很难避免，这里有一些建议：</p>
+<ol>
+<li>完全不用测试数据。</li>
+<li>使用验证集，但是也要小心使用。</li>
+<li>avoid making modeling decision by data，尽量使用我们的知识和常识来选择模型。</li>
+<li>保持怀疑。就是说时刻保持对别人的论文或者研究成果保持警惕与怀疑，要通过自己的研究与测试来进行模型选择，这样才能得到比较正确的结论。</li>
+</ol>
+<h2 id="Power-of-Three"><a href="#Power-of-Three" class="headerlink" title="Power of Three"></a>Power of Three</h2><p>本课程结束，这里是一些总结：</p>
+<p>本课程介绍了3个相关领域：</p>
+<ol>
+<li>数据挖掘。</li>
+<li>AI。</li>
+<li>统计学。</li>
+</ol>
+<p>介绍了3种理论方法：</p>
+<ol>
+<li>Hoeffing：通常用于验证和测试假说。</li>
+<li>Multi-Bin Hoeffding：用来验证多个Hypotheses。</li>
+<li>VC理论：用于training，为Ein约等于Eout给了理论保证。</li>
+</ol>
+<p>介绍了3中模型：</p>
+<ol>
+<li>PLA和Pocket。</li>
+<li>线性回归。</li>
+<li>逻辑回归。</li>
+</ol>
+<p><img src="/2018/10/18/mlfound16/1.png" alt="models"> </p>
+<p>介绍了三种工具：</p>
+<ol>
+<li>特征转换：使用高维空间使Ein更小，但是会导致vc维度变大，模型复杂度增大。</li>
+<li>正则化（Regularization），用来降低模型的复杂度，使其实际的vc维度要更低，不过会导致Ein增大。</li>
+<li>Validation。</li>
+</ol>
+<p>还有今天将的3个技巧和准则：</p>
+<ol>
+<li>奥卡姆剃刀。</li>
+<li>抽样偏差。</li>
+<li>Data Snooping。</li>
+</ol>
+<p>接下来，还有更多的内容要去学习，加油！</p>
+<p><img src="/2018/10/18/mlfound16/2.png" alt="future"> </p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习基石》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Occam%E2%80%99s-Razor"><span class="toc-number">1.</span> <span class="toc-text">Occam’s Razor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sampling-Bias"><span class="toc-number">2.</span> <span class="toc-text">Sampling Bias</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Snooping"><span class="toc-number">3.</span> <span class="toc-text">Data Snooping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Power-of-Three"><span class="toc-number">4.</span> <span class="toc-text">Power of Three</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/18/mlfound16/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/18/mlfound16/&text=16 Three Learning Principles"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/18/mlfound16/&is_video=false&description=16 Three Learning Principles"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=16 Three Learning Principles&body=Check out this article: https://vhdsih.github.io/2018/10/18/mlfound16/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/18/mlfound16/&title=16 Three Learning Principles"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/18/mlfound16/&name=16 Three Learning Principles&description=&lt;p&gt;《机器学习基石》系列课程（十六）&lt;/p&gt;
+&lt;p&gt;基石最后一课，技法见！&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/18/mlfound16/&t=16 Three Learning Principles"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

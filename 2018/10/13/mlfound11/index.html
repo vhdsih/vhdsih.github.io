@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习基石》系列课程（十一）  本章将从我们学过的Binary Classification出发，来看一看我们学过的Model怎样完成如Multiclass Classification等更复杂的任务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11 Linear Models for Classification">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/13/mlfound11/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习基石》系列课程（十一）  本章将从我们学过的Binary Classification出发，来看一看我们学过的Model怎样完成如Multiclass Classification等更复杂的任务。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/13/mlfound11/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/13/mlfound11/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/13/mlfound11/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/13/mlfound11/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/13/mlfound11/5.png">
+<meta property="article:published_time" content="2018-10-13T10:06:14.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.461Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/13/mlfound11/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>11 Linear Models for Classification</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/14/mlfound12/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/12/mlfound10/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/13/mlfound11/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/13/mlfound11/&text=11 Linear Models for Classification"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/13/mlfound11/&is_video=false&description=11 Linear Models for Classification"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=11 Linear Models for Classification&body=Check out this article: https://vhdsih.github.io/2018/10/13/mlfound11/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/13/mlfound11/&name=11 Linear Models for Classification&description=&lt;p&gt;《机器学习基石》系列课程（十一）&lt;/p&gt;
+&lt;p&gt; 本章将从我们学过的Binary Classification出发，来看一看我们学过的Model怎样完成如Multiclass Classification等更复杂的任务。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/13/mlfound11/&t=11 Linear Models for Classification"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Models-for-Binary-Classification"><span class="toc-number">1.</span> <span class="toc-text">Linear Models for Binary Classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">2.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiclass-via-Logistic-Regression"><span class="toc-number">3.</span> <span class="toc-text">Multiclass via Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiclass-via-Binary-Classification"><span class="toc-number">4.</span> <span class="toc-text">Multiclass via Binary Classification</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        11 Linear Models for Classification
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-13T10:06:14.000Z" itemprop="datePublished">2018-10-13</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习基石》系列课程（十一）</p>
+<p> 本章将从我们学过的Binary Classification出发，来看一看我们学过的Model怎样完成如Multiclass Classification等更复杂的任务。</p>
+<span id="more"></span>
+
+<h2 id="Linear-Models-for-Binary-Classification"><a href="#Linear-Models-for-Binary-Classification" class="headerlink" title="Linear Models for Binary Classification"></a>Linear Models for Binary Classification</h2><p>我们已经学习了3个Linear Model，他们的共同点是都计算了一个分数：向量wT和向量x的乘积。</p>
+<p>对于Linear Classification问题，计算的分数需要经过一个sign函数，从而得到{-1， +1}内的结果，它的Error Function是0/1的。我们之前也学习过，在这个问题中我们要找一个最佳的分类结果是很难的，它是一个NP Hard的问题。<br>对于Linear Regression问题，算出的分数没有经过任何处理，直接输出作为我们的结果，它的Error Function是一个平方误差函数，对于这一种问题我们有非常简单完美的解决方案来寻找一个很好的解。</p>
+<p>对于Logistic Regression问题，我们计算的分数通过了一个sigmoid函数，也就是一个S形曲线，从而得到一个0和1之间的结果，也就是需要的概率数值。我们使用cross-entropy error作为误差函数，并且通过梯度下降（Gradient Descent）的方法找到最优解。</p>
+<p>那既然Linear Classification问题解决起来是一个NP问题，我们能不能使用Linear Regression或者Logistic Regression来解决线性分类问题呢？</p>
+<p>也就是说，不论对我们的Linear Regression还是Logistic Regression来说，我们都将其输出限制为{-1， +1}。当然对于Logistic来说，它本来就是用来分类的，这是一件容易办到的事。而{-1，+1}只是两个特别的实数，那么直观看起来Linear Regression也是可以做到的。</p>
+<p>在我们想办法解决这件事之前，我们首先将这三者的Error Function先整合统一起来：<br><img src="/2018/10/13/mlfound11/1.png" alt="error"> </p>
+<p>下面我们就来看看这些Error Function和ys的关系是怎样的。我们先看看ys的物理意义是什么：y代表正确性， s代表分数。我们希望其值越大越好，越大表示越好，y是正数表示是正确的，否则表示是不正确的。我们想办法把Error Function画在平面上，我们令横轴是ys纵轴是error：</p>
+<p><img src="/2018/10/13/mlfound11/2.png" alt="error image"> </p>
+<p>对于线性分类算法，其表现为蓝色的线，而线性回归则表现为红色的线。我们可以看到在ys小的时候（小于2），其表现很好，但是在比较大的时候，比如ys=3时，它会认为err很大，但实际上在分类任务上是一个较好的情况。对于逻辑回归问题，我们一般将其进行一个换底的操作将其error曲线进行缩放，即把ln换成log2，从而能够得到如图那样的结果：一个恰好在0/1error上方的error。</p>
+<p>实际上也就是说通过缩放的Logistic Error和Linear Regression Error是0/1Error的一个上界：</p>
+<p><img src="/2018/10/13/mlfound11/3.png" alt="upper bound"> </p>
+<p>从而，如果我们能把logistic中的error求的很好，对于0/1问题我们也能做的不错！当然我们用平方误差也符合，只不过linear regression的error是一个更宽松的上界。</p>
+<p>现在做一个总结：</p>
+<ol>
+<li>使用PLA进行线性分类是一件有效的事，但是前提是数据必须线性可分，否则我们就需要使用Pocket算法。</li>
+<li>使用linear regression也能实现分类，而且是最容易得出结果的，但是由于它的error的上界比0/1error的上界高很多，所以它的精确度没那么高。</li>
+<li>对于logistic regression，它是比较容易求解的，不过它的error同样是0/1error的一个上界，只不过比linear regression要好一些。</li>
+</ol>
+<p>所以linear regression有时候可以作为PLA、Pocket、Logistic Regression的出事向量求解的方法。此外Logistic Regression一般要比Pocket表现的要好。</p>
+<h2 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h2><p>我们学习过两种通过一次次迭代来进行优化的方案：一种是PLA方法，每次都通过更新来寻找一个更好的向量w；另一种是在Logistic Regression中使用的梯度下降的方法。<br>然而，我们知道在数据是现行可分的情况下PLA算法的迭代过程是非常快的，由于每次使用一个错误的点，每一次迭代的时间复杂度是O(1)的，但是逻辑回归则需要检查所有的数据才能进行一轮迭代，即为O(n)的时间复杂度。那么该怎样提高逻辑回归中Gradient Descent的效率呢？</p>
+<p><img src="/2018/10/13/mlfound11/4.png" alt="gd"> </p>
+<p>我们一个方法就是去掉求和，随机选取一个点来进行Gradient Descent，即Stochastic Gradient Descent(SGD)。</p>
+<p><img src="/2018/10/13/mlfound11/5.png" alt="sgd"> </p>
+<p>我们把真是的梯度换为随机的梯度，那么在足够多的迭代次数之后，平均的随机梯度和平均的真是梯度是大致相等的。SGD很简单而且计算量少，在大数据和在线学习上有很大的用处，缺点是不太稳定。</p>
+<p>实际在PLA上我们就用了类似的方法：每次选一个错误点来更新w。我们的SGD Logistic Regression更像是一个‘soft’ PLA。</p>
+<p>但是我们使用SGD还需要考虑两个问题：</p>
+<ol>
+<li>算法何时能够停止？<br>Gradient Descent在求得梯度为0时可以停止，但是SGD很难得到梯度为0的位置。一般都认为如果运行的时间足够长就可以停止了。</li>
+<li>学习率η取什么数值？<br>这个问题后续还有讨论，但是如果没有什么想法，0.1可能是合适的。</li>
+</ol>
+<h2 id="Multiclass-via-Logistic-Regression"><a href="#Multiclass-via-Logistic-Regression" class="headerlink" title="Multiclass via Logistic Regression"></a>Multiclass via Logistic Regression</h2><p>接下来我们着重关注多分类（Multiclass）问题。<br>假设我们现在有一些数据，它们属于不同的类别（类别不止2两个），此时该如何分类呢？<br>我们一直学习的都是二分类问题，现在我们把我们学习过的方法延伸到多分类上。</p>
+<p>我们可以一次只分一个类别：只将一个类别当成是正类，其他都当成负类。这样重复多次，就能实现多分类问题，其中每个子问题都是一个二分类问题。</p>
+<p>但是此时就会有一个问题，如果在不同的分类中都说某一部分是属于其类别的，即分类结果会产生某些属于多个类别的该怎么办呢？</p>
+<p>我们可以“softly”产生每一个类别，看每个数据属于每一个类别的概率是多少，最后根据概率来决定类别。我们可以使用Logistic regression来实现。</p>
+<p>我们将这种方法成为One-Versus-All（OVA），这是有效的方法，但是如果某种类别数码较小但是总数很大的时候，往往会造成不均衡，此时可能就会导致Logistic regression都选择占比较大的类别，当然这里没有强调各种概率的加和得1这个问题，如果通过了处理可能能够得到更好的结果。</p>
+<h2 id="Multiclass-via-Binary-Classification"><a href="#Multiclass-via-Binary-Classification" class="headerlink" title="Multiclass via Binary Classification"></a>Multiclass via Binary Classification</h2><p>在上面我们提到了如果数据是不均衡的，那么 OVA将会导致坏的结果。所以，我们想在尝试one versus one，即一对一的来求解：<br>现在我们尝试只对其中的两个类别分类，忽略其他类别，比如，我们现在需要最圈圈、叉叉、正方形、星星来进行分类。我们先对圈圈和叉叉分类，求得一根直线，直线的一侧是叉叉，另一侧是圈圈。同理通过6次分类，我们就能得到所有的分类结果。根据上述的分类结果综合起来，就能判定属于各类别的区域了。这类似于循环赛，通过多次比赛来决定最优的预测。<br>这种方法称为one versus one（OVO）。这种方法效率很高，资料数量需要少，可以和binary classification搭配使用。但是坏处是需要花费更多的时间和空间。</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习基石》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-Models-for-Binary-Classification"><span class="toc-number">1.</span> <span class="toc-text">Linear Models for Binary Classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">2.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiclass-via-Logistic-Regression"><span class="toc-number">3.</span> <span class="toc-text">Multiclass via Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiclass-via-Binary-Classification"><span class="toc-number">4.</span> <span class="toc-text">Multiclass via Binary Classification</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/13/mlfound11/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/13/mlfound11/&text=11 Linear Models for Classification"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/13/mlfound11/&is_video=false&description=11 Linear Models for Classification"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=11 Linear Models for Classification&body=Check out this article: https://vhdsih.github.io/2018/10/13/mlfound11/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/13/mlfound11/&title=11 Linear Models for Classification"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/13/mlfound11/&name=11 Linear Models for Classification&description=&lt;p&gt;《机器学习基石》系列课程（十一）&lt;/p&gt;
+&lt;p&gt; 本章将从我们学过的Binary Classification出发，来看一看我们学过的Model怎样完成如Multiclass Classification等更复杂的任务。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/13/mlfound11/&t=11 Linear Models for Classification"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

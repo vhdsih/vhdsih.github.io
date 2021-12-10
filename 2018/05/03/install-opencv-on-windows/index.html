@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="一直习惯了使用manjaro的aur搭建编程环境，对于opencv的搭建过程基本就是几条命令就可以完成。这几天使用windows搭建opencv开发环境，竟然用了一天半才编译成功。虽然opencv 的编译过程基本差别不大，但是编译过程中会存在一些小的问题致使编译失败。下面有几个需要注意的事情。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在windows上编译opencv">
+<meta property="og:url" content="https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="一直习惯了使用manjaro的aur搭建编程环境，对于opencv的搭建过程基本就是几条命令就可以完成。这几天使用windows搭建opencv开发环境，竟然用了一天半才编译成功。虽然opencv 的编译过程基本差别不大，但是编译过程中会存在一些小的问题致使编译失败。下面有几个需要注意的事情。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-05-03T01:22:03.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.458Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="opencv">
+<meta property="article:tag" content="windows">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>在windows上编译opencv</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/07/mlfound1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/04/28/LinuxShell3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&text=在windows上编译opencv"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&is_video=false&description=在windows上编译opencv"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在windows上编译opencv&body=Check out this article: https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&name=在windows上编译opencv&description=&lt;p&gt;一直习惯了使用manjaro的aur搭建编程环境，对于opencv的搭建过程基本就是几条命令就可以完成。这几天使用windows搭建opencv开发环境，竟然用了一天半才编译成功。虽然opencv 的编译过程基本差别不大，但是编译过程中会存在一些小的问题致使编译失败。下面有几个需要注意的事情。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&t=在windows上编译opencv"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        在windows上编译opencv
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-05-03T01:22:03.000Z" itemprop="datePublished">2018-05-03</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Install/">Install</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/opencv/" rel="tag">opencv</a>, <a class="tag-link-link" href="/tags/windows/" rel="tag">windows</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>一直习惯了使用manjaro的aur搭建编程环境，对于opencv的搭建过程基本就是几条命令就可以完成。这几天使用windows搭建opencv开发环境，竟然用了一天半才编译成功。虽然opencv 的编译过程基本差别不大，但是编译过程中会存在一些小的问题致使编译失败。下面有几个需要注意的事情。</p>
+<span id="more"></span>
+<p>我的基本环境是windows10，version-1803，python-3.65，opencv-3.41，opencv-contrib-3.41，Mingw-w64（not visual studio），cmake-3.11.1。</p>
+<p>网上已有的教程基本大同小异，如下面的编译过程：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xinxue/p/5766756.html">https://www.cnblogs.com/xinxue/p/5766756.html</a></p>
+</blockquote>
+<p>下面是几点需要注意的地方：</p>
+<ol>
+<li>注意opencv和opencv-contrib的版本需要一致。</li>
+<li>我使用Mingw-w64生成Makefile，然后使用make和make install完成编译过程。因此在使用cmake时，第一次点选configure需要选择MingW Makefile。</li>
+<li>上述过程同样可以使用visual studio，但是需要注意vs的版本和位数（32 or 64）。选择中不带64的就是32位的，否则就是64的。很多教程都使用了vs，这里就不再赘述了。</li>
+<li>注意python版本，如果系统是64位的，前面也用到了64位的（mingw 或vs），必须安装64位python。</li>
+</ol>
+<p>几个问题：</p>
+<ol>
+<li><p>“‘::hypot’ has not been declared”</p>
+<p>确认你是否使用了32位python，如果是，请卸载并安装64位python。</p>
+</li>
+<li><p>“error invalid register for .seh_savexmm “</p>
+<p>3.41版本会出现这个问题，<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv/pull/10936">github上已经解决了这个问题</a>，这里<a target="_blank" rel="noopener" href="https://github.com/opencv/opencv/pull/10936/files">修改了两个文件</a>，照着改一下就可以。</p>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&text=在windows上编译opencv"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&is_video=false&description=在windows上编译opencv"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在windows上编译opencv&body=Check out this article: https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&title=在windows上编译opencv"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&name=在windows上编译opencv&description=&lt;p&gt;一直习惯了使用manjaro的aur搭建编程环境，对于opencv的搭建过程基本就是几条命令就可以完成。这几天使用windows搭建opencv开发环境，竟然用了一天半才编译成功。虽然opencv 的编译过程基本差别不大，但是编译过程中会存在一些小的问题致使编译失败。下面有几个需要注意的事情。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/05/03/install-opencv-on-windows/&t=在windows上编译opencv"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

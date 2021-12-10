@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习技法》系列课程（二） 本章学习有关于对偶SVM的相关内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="18 Dual Support Vector Machine">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/21/mltech02/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习技法》系列课程（二） 本章学习有关于对偶SVM的相关内容。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/7.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/8.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/10.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/9.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/11.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/21/mltech02/12.png">
+<meta property="article:published_time" content="2018-10-21T05:00:44.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.483Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/21/mltech02/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>18 Dual Support Vector Machine</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/22/mltech03/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/19/mltech01/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/21/mltech02/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/21/mltech02/&text=18 Dual Support Vector Machine"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/21/mltech02/&is_video=false&description=18 Dual Support Vector Machine"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=18 Dual Support Vector Machine&body=Check out this article: https://vhdsih.github.io/2018/10/21/mltech02/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/21/mltech02/&name=18 Dual Support Vector Machine&description=&lt;p&gt;《机器学习技法》系列课程（二）&lt;/p&gt;
+&lt;p&gt;本章学习有关于对偶SVM的相关内容。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/21/mltech02/&t=18 Dual Support Vector Machine"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation-of-Dual-SVM"><span class="toc-number">1.</span> <span class="toc-text">Motivation of Dual SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lagrange-Dual-SVM"><span class="toc-number">2.</span> <span class="toc-text">Lagrange Dual SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solving-Dual-SVM"><span class="toc-number">3.</span> <span class="toc-text">Solving Dual SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Messages-Behind-Dual-SVM"><span class="toc-number">4.</span> <span class="toc-text">Messages Behind Dual SVM</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        18 Dual Support Vector Machine
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-21T05:00:44.000Z" itemprop="datePublished">2018-10-21</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习技法》系列课程（二）</p>
+<p>本章学习有关于对偶SVM的相关内容。</p>
+<span id="more"></span>
+
+<h2 id="Motivation-of-Dual-SVM"><a href="#Motivation-of-Dual-SVM" class="headerlink" title="Motivation of Dual SVM"></a>Motivation of Dual SVM</h2><p>我们为什么要引入对偶形式的SVM？<br>我们在讲解线性SVM相关的内容的最后，对于处理非线性数据的SVM提出了这样的方法：通过特征变换，将非线性的数据变换到线性的Z空间，我们在Z空间中使用线性SVM。</p>
+<p>然而，如果我们使用这样的方案，意味着我们的二次规划在处理问题时需要处理的条件是N变量就会有d’ + 1，这是Z空间的VC维度，如果d’太大了或者近乎无限，我们还能解决问题吗？</p>
+<p>也因此，我们希望能够找到一种新的解决方法，将原有的SVM变换为一个等同的SVM，令这个SVM不再依赖于Z空间的d’，这就引出了我们本章所要讲述的内容：对偶SVM(Dual SVM)。</p>
+<p>当然，这个变换中包含了复杂的数学内容，我们在这里只会介绍一些必要内容。</p>
+<p>首先，我们做出这个变换所使用的关键工具是拉格朗日乘数法（Lagrange Multipliers）。对于这个方法我们并不陌生，除了在本科阶段的高等数学课堂上我们见过它的身影之外，在“机器学习基石”系列内容中，我们在介绍正则化（Regularization）时也使用了这个方法：我们在wTw &lt;= C这个条件的限制下，最小化Ein(w)，我们将其使用拉格朗日乘数法将其等价为最小化Eaug：</p>
+<p><img src="/2018/10/21/mltech02/1.png" alt="regularization"> </p>
+<p>同样，我们也用同样的方法对对偶SVM进行处理，我们将N个条件转化为N个项的和，每一项的系数是α（SVM相关的文献通常是α，这与正则化不同，后者使用λ）。下图是原始的SVM问题：</p>
+<p><img src="/2018/10/21/mltech02/2.png" alt="origin"> </p>
+<p>我们使用拉格朗日乘数法：</p>
+<p><img src="/2018/10/21/mltech02/3.png" alt="lagrange"> </p>
+<p>我们的对偶SVM所要处理的问题就是：</p>
+<p><img src="/2018/10/21/mltech02/4.png" alt="dual svm"> </p>
+<p>当然，我们需要证明这个新的方案和原始的是相同的，我们考虑两个情况：</p>
+<ol>
+<li>对于任意不满足约束条件的w和b（也就是yn(wTzn + b) &lt; 1），此时，我们如果最大化拉格朗日部分，其中(1 - yn(wTzn + b)) &gt; 0，αn &gt; 0，所以此时最大化，则此时趋近于无穷大。因为Dual SVM还有min操作，从而这种情况就会被过滤掉。</li>
+<li>对于任意满足约束条件的w和b，此时(yn(wTzn + b)) &lt; 0，如果取max，则α = 0，此时最终的结果就是min(1/2 * wTw)，这和原始问题是相同的。</li>
+</ol>
+<p>从而，我们确定Dual SVM和原始的SVM是等价的！</p>
+<h2 id="Lagrange-Dual-SVM"><a href="#Lagrange-Dual-SVM" class="headerlink" title="Lagrange Dual SVM"></a>Lagrange Dual SVM</h2><p>首先，我们考虑下面的不等式是成立的：</p>
+<p><img src="/2018/10/21/mltech02/5.png" alt="for fixed a"> </p>
+<p>其次我们考虑另外一个不等式：</p>
+<p><img src="/2018/10/21/mltech02/6.png" alt="best"> </p>
+<p>注意到此时在不等式右侧我们已经将max和min对调，我们将上述不等式右侧作为Dual SVM的下界，我们接下来针对其进行求解。在此之前我们先了解弱对偶和强对偶的概念:</p>
+<p>对于上述表达式中，如果是&gt;=，就是一个弱对偶问题。如果是=则是一个强对偶，如果这个等号成立，需要满足三个条件：</p>
+<ol>
+<li>左侧函数是凸的（convex primal）</li>
+<li>函数是有解的（feasible primal， 特征变换后线性可分）</li>
+<li>条件是线性的（linear constrains）</li>
+</ol>
+<p>因为二次规划问题满足上面三个条件，所以我们的Dual SVM的&gt;=就可以变为=，即存在(b, w, a)令表达式两边同时达到最优！</p>
+<p>现在我们优化我们的对偶问题：</p>
+<p><img src="/2018/10/21/mltech02/7.png" alt="solving"> </p>
+<p>根据对lagrange求最小值，我们可以使用梯度下降法，而最下值梯度为0，所以化简主要有这几步：</p>
+<ol>
+<li>对b求偏导数为0。</li>
+<li>对w求偏导数为0。</li>
+</ol>
+<p>通过代换我们可以化简为：</p>
+<p><img src="/2018/10/21/mltech02/8.png" alt="no title"> </p>
+<p>此时SVM的最优化仅仅和α有关！这些最优化的条件称为KKT（Karush-Kuhn-Tucker）。我们将使用<br>KKT通过最优的α来求解b和w。</p>
+<h2 id="Solving-Dual-SVM"><a href="#Solving-Dual-SVM" class="headerlink" title="Solving Dual SVM"></a>Solving Dual SVM</h2><p>首先我们将最大化问题转换为最小化问题：</p>
+<p><img src="/2018/10/21/mltech02/10.png" alt="min"> </p>
+<p>我们仍然利用QP(二次规划)来解决Dual SVM问题。</p>
+<p><img src="/2018/10/21/mltech02/9.png" alt="qp for dual svm"> </p>
+<p>需要注意的是如果N很大，此时可能求解Qn需要很大的内存（此时是稠密矩阵，dense），因此需要一些特别的解决方案，比如不存储整个矩阵，或者利用一些特殊的条件来加速求解。</p>
+<p>我们利用KKT条件来求解b和w：</p>
+<p><img src="/2018/10/21/mltech02/11.png" alt="kkt for w and b"> </p>
+<p>上面说明，如果我们获得了最优的α，那么我们也能容易获得最优的w。而对于b的计算，我们只能获得一个范围。然而，我们注意上图中最下面的等式，此时如果αn &gt; 0 ⇒ b = yn − wTzn，此时这些点就是支撑向量，因为它们在胖胖线的边界上。</p>
+<h2 id="Messages-Behind-Dual-SVM"><a href="#Messages-Behind-Dual-SVM" class="headerlink" title="Messages Behind Dual SVM"></a>Messages Behind Dual SVM</h2><p>我们回顾在上一讲中对于支撑向量的描述，我们说把位于边界线上的点称为支撑向量的候选者，而其他的点是不需要的。而如果αn &gt; 0，此时的点一定落在边界上，所以它们一定是支撑向量（不是候选者了）。也就是说Support Vector是αn &gt; 0时的点，它是Support Vector Candidates的一个子集。而SVM在学习这个最胖的分类界面时，只需要识别出这些支撑向量即可（使用Dual SVM）。这和PLA很类似，它是从错误的点学习分类界面，而Dual SVM从SV中学习。</p>
+<p>下面是两种SVM的一个总结：</p>
+<p><img src="/2018/10/21/mltech02/12.png" alt="summary"> </p>
+<p>二者最终都是要找到一个最胖的超平面。</p>
+<p>我们在本节中使用Dual SVM的方法，避免了Z空间的复杂度对计算的影响。然而，实际上这种影响我们并没有完全消除，它实际上在我们计算qmn过程中就隐藏在计算的过程中了，那么该怎么彻底消除它所带来的影响呢，这是接下来的课程要研究的内容(kernal function)！</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习技法》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation-of-Dual-SVM"><span class="toc-number">1.</span> <span class="toc-text">Motivation of Dual SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lagrange-Dual-SVM"><span class="toc-number">2.</span> <span class="toc-text">Lagrange Dual SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solving-Dual-SVM"><span class="toc-number">3.</span> <span class="toc-text">Solving Dual SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Messages-Behind-Dual-SVM"><span class="toc-number">4.</span> <span class="toc-text">Messages Behind Dual SVM</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/21/mltech02/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/21/mltech02/&text=18 Dual Support Vector Machine"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/21/mltech02/&is_video=false&description=18 Dual Support Vector Machine"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=18 Dual Support Vector Machine&body=Check out this article: https://vhdsih.github.io/2018/10/21/mltech02/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/21/mltech02/&title=18 Dual Support Vector Machine"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/21/mltech02/&name=18 Dual Support Vector Machine&description=&lt;p&gt;《机器学习技法》系列课程（二）&lt;/p&gt;
+&lt;p&gt;本章学习有关于对偶SVM的相关内容。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/21/mltech02/&t=18 Dual Support Vector Machine"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

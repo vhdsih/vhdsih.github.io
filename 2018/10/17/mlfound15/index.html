@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习基石》系列课程（十五） 本章的主要内容是应对Overfitting的另一种方法：Validation！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15 Validation">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/17/mlfound15/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习基石》系列课程（十五） 本章的主要内容是应对Overfitting的另一种方法：Validation！">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/17/mlfound15/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/17/mlfound15/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/17/mlfound15/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/17/mlfound15/4.png">
+<meta property="article:published_time" content="2018-10-17T11:19:57.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.469Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/17/mlfound15/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>15 Validation</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/18/mlfound16/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/16/mlfound14/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/17/mlfound15/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/17/mlfound15/&text=15 Validation"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/17/mlfound15/&is_video=false&description=15 Validation"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=15 Validation&body=Check out this article: https://vhdsih.github.io/2018/10/17/mlfound15/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/17/mlfound15/&name=15 Validation&description=&lt;p&gt;《机器学习基石》系列课程（十五）&lt;/p&gt;
+&lt;p&gt;本章的主要内容是应对Overfitting的另一种方法：Validation！&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/17/mlfound15/&t=15 Validation"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Model-Selection-Problem"><span class="toc-number">1.</span> <span class="toc-text">Model Selection Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Validation"><span class="toc-number">2.</span> <span class="toc-text">Validation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Leave-One-Out-Cross-Validation"><span class="toc-number">3.</span> <span class="toc-text">Leave-One-Out Cross Validation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#V-Fold-Cross-Validation"><span class="toc-number">4.</span> <span class="toc-text">V-Fold Cross Validation</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        15 Validation
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-17T11:19:57.000Z" itemprop="datePublished">2018-10-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习基石》系列课程（十五）</p>
+<p>本章的主要内容是应对Overfitting的另一种方法：Validation！</p>
+<span id="more"></span>
+
+<h2 id="Model-Selection-Problem"><a href="#Model-Selection-Problem" class="headerlink" title="Model Selection Problem"></a>Model Selection Problem</h2><p>我们已经遇过了很多模型选择问题：包括使用什么学习算法（PLA，LR，…），迭代的次数，学习率的选择，特征转换模型的选择，是否添加正则化以及添加什么样的正则化和正则化的系数选择等。我们所作出的所有的选择，最终都是为了得到一个好的假设g。</p>
+<p>那么我们该怎样选择一个模型呢？我们的期望是选择Eout(g)很低的g，然而我们却不知道Eout(g)。<br>那么我们能不能肉眼来看呢？肯定是不能的，一方面人难以想象高维空间，另一方面，人会在选择过程中增加模型复杂度的偏差程度，这在第十二章中我们有过详细的讨论。<br>如果我们根据Ein选择呢？答案也是否定的，更复杂的模型肯定比简单的模型在拟合已有数据这件事上做的更好，Ein也就更低。然而更复杂的模型的泛化能力会更差，这就导致了Ein更小的模型Eout很有可能更大。<br>我们可以用测试集来选择模型，选择Etest好的模型能够得到好的效果，我们可以根据finite-bin Hoeffding来确保这件事是正确的：</p>
+<p><img src="/2018/10/17/mlfound15/1.png" alt="Etest"> </p>
+<p>也就是说如果我们使用训练数据来选择模型，相当于老师用以前来做过的题作为考试题，不能体现学生的学习效果。我们用新的数据来测试系统，就不存在这样的问题。</p>
+<p>然而我们一般不能得到测试数据，所以这件事又是难以实现的。</p>
+<h2 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h2><p>既然如此，我们可以从已有的数据中随机抽取一部分作为选择模型的数据，我们将它称为Validation Set（不能参与训练），而剩下的作为训练集。当然，抽取的Dval必须仍然满足原有数据的分布（iid，也就是说需要随机选择）:</p>
+<p><img src="/2018/10/17/mlfound15/2.png" alt="validation"> </p>
+<p>此时，通过训练集训练得到的gm的Eout和Eval满足：</p>
+<p><img src="/2018/10/17/mlfound15/3.png" alt="eval and eout"> </p>
+<p>根据我们之前的学习可知，当数据量N越大时，Eout越小，那么我们可以知道在整体数据获得的g的Eout、训练集和验证集的Eout的关系：</p>
+<p><img src="/2018/10/17/mlfound15/4.png" alt="relation"> </p>
+<p>选择在Eval表现最好的模型我们能得到Eout表现比较好的模型。</p>
+<p>那么验证集的占比应该是多少呢？通常设置为N / 5，过大过小都不好。</p>
+<h2 id="Leave-One-Out-Cross-Validation"><a href="#Leave-One-Out-Cross-Validation" class="headerlink" title="Leave-One-Out Cross Validation"></a>Leave-One-Out Cross Validation</h2><p>留一交叉验证法，每次取一个作为验证，其余作为训练，直到所有N个数据均验证后，对误差求平均。<br>对计算要求高，稳定性不好。</p>
+<h2 id="V-Fold-Cross-Validation"><a href="#V-Fold-Cross-Validation" class="headerlink" title="V-Fold Cross Validation"></a>V-Fold Cross Validation</h2><p>K折交叉验证。<br>将N个训练数据分为K份，和留一交叉验证方法相同，降低计算复杂性，提高稳定性。留一交叉验证可以看做是它的一个特例！</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习基石》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Model-Selection-Problem"><span class="toc-number">1.</span> <span class="toc-text">Model Selection Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Validation"><span class="toc-number">2.</span> <span class="toc-text">Validation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Leave-One-Out-Cross-Validation"><span class="toc-number">3.</span> <span class="toc-text">Leave-One-Out Cross Validation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#V-Fold-Cross-Validation"><span class="toc-number">4.</span> <span class="toc-text">V-Fold Cross Validation</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/17/mlfound15/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/17/mlfound15/&text=15 Validation"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/17/mlfound15/&is_video=false&description=15 Validation"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=15 Validation&body=Check out this article: https://vhdsih.github.io/2018/10/17/mlfound15/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/17/mlfound15/&title=15 Validation"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/17/mlfound15/&name=15 Validation&description=&lt;p&gt;《机器学习基石》系列课程（十五）&lt;/p&gt;
+&lt;p&gt;本章的主要内容是应对Overfitting的另一种方法：Validation！&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/17/mlfound15/&t=15 Validation"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

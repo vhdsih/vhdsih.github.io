@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="战神-中国大学MOOC数据库课后习题与知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库的问题集">
+<meta property="og:url" content="https://vhdsih.github.io/2018/01/26/q-of-db/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="战神-中国大学MOOC数据库课后习题与知识点">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://nos.netease.com/edu-image/618A90C822E85E1DDD9B7D28F659C3FE.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/F916E9B4AE93F7BEE53CAE779D6CD044.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/7483399AA5071E9E3F91A5A9BF40185E.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/FB5B61B26C79ECD997B68BEF652B6C8C.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/4230700CDA40334FADCBA4E786178E59.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/59F24C56F07146B09A29D0EDA648B7B1.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/3BED77968B6F7629F781F937FD9AC270.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/0596343593EE391D1521CAC465F94DB9.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/6F356F9007A5D0CDFB40FEF8CCABA6EB.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/A76E817F90E6E5347EA9B5AA2115CF1C.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/E957F4A2C298FD23F08BADD9807D65CC.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/8C8CF192B5E701D72952DB8E54EA3DD4.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/A4DE771759C9940D9C9BF0BB51E14581.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/0013A82A13E9A7380ABBA8CF90E01729.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/56388A947EA8C272C829C592BFDB0214.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/971574DC33BB2F7BBAEB556711AFE701.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/3B5E2A4011C244C0113A911C576980B4.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/2EA072D36EBE2B2D76CC026B26378ECE.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/53B4B0B0174635C95C9C4F7E79EE7493.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/2C5358FDE58842E28F966E8E73EB40C2.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/6746F6E068B7C7B5BEE43CE03EF9192F.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/7A2BAC291A581A29DF0AAEBF6E6C0384.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/BA1D0958C26D921FD6B127FAA1159B73.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/87E7D893253A00B1932824CC3CC78BBF.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/91F7DA91E4F6EF4235B6962FBADD727C.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/D235FEE5A6DAE29B0ED815787B8D436B.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/7C97443EEE584FEDA0ED57FBD40670C6.jpg?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/35B47E6AD200CCFE3B700EB4735D1610.jpg?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/1B1E5750E3C764AE512518E5D0FBA7CA.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/6A22BA92E9A51608E111565BD532C1F8.jpg?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/FAC1A820D19A2C2BDBDC4435A374BAD8.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/11674DD247E0AA2AB9954E2F8AD7CBAA.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/B3B3CF56BDCF7E6E9636DF90550B3C85.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/91A763573F6C6D742C13130F7EA4AB55.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/8B72C838934216ADAE24BC9AA59C3265.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/D944EEEBC2DA598AE435584098EFDF72.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/893277E9238B4A68F7E060C36DBF9B53.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/A79AB7FA07B88D3BA19769F17BD2B912.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/A036B3E58CD1BFFB34EC954AD61E0E40.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/1C5696A7EDABBAFD700DDD460B50AF8D.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/8B168E36D7DC48734FFECAA91110675A.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/E5891ECC42301F69EFDFD366D2CF3CA3.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/227B930DC2443759969812BB9F969AD6.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/6C791EDD498FA568DE2158BC74AA9EF7.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/74B365798838FC8EEB3E5842103C3719.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/50CA909E7D220388C83C59D569A250CF.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/2DD110B85B0D99FAF7488F3F4836A473.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/B89EA10C8F322221A56C79A0CD21ACC5.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/ACF6FB087B85E04FADC509EFF60ECA26.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/C862E81C10DC9B388E896B99BE201691.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/E57B7BE73D9492748BCC6803B1717166.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/BED79333B074A3577C741B08D79553DD.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/DF3CC80D3855CA056B443F83CFA5B8EA.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/7308B4ADD74D59264F6B169B80B96EA0.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/3E5A3656015DED0C8A301FC95C6726DC.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/036C50A30B3A41ADBB08DD6283EB7E3F.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/3B7474D087DDDD934CDA0D2064909535.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/4DED9E5B241263E61C0953556398DC16.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/3A832D385907E9BA1C91ED836C067076.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/AEBC1959253576E8DEE681FA95351A20.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/4317254E9551797FC348FC2AF049A684.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://img2.ph.126.net/GL0kEohLl41OcABPSnf4dA==/6631680193678210214.png">
+<meta property="og:image" content="https://img2.ph.126.net/Q0Oq4CdXSbuo3t6wTp9IAA==/6631649407352626460.png">
+<meta property="og:image" content="https://img0.ph.126.net/P4aXTmQ53lgAIGOA8Tt2RQ==/6631271175349750104.png">
+<meta property="og:image" content="https://img1.ph.126.net/kvdr19rBg9K7bzEnIGEL1Q==/6631573541050311133.png">
+<meta property="og:image" content="https://nos.netease.com/edu-image/F836D272898ECB57BB6709294CB6B7D9.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/BA039305AAD4E881298399C834A36BE7.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/336A7E5B4886D67AEDF4A4C4BB8630DD.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/D4ADE76FF04A1490E7A1624166106A42.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/3AFBB10B2A971E6BCE5167C733EC2184.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/83067DB3DF4857172AE854F869E90E67.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/7314ABF314F972F5A99ADFFD909FC811.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/5B02D30BBDBCBEA69387445D48A7FF21.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/D8CD4BBF45B7A2AFBF7D256D30877E35.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/3A8FEF0213469009B1AC9AAFD24DEB67.png?imageView&thumbnail=520x520&quality=100">
+<meta property="og:image" content="https://nos.netease.com/edu-image/918D586A4F1685C9D87FDC83F3219B61.png?imageView&thumbnail=520x520&quality=100">
+<meta property="article:published_time" content="2018-01-26T11:37:56.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.555Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="DB-Q&amp;A">
+<meta property="article:tag" content="Mooc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nos.netease.com/edu-image/618A90C822E85E1DDD9B7D28F659C3FE.png?imageView&thumbnail=520x520&quality=100">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>数据库的问题集</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/04/09/keypoint-descriptor/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2017/12/27/csdn/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/01/26/q-of-db/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/01/26/q-of-db/&text=数据库的问题集"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/01/26/q-of-db/&is_video=false&description=数据库的问题集"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据库的问题集&body=Check out this article: https://vhdsih.github.io/2018/01/26/q-of-db/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/01/26/q-of-db/&name=数据库的问题集&description=&lt;p&gt;战神-中国大学MOOC数据库课后习题与知识点&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/01/26/q-of-db/&t=数据库的问题集"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A"><span class="toc-number">1.</span> <span class="toc-text">上</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%AE%B2"><span class="toc-number">1.1.</span> <span class="toc-text">第一讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2"><span class="toc-number">1.2.</span> <span class="toc-text">第二讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E8%AE%B2"><span class="toc-number">1.3.</span> <span class="toc-text">第三讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2"><span class="toc-number">1.4.</span> <span class="toc-text">第四讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E8%AE%B2"><span class="toc-number">1.5.</span> <span class="toc-text">第五讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0"><span class="toc-number">1.6.</span> <span class="toc-text">第六章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0"><span class="toc-number">1.7.</span> <span class="toc-text">第七章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E8%AE%B2"><span class="toc-number">1.8.</span> <span class="toc-text">第八讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E8%AE%B2"><span class="toc-number">1.9.</span> <span class="toc-text">第九讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E8%AE%B2"><span class="toc-number">1.10.</span> <span class="toc-text">第十讲</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%AD"><span class="toc-number">2.</span> <span class="toc-text">中</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%AE%B2-1"><span class="toc-number">2.1.</span> <span class="toc-text">第一讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2-1"><span class="toc-number">2.2.</span> <span class="toc-text">第二讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E8%AE%B2-1"><span class="toc-number">2.3.</span> <span class="toc-text">第三讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2-1"><span class="toc-number">2.4.</span> <span class="toc-text">第四讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E8%AE%B2-1"><span class="toc-number">2.5.</span> <span class="toc-text">第五讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E8%AE%B2"><span class="toc-number">2.6.</span> <span class="toc-text">第六讲</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8B"><span class="toc-number">3.</span> <span class="toc-text">下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%AE%B2-2"><span class="toc-number">3.1.</span> <span class="toc-text">第一讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2-2"><span class="toc-number">3.2.</span> <span class="toc-text">第二讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E8%AE%B2-2"><span class="toc-number">3.3.</span> <span class="toc-text">第三讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2-2"><span class="toc-number">3.4.</span> <span class="toc-text">第四讲</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        数据库的问题集
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-01-26T11:37:56.000Z" itemprop="datePublished">2018-01-26</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Database/">Database</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/DB-Q-A/" rel="tag">DB-Q&A</a>, <a class="tag-link-link" href="/tags/Mooc/" rel="tag">Mooc</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>战神-中国大学MOOC数据库课后习题与知识点</p>
+<span id="more"></span>
+<h1 id="上"><a href="#上" class="headerlink" title="上"></a>上</h1><h2 id="第一讲"><a href="#第一讲" class="headerlink" title="第一讲"></a>第一讲</h2><ol>
+<li>数据库管理系统是软件产品，而数据库系统不仅仅是软件产品。</li>
+<li>数据库系统的构成包括数据库、数据库管理系统、数据库应用程序、数据库管理员以及计算机与网络基本系统。</li>
+<li>从用户角度看数据库管理系统的功能，数据库管理系统就是通过数据库语言让用户操作进而提供数据库定义、数据库操纵和数据库控制功能的系统，同时提供了一系列程序能够实现对数据库的各种存储与维护。</li>
+<li>从系统角度看数据库管理系统，其功能包括数据库语言及其编译、查询实现与查询优化、事务处理、数据存储与索引以及其它功能。</li>
+<li>完整性控制、并发控制、通讯控制属于数据库管理系统的功能；处理剂控制属于操作系统的功能。</li>
+<li>关于数据库系统的语言，包括DDL（数据库定义语言），DML（数据库操纵语言），DCL（数据库控制语言）。</li>
+</ol>
+<h2 id="第二讲"><a href="#第二讲" class="headerlink" title="第二讲"></a>第二讲</h2><ol>
+<li>数据库的三级模式：外模式（用户模式，子模式）、模式（逻辑模式、概念模式、全局模式）、内模式（物理模式、存储模式，内模式）。</li>
+<li>对于模式有两个映射：<ol>
+<li>C-I映射：概念模式映射为内模式；实现了物理的独立性（一个业务系统可利用任何数据库管理系统实现）；</li>
+<li>E-C映像：概念模式映射为外模式；实现了逻辑的独立性（全局模式变化只需改变EC映像）；</li>
+</ol>
+</li>
+<li>模式是对数据的抽象、数据模型是对模式的抽象；模式是对数据模型的抽象，数据模型的结构性描述称为模式 。</li>
+<li>数据库系统的数据独立性是指不会因为系统数据存储结构与数据逻辑结构的变化而影响应用程序。</li>
+<li>第一代数据库系统：基于网状模型或层次模型的数据库系统。</li>
+<li>第二代数据库系统：基于关系模型的数据库系统。</li>
+<li>文件系统和数据库系统的差别：<ol>
+<li>数据的组织是否依赖于具体的应用程序；</li>
+<li>数据存取是否可以记录或记录的集合为单位进行操作；</li>
+<li>不同文件之间以及不同记录之间是否有联系；</li>
+</ol>
+</li>
+<li>关系数据库系统对层次/网状数据库系统的重大改进是：<ol>
+<li>消除了由用户建立指针的弊端；</li>
+<li>将逐一记录的操作改进为支持记录集合的操作；</li>
+<li>数据检索操作不依赖于路径信息或过程信息，即非过程化的操作；</li>
+</ol>
+</li>
+<li>面对对象数据库系统对关系数据库系统的重大改进是：<ol>
+<li>允许复杂的数据类型存在;</li>
+<li>突破了关系模型第一范式的限制;</li>
+<li>既支持记录集合的操作，又支持面向对象的操作;</li>
+</ol>
+</li>
+<li>数据模型</li>
+<li>关系模型;</li>
+<li>层次模型;</li>
+<li>网状模型;</li>
+<li>XML模型、面向对象模型、NoSQL模型；</li>
+</ol>
+<h2 id="第三讲"><a href="#第三讲" class="headerlink" title="第三讲"></a>第三讲</h2><ol>
+<li><p>某关系R的外键是指其它关系的候选键，可以是R中的主属性或非主属性。</p>
+</li>
+<li><p>候选键可由其值能惟一标识该关系中任何元组的一个或多个属性组成。</p>
+</li>
+<li><p>若某属性非该关系的主键，却是另外一个关系的主键，则该属性称为外键。</p>
+</li>
+<li><p><strong>下列四项中说法正确的是_______</strong></p>
+<ul>
+<li>A.关系的任何属性都是不可再分的 【正确答案】</li>
+</ul>
+<ul>
+<li>B.R(A1 , A2 , … , An )，这种描述又被称为关系模式，其中Ai 是指属性所对应的域</li>
+<li>C.关系模式和关系都是不随时间变化的</li>
+<li>D.同一关系模式下关系是唯一的</li>
+</ul>
+</li>
+<li><p><strong>现有如下关系：患者（患者编号，患者姓名，性别，出生日期），医疗（患者编号，患者姓名，医生编号，医生姓名，诊断日期）。其中，“医疗”关系中的外键是_______</strong></p>
+<ul>
+<li>A.患者编号【正确答案】</li>
+<li>B.患者姓名</li>
+<li>C.患者编号和患者姓名</li>
+<li>D.医生编号</li>
+</ul>
+</li>
+<li><p><strong>关于关系模型完整性的说法，不正确的是______</strong></p>
+<ul>
+<li>A.外键如果取空值，则违反了参照完整性【正确答案】</li>
+<li>B.数据库中有了空值会影响许多方面，如影响聚集函数运算的正确性等</li>
+<li>C.用户自定义完整性是指用户针对具体的数据库应用所定义的完整性约束条件</li>
+<li>D.实体完整性和参照完整性一般由DBMS系统自动支持</li>
+</ul>
+</li>
+<li><p><strong>关于关系模式与关系，说法不正确的是_______</strong></p>
+<ul>
+<li>A.关系模式是稳定的；同一关系模式下，只有一种关系【正确答案】</li>
+<li>B.同一关系模式下，可有很多的关系</li>
+<li>C.关系模式是关系的结构, 关系是关系模式在某一时刻的数据</li>
+<li>D.关系模式是稳定的；而关系是某一时刻的值，是随时间可能变化的</li>
+</ul>
+</li>
+<li><p><strong>关于关系的特性，说法不正确的是______</strong></p>
+<ul>
+<li>A.关系是以属性在关系的位置来区分的【正确答案】</li>
+<li>B.关系是以内容(名字或值)来区分的</li>
+<li>C.区分哪一列是靠列名</li>
+<li>D.区分哪一行是靠某一或某几列的值</li>
+</ul>
+</li>
+<li><p><strong>关于关系的特性，说法不正确的是______</strong></p>
+<ul>
+<li>A.关系的任意两列上的值不能完全相同【正确答案】</li>
+<li>B.关系的任意两个元组不能完全相同</li>
+<li>C.元组相同是指两个元组的每个分量都相同</li>
+<li>D.在同一个关系中如存在相同的元组，则仅保留其中的一个</li>
+</ul>
+</li>
+<li><p>关系模型就是处理Table的，它由关系(或者表)、关系运算和完整性约束。</p>
+</li>
+<li><p>关系数据库中，体现“实体能够区分并唯一标识元组”的规则是实体完整性规则。</p>
+</li>
+<li><p>根据关系模型的完整性规则，一个关系中的主键不允许空值。</p>
+</li>
+<li><p>若规定工资表中的基本工资不得超过5000元，则这个规则属于用户定义完整性约束。</p>
+</li>
+<li><p>关系是一个由行与列组成的、能够表达数据及数据之间联系的二维表。</p>
+</li>
+<li><p><strong>关于关系的特性，说法不正确的是_________。</strong></p>
+<ul>
+<li>A.表中行的顺序、列的顺序不可以任意交换【选这个】</li>
+<li>B.表中的每一列均需有一个唯一的名字</li>
+<li>C.表中不允许出现完全相同的两列</li>
+<li>D.表中行的顺序、列的顺序均可以任意交换</li>
+</ul>
+</li>
+<li><p>实体完整性：关系主码不能为空</p>
+</li>
+<li><p>参照完整性：对外码而言，外码可以取得空值，否则必须相应表的主码值</p>
+</li>
+<li><p>用户自定义完整性：用户自定义；16、17为dbms自动支持。</p>
+</li>
+</ol>
+<h2 id="第四讲"><a href="#第四讲" class="headerlink" title="第四讲"></a>第四讲</h2><ol>
+<li><p>5个基本操作：并、差、积、选择、投影。</p>
+</li>
+<li><p>相容性：参与运算的两个关系及其相关属性之间有一定的对应性、可比性、意义关联性；</p>
+</li>
+<li><p>自然连接是构成新关系的有效方法。一般情况下，当对关系R和S使用自然连接时，要求R和S含有一个或多个共有的属性</p>
+</li>
+<li><p><strong>关系R与关系S只有一个公共属性，T1是R与S做θ连接的结果，T2是R与S自然连接的结果，则下列说法正确的是_______</strong></p>
+<ul>
+<li>A.T1的属性个数大于T2的属性个数</li>
+<li>B.T1 的属性个数等于T2</li>
+<li>C.T1的属性个数小于T2</li>
+<li>D.T1的属性个数大于或等于T2的属性个数</li>
+</ul>
+<blockquote>
+<p> 正确答案：A你错选为D</p>
+</blockquote>
+</li>
+<li><p><strong>对于如下运算,结果正确的是_________。</strong></p>
+<p><img src="https://nos.netease.com/edu-image/618A90C822E85E1DDD9B7D28F659C3FE.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/F916E9B4AE93F7BEE53CAE779D6CD044.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/7483399AA5071E9E3F91A5A9BF40185E.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/FB5B61B26C79ECD997B68BEF652B6C8C.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/4230700CDA40334FADCBA4E786178E59.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为C</p>
+</blockquote>
+</li>
+<li><p><strong>已知关系S(S#,Sname,Sage,Sclass), SC(S#,C#,Score)。如下所示关系代数表达式的含义是________。</strong></p>
+<p><img src="https://nos.netease.com/edu-image/59F24C56F07146B09A29D0EDA648B7B1.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.其他全不对</li>
+<li>B.查询没有学习过课程号为002号课程的学生姓名和年龄</li>
+<li>C.查询不仅仅学习课程号为002号课程的学生姓名和年龄</li>
+<li>D.查询学习课程号为002号课程的学生姓名和年龄</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+</blockquote>
+</li>
+<li><p><strong>已知关系：学生（学号，姓名，性别，年龄），课程（课程号，课程名，教师，学分），选课（学号，课程号，成绩）。表达查询“选修了教师01所教全部课程的学生的姓名”的关系代数操作是_________。</strong></p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/3BED77968B6F7629F781F937FD9AC270.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/0596343593EE391D1521CAC465F94DB9.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/6F356F9007A5D0CDFB40FEF8CCABA6EB.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/A76E817F90E6E5347EA9B5AA2115CF1C.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：A你没选择任何选项</p>
+</blockquote>
+</li>
+<li><p>R x S与 S x R运算的结果是同一个关系</p>
+</li>
+<li><p><strong>设关系R和S的属性个数分别为n和m，那么R×S操作结果的属性个数为________。</strong></p>
+<ul>
+<li>A.n+m</li>
+<li>B.n-m</li>
+<li>C.n×m</li>
+<li>D.max(n,m)</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为C</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第五讲"><a href="#第五讲" class="headerlink" title="第五讲"></a>第五讲</h2><ol>
+<li><p><strong>关于关系运算，下列说法正确的是_______。</strong></p>
+<ul>
+<li>A.安全的元组演算公式和安全的域演算公式可以等价变换</li>
+<li>B.关系代数运算和关系演算之间是互补的，即它们可以利用各自特点解决彼此不能解决的问题</li>
+<li>C.关系代数和关系演算不一定是安全的</li>
+<li>D.关系演算以属性为基本处理单位</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>已知下述关系，S(学号, 姓名, 年龄, 性别, 院系)，SC(学号，课程号,分数)，C(课程号,课程名,学分，教师名）。检索学习过刘玲老师所授课程的所有学生。表达正确的是________。</strong></p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/E957F4A2C298FD23F08BADD9807D65CC.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/8C8CF192B5E701D72952DB8E54EA3DD4.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/A4DE771759C9940D9C9BF0BB51E14581.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/0013A82A13E9A7380ABBA8CF90E01729.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>已知下述关系，S(学号, 姓名, 年龄, 性别, 院系),SC(学号，课程号,分数),C(课程号,课程名,学分，教师名）。检索学号为S3学生所学课程的课程号与任课教师名。表达正确的是________。</strong></p>
+<ul>
+<li>A.** { &lt;t[1],t[4]&gt;| tÎC Ù $ (uÎS) $ (vÎSC)(u[1]=‘S3’ Ùu[1]=v[1] Ùt[1]=v[2])**</li>
+<li>B.<img src="https://nos.netease.com/edu-image/56388A947EA8C272C829C592BFDB0214.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/971574DC33BB2F7BBAEB556711AFE701.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/3B5E2A4011C244C0113A911C576980B4.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>已知下述关系，Student(学号, 姓名, 年龄, 性别, 院系),SC(学号，课程号,分数),C(课程号,课程名,学分，教师名）。请用关系演算公式表达“检索出年龄不是最小的，所学课程都及格的所有同学”，表达结果正确的是_______。</strong></p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/2EA072D36EBE2B2D76CC026B26378ECE.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/53B4B0B0174635C95C9C4F7E79EE7493.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/2C5358FDE58842E28F966E8E73EB40C2.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/6746F6E068B7C7B5BEE43CE03EF9192F.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为D</p>
+</blockquote>
+</li>
+<li><p><strong>关于关系运算的安全性，说法不正确的是________。</strong></p>
+<ul>
+<li>A.关系演算是安全的</li>
+<li>B.关系代数是一种集合运算，是安全的</li>
+<li>C.任何公式都在一个集合范围内操作，而不是无限范围内操作，才能保证其安全性。</li>
+<li>D.集合本身是有限的，有限元素集合的有限次运算仍旧是有限的</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为D</p>
+</blockquote>
+</li>
+<li><p><strong>关于关系运算的说法，不正确的是________。</strong></p>
+<ul>
+<li>A. 相比之下：域演算的非过程性最好，关系代数次之，元组演算最差</li>
+<li>B.关系代数与安全的元组演算表达式与安全的域演算表达式是等价的</li>
+<li>C.一个数据库语言如果能够等价地实现这三种关系运算的操作，则说该语言是完备的</li>
+<li>D. 目前多数数据库语言都能够实现这三种运算的操作，在此基础上还增加了许多其他的操作，如赋值操作、聚集操作等</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+</blockquote>
+</li>
+<li><p><strong>假设R(A,B,C)，S(D,E)分别是三元和二元关系，把表达式<img src="https://nos.netease.com/edu-image/7A2BAC291A581A29DF0AAEBF6E6C0384.png?imageView&thumbnail=520x520&quality=100" alt="img">转换成等价的元组表达式正确的是_________。</strong></p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/BA1D0958C26D921FD6B127FAA1159B73.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/87E7D893253A00B1932824CC3CC78BBF.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/91F7DA91E4F6EF4235B6962FBADD727C.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/D235FEE5A6DAE29B0ED815787B8D436B.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><ol>
+<li><p><strong>SQL语言集数据查询、数据操纵、数据定义和数据控制功能于一体，其中，CREATE、DROP、ALTER语句是实现哪种功能_________。</strong></p>
+<ul>
+<li>A.数据定义</li>
+<li>B.数据查询</li>
+<li>C.数据操纵</li>
+<li>D.数据控制</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>在关系模型中关于结果唯一性问题，结果排序问题，模糊查询问题，如下说法不正确的是_________。</strong></p>
+<ul>
+<li>A.结果排序是在Select语句中通过增加order by子句实现的，后只能跟DESC或省略为降序。</li>
+<li>B.在Table中要求无重复元组是通过定义Primary key或Unique来保证的;而在检索结果中要求无重复元组, 是通过在SELECT子句中引入DISTINCT保留字来实现的。</li>
+<li>C.模糊查询是通过在Select语句的Where子句中引入运算符like来实现的</li>
+<li>D.在SELECT语句的Like条件中，用“%”去匹配字符%，用_ 去匹配字符_</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>SQL语言中，删除一个表的命令是________。</strong></p>
+<ul>
+<li>A.DROP</li>
+<li>B.DELETE</li>
+<li>C.CLEAR</li>
+<li>D.REMOVE</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>学生关系S（S#,Sname,Ssex,Sage,D#,Sclass）,S的属性分别表示学生的学号、姓名、性别、年龄。要在表S中删除一个属性“年龄”，可选用的SQL语句是_________。</strong></p>
+<ul>
+<li>A.ALTER  TABLE  S  DROP  Sage</li>
+<li>B.DELETE  Sage  from</li>
+<li>C.UPDATE  S  Sage</li>
+<li>D.ALTER  TABLE  S ‘Sage’</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为D</p>
+</blockquote>
+</li>
+<li><p><strong>查询结果输出时要求按“总评成绩”降序排列，相同者按“性别”升序，正确的子句是_________。</strong></p>
+<ul>
+<li>A.ORDER BY 总评成绩 DESC,性别</li>
+<li>B.ORDER BY 总评成绩,性别 DESC</li>
+<li>C.ORDER BY 总评成绩 DESC,性别 DESC</li>
+<li>D.ORDER BY 总评成绩 ASC,性别 DESC</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+<p>注：order by默认为升序</p>
+</blockquote>
+</li>
+<li><p>**在下列SQL语句中，属于数据控制语言DCL的是_________**<strong>。</strong></p>
+<p><strong>1、CREATE  2、SELECT  3、UPDATE  4、GRANT  5、DELETE  6、ALTER   7、INSERT   8、REVOKE</strong></p>
+<ul>
+<li>A.4，8</li>
+<li>B.1，5，6，7</li>
+<li>C.2，3，6，8</li>
+<li>D.1，5，7</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+<p>NOTE: </p>
+<p>DDL包括create、alter、drop；</p>
+<p>DML包括insert、delete、update、select；</p>
+<p>DCL包括grant（授权）、revoke（撤销授权）；</p>
+</blockquote>
+</li>
+<li><p><strong>在SELECT语句中，与关系代数中s运算符对应的是________子句。</strong></p>
+<ul>
+<li>A.WHERE</li>
+<li>B.SELECT</li>
+<li>C. FROM</li>
+<li>D.GROUP BY</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><ol>
+<li><p>SQL语言中，子查询是嵌套到另一个查询语句中的查询语句；</p>
+</li>
+<li><p><strong>陈述A：SubQuery1 UNION SubQuery2语句，其中SubQuery1和SubQuery2查询中相应的列必须以同一顺序出现。 陈述B：GROUP BY和HAVING子句不能在子查询中使用，这些子句只能用在最后一个查询结束时来总结和排序最后结果集。 关于陈述A和B，下列说法正确的是_________。</strong></p>
+<ul>
+<li>A.陈述A正确，陈述B错误</li>
+<li>B.都是正确的</li>
+<li>C.都是错误的</li>
+<li>D.陈述A错误，陈述B正确</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>下面有关HAVING子句，说法不正确的是_________。</strong></p>
+<ul>
+<li>A.使用HAVING子句的同时不能使用WHERE子句</li>
+<li>B.HAVING子句必须与GROUP BY 子句同时使用，不能单独使用</li>
+<li>C.使用HAVING子句的同时可以使用WHERE子句</li>
+<li>D.使用HAVING子句的作用是过滤掉不满足条件的分组</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>关于SQL视图更新的可执行性，下列说法不正确的是_________。</strong></p>
+<ul>
+<li>A.对于由单一Table子集构成的视图，即如果视图是从单个基本表使用选择、投影操作导出的，并且包含了基本表的主键，则不能更新</li>
+<li>B.如果视图的select目标列包含聚集函数，则不能更新</li>
+<li>C.如果视图中包括了group by子句，则不能更新</li>
+<li>D.如果视图是由单个表的列构成，但并没有包括主键，则不能更新</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>合并多个查询结果集，应使用_________保留字。</strong></p>
+<ul>
+<li>A.union</li>
+<li>B.join</li>
+<li>C.into</li>
+<li>D.and</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>假如有两个表的连接是这样的：table_1 INNER JOIN table_2，其中table_1和table_2是两个具有公共属性的表，这种连接会生成哪种结果集_________。</strong></p>
+<ul>
+<li>A.只包括table_1和table_2中满足条件的行的组合结果</li>
+<li>B.包括table_1中的所有行但不包括table_2的不匹配行的所有组合结果</li>
+<li>C.包括table_2中的所有行但不包括table_1的不匹配行的所有组合结果</li>
+<li>D.包括两个表的所有行的组合结果</li>
+</ul>
+<blockquote>
+<p> 正确答案：A你选对了</p>
+<p> 内连接：两者公共，左外连接：保留左边标的所有元素，右侧没有满足条件的为空；右外与左外类似；全外连接是上两者的并集；</p>
+</blockquote>
+</li>
+<li><p><strong>有关SQL语言的空值处理，以下说法不正确的是_________。</strong></p>
+<ul>
+<li>A.除is [not] null之外，空值满足任何查找条件</li>
+<li>B.如果null参与比较运算，有些情况下是可以判断为真的或为假的。</li>
+<li>C.如果null参与聚集运算，则除count(*)之外其它聚集函数都忽略null</li>
+<li>D.如果null参与算术运算，则该算术表达式的值为null</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>已知如下关系：学生Student(S#, Sname)，课程Course(C#, Cname, T#)，选课SC(S#, C#, Score)，教师T(T#, Tname)。其中S#为学号，Sname为学生命名，C#为课号，Cname为课程名，T#为教师编号，Score为成绩，Tname为教师名。</strong></p>
+<p><strong>阅读SQL语句</strong></p>
+<p><strong>SELECT S# FROM SC WHERE Score&lt;60 AND Count(*)&gt;2 GROUP BY S#；</strong></p>
+<p>**关于其查询结果，下列说法正确的是_____**<strong>。</strong></p>
+<ul>
+<li>A.其它选项的说法都不正确</li>
+<li>B.有2门以上不及格课程的同学的学号</li>
+<li>C.有2门以上及格课程的同学的学号</li>
+<li>D.有2人以上不及格课程的同学的学号</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+</blockquote>
+</li>
+<li><p><strong>已知如下关系：学生Student(S#, Sname)，课程Course(C#, Cname, T#)，选课SC(S#, C#, Score)，教师T(T#, Tname)。其中S#为学号，Sname为学生命名，C#为课号，Cname为课程名，T#为教师编号，Score为成绩，Tname为教师名。</strong></p>
+<p><strong>阅读SQL语句</strong></p>
+<p><strong>SELECT S# FROM SC WHERE Score&lt;60 GROUP BY C# HAVING Count(*)&gt;2；</strong></p>
+<p>**关于其查询结果，下列说法正确的是_____**<strong>。</strong></p>
+<p>得分/总分</p>
+<ul>
+<li>A.有2门以上不及格课程的同学的学号</li>
+<li>B.其它选项的说法都不正确</li>
+<li>C.有2人以上及格课程的同学的学号</li>
+<li>D.有2人以上不及格课程的同学的学号</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为B</p>
+<p><strong>解析：</strong>  A、此选项不正确。是2人，而不是2门。GROUP BY 是分组查询。Score&lt;60 GROUP BY S# HAVING Count(*)&gt;2，表示两门以上课程成绩小于60，所以整个语句表示有2人以上不及格课程的同学的学号  B、此选项不正确。其它中有正确的。  C、此选项不正确。不是及格，而是不及格。  D、此选项正确。GROUP BY 是分组查询，Score&lt;60 GROUP BY C# HAVING Count(*)&gt;2，表示两人以上课程成绩小于60，所以整个语句表示有2人以上不及格课程的同学的学号</p>
+</blockquote>
+</li>
+<li><p><strong>现有关系数据库如下：学生（学号，姓名，性别，专业、奖学金），课程（课程号，课程名，学分），选课（学号，课程号，分数），用SQL语言实现题目：检索没有任何一门课程成绩在80分以下的所有学生的信息，包括学号、姓名和专业，正确的SQL语句是_____。</strong></p>
+</li>
+</ol>
+<ul>
+<li>A.SELECT 学号，姓名，专业 FROM 学生 WHERE 学号 NOT  IN  (SELECT 学号 FROM 选课  WHERE 分数&lt;80)</li>
+<li>B.SELECT 学号，姓名，专业 FROM 学生，选课 WHERE 学号 NOT  IN  (SELECT 学号 FROM 选课  WHERE 分数&lt;80)</li>
+<li>C.SELECT 学号，姓名，专业 FROM 学生，选课 WHERE 学号 IN  (SELECT 学号 FROM 选课   WHERE 分数&lt;80)</li>
+<li>D.SELECT 学号，姓名，专业 FROM 学生  WHERE 学号 IN  (SELECT 学号 FROM 选课  WHERE 学生.学号=选课.学号 AND分数&lt;80)</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+</blockquote>
+<ol start="11">
+<li><p><strong>假设一个元组在子查询1中出现m次，在子查询2中出现n次，其中m&gt;0,n&gt;0, 则下列说法正确的是____ ____。</strong></p>
+<ul>
+<li>A.该元组在“子查询1  Except  子查询2”中出现0次；</li>
+<li>B.该元组在“子查询1  Union  子查询2”中出现m + n次；</li>
+<li>C.该元组在 “子查询1  Except  ALL  子查询2”中出现m – n次；</li>
+<li>D.该元组在“子查询1  Intersect  子查询2”中出现min(m,n)次；</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>假设一个元组在子查询1中出现m次，在子查询2中出现n次，其中m&gt;0,n&gt;0,则下列说法正确的是_________。</strong></p>
+<ul>
+<li>A.该元组在“子查询1  Union  ALL 子查询2”中出现m + n次；</li>
+<li>B.该元组在 “子查询1 Union  子查询2”中出现m+n次；</li>
+<li>C.该元组在“子查询1  Union  ALL 子查询2”中出现1次；</li>
+<li>D.该元组在 “子查询1 Union  子查询2”中出现Min(m,n)次；</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>假设一个元组在子查询1中出现m次，在子查询2中出现n次，其中m&gt;0,n&gt;0,则下列说法正确的是_________。</strong></p>
+<ul>
+<li>A.该元组在“子查询1  Except  子查询2”中出现0次；</li>
+<li>B.该元组在“子查询1  Union  子查询2”中出现m + n次；</li>
+<li>C.该元组在 “子查询1  Except All 子查询2”中出现m – n次；</li>
+<li>D.该元组在“子查询1  Union All  子查询2”中出现max(m,n)次；</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+<p>带all的会有重复元素，不带的没有重复元素，注意！</p>
+</blockquote>
+</li>
+<li><p><strong>在下列关于视图的叙述中，正确的是_______。</strong></p>
+<ul>
+<li>A.当某一视图删除后，由该视图导出的其它视图也将自动删除；</li>
+<li>B.若导出某视图的基本表被删除，该视图将不受任何影响；</li>
+<li>C.视图—旦建立，就不能被删除；</li>
+<li>D.当修改某一视图时，导出该视图的基本表也随之修改。</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>SQL语言中的视图是一种_________。</strong></p>
+<ul>
+<li>A.子模式及子模式到模式的映像；</li>
+<li>B.全局模式及全局模式到子模式的映像；</li>
+<li>C.内模式及内模式到模式的映像；</li>
+<li>D.模式及模式到概念模式的映像；</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>有一个学生表student，包含主键S#（学生编号）等。又有分数表SC，包含S#（学生编号）、score（分数）等。已知student表中共有50个学生，有45人参加了考试（分数存在SC表中），其中10人不及格。执行以下SQL语句：select * from student where exists (select S# from SC where score&lt;60 )， 可返回_________条记录。</strong></p>
+<ul>
+<li>A.50</li>
+<li>B.45</li>
+<li>C.10</li>
+<li>D.35</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为C</p>
+<p>exits后面的select语句有返回则 True；</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第八讲"><a href="#第八讲" class="headerlink" title="第八讲"></a>第八讲</h2><ol>
+<li><p><strong>QL语言的GRANT和REVOKE语句主要是用来维护数据库的_________。</strong></p>
+<ul>
+<li>A.安全性</li>
+<li>B.完整性</li>
+<li>C.可靠性</li>
+<li>D.一致性</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>安全性控制的对象是非法非授权对象；</p>
+</li>
+<li><p>在数据库的安全性控制中，授权数据对象的范围越小，授权子系统就越灵活；</p>
+</li>
+<li><p>关系模型的完整性包括：实体完整性、参照完整性（外键）、用户自定义完整性；</p>
+</li>
+<li><p><strong>已知employee表中具有默认约束df_email，删除该约束的语句为_________。</strong></p>
+<ul>
+<li>A.alter table employee drop constraint df_email</li>
+<li>B.alter table employee remove constraint df_email</li>
+<li>C.alter table employee delete constraint df_email</li>
+<li>D.remove constraint df_email from table employee</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p><strong>关于DBMS的安全机制，下列说法不正确的是_________。</strong></p>
+<ul>
+<li>A.当有对DB访问操作时，任何人都被允许访问</li>
+<li>B.强制安全性机制是通过对数据和用户强制分类，从而使得不同类别用户能够访问不同级别的数据</li>
+<li>C.自主安全性是通过授权机制来实现的</li>
+<li>D.推断控制机制是防止通过历史信息或统计信息，推断出不该被其知道的信息，防止通过公开信息推断出私密信息</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>create table的三种功能包括：定义关系模式、完整性约束、物理存储模式；</p>
+</li>
+<li><p><strong>Col_constr列约束只能应用在单一列上，下面不是应用在单一列上的约束是_________。</strong></p>
+<ul>
+<li>A.FOREIGN KEY</li>
+<li>B.UNIQUE</li>
+<li>C.search_cond</li>
+<li>D.PRIMARY KEY</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为D</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第九讲"><a href="#第九讲" class="headerlink" title="第九讲"></a>第九讲</h2><ol>
+<li><p>以下嵌入式SQL语句，没有错误的是_________。</p>
+<ul>
+<li>A.exec sql select Sname,Sage into vSname,vSage from Student where Sname = specName;</li>
+<li>B.exec sql begin declare section char vSname[10], specName[2]=“lzt”；int vSage;</li>
+<li>C.exec sql select Sname,Sage into :vSname, :vSage from Student where Sname = :specName;</li>
+<li>D.其他有多于一个的选项没有错误。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为A</p>
+<p>使用高级语言的变量需要在变量前添加冒号；</p>
+</blockquote>
+</li>
+<li><p>关于事务，下列说法正确的是__________。</p>
+<ul>
+<li>A.必须以Begin  Transaction和End  Transaction显性地标记开始和结束；</li>
+<li>B.事务在处理过程中是可以被中断的，且中断前的执行结果也是有效的；</li>
+<li>C.一个事务仅能包含一条SQL语句，多条SQL语句将产生多个事务；</li>
+<li>D.SQL语句在执行过程中，必须有提交或撤消语句才能确认其对数据库的永久操作结果；</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+</blockquote>
+</li>
+<li><p>关于游标，下列说法正确的是_________。</p>
+<ul>
+<li>A.游标使用之前需要先声明再打开；</li>
+<li>B.一个游标只能打开与关闭一次；</li>
+<li>C.游标中的 SQL语句被执行并产生结果是在Declare Cursor时进行的；</li>
+<li>D.若要重新执行游标中的SQL语句，需要重新声明游标并打开游标；</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>嵌入式SQL语言 中Whenever的作用范围是_________。</p>
+<ul>
+<li>A.其后的所有Exec SQL语句直到程序结束；</li>
+<li>B.其后的所有Exec SQL语句直到与数据库断开连接；</li>
+<li>C.其后的所有Exec SQL语句直到程序中出现另一条相同条件的Whenever语句为止。</li>
+<li>D.其后的所有Exec SQL语句直到其执行过程中遇到另一条相同条件的 Whenever语句为止。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为A</p>
+</blockquote>
+</li>
+<li><p>关于事务，下列说法不正确的是_________。</p>
+<ul>
+<li>A.事务是一条或多条SQL语句的一次执行；</li>
+<li>B.事务的一组更新操作是原子不可分的；</li>
+<li>C.事务的操作状态是正确的，符合一致性的操作规则；</li>
+<li>D.并发执行的多个事务之间可能互相影响，需要程序员考虑周全；</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为C</p>
+</blockquote>
+</li>
+<li><p>以下哪一个不是状态捕获语句exec sql whenever condition action中condition所指代的条件__________。</p>
+<ul>
+<li>A.SQLERROR</li>
+<li>B.NOT FOUND</li>
+<li>C.SQLWARNING</li>
+<li>D.CONTINUE</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+</blockquote>
+</li>
+<li><p>关于嵌入式SQL语言状态捕获处理机制的说法，不正确的是_________。</p>
+<ul>
+<li>A.状态捕获及处理机制由三部分构成：(1)设置SQL通信区SQLCA；(2)设置状态捕获语句；(3)状态处理程序。</li>
+<li>B.状态捕获语句可以作用于整个程序。</li>
+<li>C.状态捕获语句容易引发整个程序进入无限循环。</li>
+<li>D.DBMS记录状态信息有三种方法： (1)sqlcode；(2)sqlca.sqlcode；(3)sqlstate</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为C</p>
+</blockquote>
+</li>
+<li><p>事务是数据库运行的基本单位。如果一个事务执行成功，则全部更新结果将被写到永久存储设施上；如果一个事务执行失败，则对永久存储设施上的数据已做过的更新被恢复原状，好像整个数据库从未有过这些更新，这样保持了数据库处于_________状态。</p>
+<ul>
+<li>A.安全性</li>
+<li>B.一致性</li>
+<li>C.完整性</li>
+<li>D.可靠性</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为A</p>
+</blockquote>
+</li>
+<li><p>通过游标对表进行删除或者更新操作时，WHERE CURRENT OF的作用是允许更新或删除当前游标的记录.</p>
+</li>
+<li><p>执行下面的程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">  exec sql  whenever  sqlerror  <span class="keyword">goto</span>  handle_error；</span><br><span class="line">  <span class="function">exec sql  create table <span class="title">customers</span><span class="params">(cid  <span class="keyword">char</span>(<span class="number">4</span>)  <span class="keyword">not</span> null, cname varchar(<span class="number">13</span>), …)</span>；</span></span><br><span class="line"><span class="function">  … </span></span><br><span class="line"><span class="function">  handle_error：</span></span><br><span class="line"><span class="function">  exec sql drop customers；</span></span><br><span class="line"><span class="function">  exec sql disconnect；</span></span><br><span class="line"><span class="function">  <span class="title">fprintf</span><span class="params">(<span class="built_in">stderr</span>,”could <span class="keyword">not</span> create customers table\n”)</span>；</span></span><br><span class="line"><span class="function">  <span class="keyword">return</span> -1；</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+<p>如果customers表在执行过程中出现了问题，没有人为干预，则该程序“Exec sql drop customers；”语句将被执行的次数为_________。</p>
+<ul>
+<li>A.0次</li>
+<li>B.1次</li>
+<li>C.不确定的有限次数</li>
+<li>D.无限次数</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第十讲"><a href="#第十讲" class="headerlink" title="第十讲"></a>第十讲</h2><ol>
+<li><p>数据字典是数据库系统中最重要的数据之一，是DBMS记录“表”的定义的数据，当然也保存着关于“表”的各种运行参数。DBMS中的数据字典可以________。</p>
+<ul>
+<li>A.用SQL语言查询</li>
+<li>B.由任何用户使用</li>
+<li>C.没有</li>
+<li>D.由用户创建</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>数据字典通常是由下面哪个组成_________。</p>
+<ul>
+<li>A.表和视图</li>
+<li>B.用户和权限</li>
+<li>C.角色和视图</li>
+<li>D.用户和表</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>下面关于数据字典的描述中，不正确的是________。</p>
+<ul>
+<li>A.数据字典是用户通过SQL-DML(SELECT, UPDATE, DELETE, INSERT)建立和维护的；</li>
+<li>B.数据字典是元数据而不是数据本身</li>
+<li>C.数据字典通常也用二维表结构存储相关的数据</li>
+<li>D.数据字典是DBMS维护和查询数据库所依赖的重要数据</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为D</p>
+</blockquote>
+</li>
+<li><p>以下关于JDBC的叙述，不正确的是_________。</p>
+<ul>
+<li>A.JDBC通过一组Java接口实现其目标</li>
+<li>B.JDBC使用java.sql.DriverManager类和java.sql.Driver类连接到数据库</li>
+<li>C.JDBC可做三件事：与数据库建立连接、创建SQL语句对象并执行、返回结果数据集并提取数据给高级语言程序</li>
+<li>D.JDBC是一种用于执行SQL语句的Java API 的面向对象的应用程序接口</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为C</p>
+</blockquote>
+</li>
+<li><p>应用程序使用JDBC API访问数据库的具体实施过程有4步：</p>
+<p>(1) 通过URL得到一个Connection对象, 建立数据库连接；</p>
+<p>(2) 创建一个Statement对象(PreparedStatement或CallableStatement)，用来查询或者修改数据库；</p>
+<p>(3) 传递一个Driver给DriverManager，加载数据库驱动；</p>
+<p>(4) 执行查询并返回一个ResultSet，提取数据到应用程序。</p>
+<p>若要使用这四步，正确顺序是_________。</p>
+<ul>
+<li>A.3124</li>
+<li>B.3214</li>
+<li>C.1234</li>
+<li>D.1324</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+</blockquote>
+</li>
+<li><p>下列关于动态SQL语句的叙述中，不正确的是_________。</p>
+<ul>
+<li>A.动态SQL 语句是SQL 标准提供的一种语句运行机制</li>
+<li>B.<br>动态SQL 语句是指在程序编译时尚未确定，需要在程序执行过程中临时生成的SQL语句</li>
+<li>C.SQL 标准引入动态SQL 语句的原因是由于静态SQL 语句不能提供足够的编程灵活性</li>
+<li>D.SQL 标准提供的动态SQL 语句的执行方式只有立即执行方式</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+</blockquote>
+</li>
+<li><p>下列关于动态SQL、静态SQL的叙述中，不正确的是_________。</p>
+<ul>
+<li>A.SQL语句在程序中已经按要求写好，体现为一个可执行的SQL语句，把一些参数通过变量传送给SQL语句即可执行，这是静态SQL</li>
+<li>B.SQL语句在程序中动态构造，体现为一个字符串，然后再交给DBMS执行，执行时可以传递变量，这是动态SQL</li>
+<li>C.动态SQL语句的执行方式只能是Prepare-Execute-Using方式，即预编译-传递参量并执行</li>
+<li>D.动态SQL 语句是指在程序编译时尚未确定，需要在程序执行过程中临时生成的SQL语句</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+</blockquote>
+</li>
+<li><p>SQLCA和SQLDA是嵌入在C语言中的SQL语言经常使用的两种数据结构。关于SQLCA和SQLDA，下列说法正确的是_________。</p>
+<ul>
+<li>A.SQLCA是SQL通讯区，记录着SQL语句被DBMS执行后返回的状态信息；SQLDA是SQL描述区，记录着数据库/表等对象的定义信息。</li>
+<li>B.SQLCA是SQL通讯区，记录着数据库/表等对象的定义信息；SQLDA是SQL描述区，记录着SQL语句被DBMS执行后返回的状态信息。</li>
+<li>C.SQLCA是SQL描述区，记录着SQL语句被DBMS执行后返回的状态信息；SQLDA是SQL通讯区，记录着数据库/表等对象的定义信息。</li>
+<li>D.SQLCA是SQL描述区，记录着数据库/表等对象的定义信息；SQLDA是SQL描述区，记录着SQL语句被DBMS执行后返回的状态信息。</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+</blockquote>
+</li>
+<li><p>关于嵌入式SQL语言的思维模式：建立数据库连接、声明一个游标(游标与SQL语句绑定)、打开游标(执行SQL语句)、循环地获取一条一条记录(属性与高级语言变量绑定)、关闭游标、可循环地再打开到关闭游标、断开数据库连接。</p>
+</li>
+<li><p> ODBC思维：建立数据库连接、请求分配语句句柄(申请内存空间)、用句柄执行SQL(句柄与SQL语句绑定)、建立高级语言变量与句柄属性的对应、循环地获取一条一条记录、释放语句句柄→断开数据库连接；</p>
+</li>
+<li><p>SQL语句执行后，需要将结果记录集中的属性值，读到高级语言的变量中，那什么时候建立高级语言变量与属性的绑定，下列说法不正确的是_________。</p>
+<ul>
+<li>A.嵌入式SQL语言：在一条一条地读取记录时(Fetch)建立绑定。</li>
+<li>B.ODBC：在开始一条一条地读取记录之前用专门的语句建立绑定。</li>
+<li>C. JDBC：一条一条记录的，边绑定，边读取相应的属性值。</li>
+<li>D.其他选项说法有不正确的。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你没选择任何选项</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="中"><a href="#中" class="headerlink" title="中"></a>中</h1><h2 id="第一讲-1"><a href="#第一讲-1" class="headerlink" title="第一讲"></a>第一讲</h2><ol>
+<li><p>如右图所示E-R图，“保存”是一个联系，其指向“图书”的基数为__________。</p>
+<p><img src="https://nos.netease.com/edu-image/7C97443EEE584FEDA0ED57FBD40670C6.jpg?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.0..1；</li>
+<li>B.1..1；</li>
+<li>C.0..m；</li>
+<li>D.1..m；</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为B</p>
+<p>一个书架既可以放0本书也可以放多本书</p>
+</blockquote>
+</li>
+<li><p>如图所示，这是为民政局开发的婚姻管理系统的E-R图，“婚姻”是一个联系，其指向“女人”的基数为__________。</p>
+<p><img src="https://nos.netease.com/edu-image/35B47E6AD200CCFE3B700EB4735D1610.jpg?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.0..1；</li>
+<li>B.1..1；</li>
+<li>C.0..m；</li>
+<li>D.1..m；</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为B</p>
+<p>因为是民政局婚姻管理系统,其管理的是人们的历史婚姻状况,那一个人可以有多次婚姻关系,也可以没有婚姻关系,因此选项 C 正确。而 A 至多一次、B 必须一次且仅一次、D 至少一次,都是不正确的。此题理解的关键是“民政局”,它是管理历史婚姻状况的机构,当然也管理当前婚姻状况。</p>
+</blockquote>
+</li>
+<li><p>如图所示E-R图，“teaches”是一个联系，下列描述其蕴涵的规则，正确的是_______。</p>
+<p><img src="https://nos.netease.com/edu-image/1B1E5750E3C764AE512518E5D0FBA7CA.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.一个Professor可以给多个Class授课，一个Class可以由多个Professor来授课。</li>
+<li>B.一个Professor可以给多个Class授课，也可以不授课；一个Class必须有一个Professor来授课；</li>
+<li>C.一个Professor可以给多个Class授课，也可以不授课；一个Class可以由多个Professor来授课，也可以不由任何Professor来授课；</li>
+<li>D.一个Professor必须给一个Class授课；一个Class可以有多个Professor来授课，也可以没有Professor来授课；</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为D</p>
+<p>解析:由图中 Class 端标示的是 0 到多,Professor 端标示的是 1,说明一个Professor 可以教多个 Class,也可以不教 Class。而一个 Class 只能由一个 Professor 来教。因此选项 B 正确。选项 A 的“一个 Class 可以由多个Professor 来授课”不正确;选项 C 的“一个 Class 可以由多个 Professor 来授课,也可以不由任何 Professor 来授课”不正确 ;选项 D的每一部分都不正确。</p>
+</blockquote>
+</li>
+<li><p>如图所示E-R图，“takes”是一个联系，下列描述其蕴涵的规则，正确的是_________。</p>
+<p><img src="https://nos.netease.com/edu-image/6A22BA92E9A51608E111565BD532C1F8.jpg?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.一个student可以选择多个class，也可以一个都不选；一个class可以有多个student来选，也可以没有student选择；</li>
+<li>B.一个student至少选择一个class，也可以选择多个；一个class至少有一个student选择，也可以有多个student来选；</li>
+<li>C.一个student可以选择多个class，也可以一个都不选；一个class至少有一个student选择，也可以有多个student来选；</li>
+<li>D.一个student至少选择一个class，也可以选择多个；一个class可以有多个student来选，也可以没有student选择；</li>
+</ul>
+<blockquote>
+<p>正确答案:D。解析:由图中 Class 端标示的是 1 到多,Student 端标示的是 0 到多,说明一个 Student 至少选择一个 Class,也可以选择多个 Class。而一个 Class 可以由多个 Student 来选择,也可以没有 Student 选择。 因此选项 D 正确。选项 A 和 C 的“一个 Student 可以一个(Class)都不选”不正确; 选项 B 和 C 的“一个 Class 至少有一个 Student 选择”不正确 ;选项 C 的每一部分都不正确。</p>
+</blockquote>
+</li>
+<li><p>关系模型是数据模型，ER模型是概念模型；</p>
+</li>
+<li><p>E-R图建模过程中分析实体和联系是很重要的。 关于实体和联系，下列说法不正确的是___ ______。</p>
+<ul>
+<li>A.实体虽然是指一个个可相互区分的个体，但E-R图建模是要寻找这些个体的“型”，而非这些个体本身；</li>
+<li>B.实体是可以用重叠量词来形容的，在问题域中不能用重叠量词形容的则不是实体；</li>
+<li>C.联系是指一个实体的实例与另一个实体的实例之间可能存在的某种联系；</li>
+<li>D.E-R图建模关键是发现实体之间存在什么联系，其重点是发现实体之间联系的度数或元数。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+</blockquote>
+</li>
+<li><p>现实世界中经常出现如图所示的结构关系，比如产品结构、组织结构等等，若要为其建立E-R模型。则E-R图表达相对最正确的是____________</p>
+<p><img src="https://nos.netease.com/edu-image/FAC1A820D19A2C2BDBDC4435A374BAD8.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/11674DD247E0AA2AB9954E2F8AD7CBAA.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/B3B3CF56BDCF7E6E9636DF90550B3C85.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/91A763573F6C6D742C13130F7EA4AB55.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/8B72C838934216ADAE24BC9AA59C3265.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为A</p>
+<p>解析:选项 A,没有进行抽象,绘制的是实体的实例关系,不正确;选项 B,的边应是联系,如此表达说不清楚结点和边的联系又是什么。选项 C 的表达相对是最正确的。选项 D,出现的结点 1 和结点 2 在 E-R 图建模中实际上是同一个实体,故此不正确。</p>
+</blockquote>
+</li>
+<li><p>若要用E-R图表达“学生按班级选课”，则E-R图表达相对最正确的是____________</p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/D944EEEBC2DA598AE435584098EFDF72.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/893277E9238B4A68F7E060C36DBF9B53.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/A79AB7FA07B88D3BA19769F17BD2B912.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/A036B3E58CD1BFFB34EC954AD61E0E40.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+<p>解析:选项 A,“学生按班级选课”是一个功能,不要受其影响。其最本质的还是“学生”选修“课程”,学生是有班级属性的,“按班级选课”可以通过程序予以实现,而 E-R 图应反映的是选课的结果是怎样的。故此选项 A 最正确;选项 B,<br>“班级”不宜做实体,因为似乎找不到其他的刻画班级的属性(注意不要钻字眼),虽然说要按班级选课,但可通过程序实现该功能,只要保留选课的结果即可,相比 A,此选项不正确。选项 C,将“班级”属性置放于“课程”实体中不合适,因为一门课程可能对应多个班级,故不正确。选项D,没有建立学生和班级的联系,而这才是最重要的,故此不正确。</p>
+</blockquote>
+</li>
+<li><p>若要为一个浴池开发信息系统，有搓澡工、收银员等，请仔细理解需求，并用E-R图表达需求。则E-R图表达需求，相对最正确的是____________</p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/1C5696A7EDABBAFD700DDD460B50AF8D.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/8B168E36D7DC48734FFECAA91110675A.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/E5891ECC42301F69EFDFD366D2CF3CA3.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/227B930DC2443759969812BB9F969AD6.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A。</p>
+<p>解析:选项 A,在此问题中“老板”不能用一个个类似的重叠量词来形容,应不是实体,故不正确。选项 B,这是为某一个浴池开发信息系统,在此背景下,“浴池”也不能用一个个类似的重叠量词来形容,应不是实体,故不正确。选项 C 和选项 D 所发现的实体“客户”“员工”“服务项目”都是正确的,所不同的是“收费”这个联系,选项 C 建立的是客户和员工之间的联系,表明哪一个员工收取哪一个客户的费用,而选项 D 建立的是客户和服务项目之间的联系,表明哪一个客户为哪些服务项目支付费用,从应用的角度选项 D 的联系更为重要,故选项 D 正确。</p>
+</blockquote>
+</li>
+<li><p>关于模型和元模型，下列说法不正确的是____________</p>
+</li>
+</ol>
+<ul>
+<li>A.模型是依据元模型中的抽象概念及其关系，对现实世界进行理解，获得具体概念及其具体关系所形成的；</li>
+<li>B.元模型是对模型的抽象，而模型是对现实世界的抽象；</li>
+<li>C.同一元模型，可以产生不同的模型；而同一现实世界，也可以产生不同的模型；</li>
+<li>D.相比元模型，模型是由一组抽象概念及其之间关系构成的。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+<p>解析:选项 A 说法是正确的,这是元模型和模型之间的关系;选项 B 的说法是正确的,这是元模型和模型之间的关系;选项 C 的说法是正确的,同一元模型,针对不同的问题领域是有不同的模型的,比如我们学习的 E-R 图就是一种元模型,但针对图书馆信息系统、学生管理系统等则会绘制出不同的 E-R 图。同一现实世界,不同人进行理解,也是可以产生不同的模型的。选项 D 的说法是不正确的,相比元模型,模型是由一组具体概念及其之间关系构成的。这里应该是“具体”,比如元模型中的“实体”是抽象概念,而学生管理系统中的“学生”“课程”等则就是具体的概念。</p>
+</blockquote>
+<p>   ​</p>
+<h2 id="第二讲-1"><a href="#第二讲-1" class="headerlink" title="第二讲"></a>第二讲</h2><ol>
+<li><p>下列哪些实体不是IDEF1X中的实体。不是IDEF1X中实体的选项为____________</p>
+<ul>
+<li>A.独立实体与从属实体</li>
+<li>B.相交实体或相关实体</li>
+<li>C.类实体与对象实体</li>
+<li>D.一般实体与分类实体</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>解析:IDEF1X 将实体细化,区分为独立实体和从属实体;为了消除非确定联系,引入了相交实体或相关实体;为了表达泛化与具体化,引入了一般实体和分类实体。故此选项 A、B 和 D 中都是 IDEF1X 的实体。而选项 C,类实体和对象实体,在 IDEF1X 中是不存在的。实体有型与值的区分,实体的型简单称实体,而实体的值称为实例。因此,实<br>体相当于类的概念,而实例则相当于对象的概念。但不存在类实体和对象实体的概念。</p>
+</blockquote>
+</li>
+<li><p>关于IDEF1X中的联系，下列说法不正确的是____________。</p>
+<ul>
+<li>A.标定联系和非标定联系都是一对多的联系（含一对一的联系）</li>
+<li>B.分类联系就是对实体的实例进行分类，将一个实体的实例分类为若干个实体的实例，分类实体的属性和被分类实体的属性完全一致</li>
+<li>C.不确定联系是多对多的联系，不能直接表达，需要将其转换为一对多的联系进行表达</li>
+<li>D.IDEF1X图的联系已经通过属性继承和相交实体反映出来了，因此图中实体连线上标注的联系名字仅起辅助阅读的作用，数据库设计时可以不考虑它</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为D</p>
+<p>解析:选项 A 的说法是正确的;选项 B 的说法是不正确的,分类联系不等同<br>于分类,如果分类实体的属性和被分类实体的属性完全一致,则其就不是分类实体也就不是分类联系,分类联系要求各个分类实体的关键字属性与被分类实体的关键字属性完全相同,但每个分类实体都有不同于其他分类实体的属性存在,因此选项 B 的说法不正确。选项 C的说法是正确的,要通过引入相交实体或称相关实体,将不确定联系转换为对相关实体的两个一对多联系进行表达。选项 D 的说法也是正确的,在 IDEF1X 图中,无论是实体还是联系都通过实体反映出来了(一是实体中的属性继承,一是相交/相关实体),因此实体之间的连线(无论有名字与无名字)仅起到辅助阅读的作用,数据库设计时完全不考虑它。</p>
+</blockquote>
+</li>
+<li><p>关于IDEF1X中的实体与联系，下列说法不正确的是____________</p>
+<ul>
+<li>A.IDEF1X的“实体”将来要转换成关系模式，而其“联系”仅起辅助阅读的作用；</li>
+<li>B.IDEF1X是通过“属性继承”在实体中建立了与另一个实体的连接联系(一对一或一对多的联系)；</li>
+<li>C.IDEF1X是通过“相交实体”建立了两个实体之间的多对多联系，因此相交实体本质上是一种联系。</li>
+<li>D.IDEF1X是通过继承另一个实体的关键字属性来建立两个实体之间联系的。被继承的关键字属性在本实体中作为一般属性还是作为关键字属性，没有什么差别；</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+<p>被继承属性作为关键字属性,则其取值是不能为空的,即完全参与联系,而作为一般属性,则其取值是可以为空的,即不完全参与联系。</p>
+</blockquote>
+</li>
+<li><p>下面两个图表达了合同与合同条目之间的关系。下列说法正确的是____________。</p>
+<p><img src="https://nos.netease.com/edu-image/6C791EDD498FA568DE2158BC74AA9EF7.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.图(a)是正确的，图(b)是正确的</li>
+<li>B.图(a)是不正确的，图(b)是正确的</li>
+<li>C.图(a)是正确的，图(b)是不正确的</li>
+<li>D.图(a)是不正确的，图(b)是不正确的</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为B</p>
+<p>解析:图(a)的“合同条目”实体应继承“合同”实体的主关键字,这里没有属性继承,故不正确;图(b)“合同条目”本身不是独立实体,应是从属实体。虽然说明合同项总序号可以区分开每一合同条目,但此处的合并反映不出“有联系,就要有属性继承”,故图(b)也是不正确的。</p>
+</blockquote>
+</li>
+<li><p>在某企业，通常多种物资可以一次性入库，填写一张入库单，则表达“入库单”与“物资”实体联系的IDEF1X图，相比之下最正确的是____________(注意，图中有意忽略联系的名称)</p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/74B365798838FC8EEB3E5842103C3719.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/50CA909E7D220388C83C59D569A250CF.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/2DD110B85B0D99FAF7488F3F4836A473.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/B89EA10C8F322221A56C79A0CD21ACC5.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为C</p>
+<p>解析:选项 A 图,从语法角度没有问题,但从内容角度是有问题的,此图表达的是“一张入库单只能填写一种物资(当然可以不填写)”与题意不符。选项 B 图,从语法角度没有问题,但从内容角度是有问题的,此图表达的是“一张入库单只能填写一种物资(当然可以不填写)”与题意不符。选项 C 图,从内容角度是没有问题的,此图表达的是“一张入库单可以填写多种物资”与题意相符,但从语法角度是有问题的,标定联系需用实线,而此处用的是虚线,故不正确。选项 D 图,从内容角度是没有问题的,此图表达的是“一张入库单可以填写多种物资”与题意相符,从语法角度也是没有问题的。</p>
+</blockquote>
+</li>
+<li><p>如下图所示为某同学绘制的IDEF1X图。该图表达的业务规则是____________。</p>
+<p><img src="https://nos.netease.com/edu-image/ACF6FB087B85E04FADC509EFF60ECA26.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.一个客户可以产生多张订单，一种商品能对应零或多个订单号，不同客户的相同订单号的订单对应不同种商品</li>
+<li>B.一个客户可以产生多张订单，一种商品仅能对应零或一个订单号，不同客户的相同订单号的订单对应不同种商品</li>
+<li>C.一个客户可以产生多张订单，一种商品仅能对应零或一个订单号，不同客户的相同订单号的订单对应同一种商品</li>
+<li>D.一个客户可以产生多张订单，一种商品能对应零或多个订单号，不同客户的相同订单号的订单对应同一种商品</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为A</p>
+<p>解析:选项 A+,该图表达的是一种商品能对应 0 或 1 个订单号,因为此实体的关键字是商品编码,每种商品仅出现一次,也就只能填一个订单号;此选项说对应多个订单号是不正确的;选项 C,因为商品实体仅继承了订单实体的部分关键字属性,此即不同客户的相同订单号的订单对应同一种商品,此选项说对应不同种商品是不正确的;选项 C,此说法符合图中的意思。选项 D,该图表达的是一种商品能对应 0 或 1 个订单号,因为此实体的关键字是商品编码,每种商品仅出现一次,也就只能填一个订单号;此选项说对应多个订单号是不正确的。</p>
+</blockquote>
+</li>
+<li><p>若要用IDEF1X表达实体X与实体Y之间的多对多的联系，引入一个相交实体Z。则如果要表达实体X的实例和实体Y的实例的一个组合，可以出现多次的情况，且实体X和实体Y的实例均不能以空值组合出现，IDEF1X图绘制正确的是____________。</p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/C862E81C10DC9B388E896B99BE201691.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/E57B7BE73D9492748BCC6803B1717166.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/BED79333B074A3577C741B08D79553DD.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/DF3CC80D3855CA056B443F83CFA5B8EA.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为B</p>
+<p>解析:由“实体 X 和实体 Y 的实例均不能以空值组合出现”则可排除选项 B和选项 D,因为作为一般属性继承的外键是可以为空值的。由“实体 X 的实例和实体 Y 的实例的一个组合,可以出现多次的情况”,则可排除选项 A,选项 A 是一种组合只能出现一次,而选项 C,则是一种组合可以出现多次。故此题答案为选项 C。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第三讲-1"><a href="#第三讲-1" class="headerlink" title="第三讲"></a>第三讲</h2><ol>
+<li><p>如果采用关系数据库来实现应用，在数据库设计的逻辑设计阶段将关系模式进行规范化处理；</p>
+</li>
+<li><p>需求分析：收集需求和理解需求；</p>
+</li>
+<li><p>概念数据库设计：建立概念模型，ER图、IDEF1X图</p>
+</li>
+<li><p>逻辑数据库设计：简历物理模型，“create table”包括物理数据组织等、依赖于具体的dbms；</p>
+</li>
+<li><p>关于数据库设计，下列说法正确的是                        。</p>
+<ul>
+<li>A.若要开发一个信息系统，首先要确定使用哪一个DBMS来进行管理，然后才能进行数据库设计</li>
+<li>B.概念数据库设计需要关注用E-R Diagram的思想来理解需求，而不能仅仅关注绘制E-R Diagram的图形</li>
+<li>C.逻辑数据库设计的关注点是属性、结构和命名的冲突问题，数据库设计的规范性问题和DBMS的选型问题</li>
+<li>D.物理数据库设计仅需要考虑数据量的大小、磁盘空间占用及存储结构等特性，但无关具体的DBMS</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+<li><p>若要对E-R图<img src="https://nos.netease.com/edu-image/7308B4ADD74D59264F6B169B80B96EA0.png?imageView&thumbnail=520x520&quality=100" alt="img">中“班主任”联系进行处理，说法正确的是<strong>。</strong></p>
+<ul>
+<li>A.需要建立一个“班主任”的关系</li>
+<li>B.不需要建立“班主任”关系，也不需任何处理</li>
+<li>C.不需要建立“班主任”关系，但需要做处理，即将“教师”实体的关键字作为“学生”实体对应关系的属性</li>
+<li>D.不需要建立“班主任”关系，但需要做处理，即将“学生”实体的关键字作为“教师”实体对应关系的属性</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为A</p>
+<p>解析:这是一个一对多的联系。选项 A 说法不正确,不需要单独为“班主任”建立一个关系。选项 B 说法不正确。不需要建立“班主任”关系,但需做处理;选项 C 说法正确。选项 D 说法不正确,属性继承时,是多方实体对应的关系继承单方实体的关键字作为属性。</p>
+</blockquote>
+</li>
+<li><p>如下所示Crow’s Foot方法表达的E-R图，问需要几个关系模式才能实现该E-R图。正确的选项是         。</p>
+<p><img src="https://nos.netease.com/edu-image/3E5A3656015DED0C8A301FC95C6726DC.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.5个</li>
+<li>B.4个</li>
+<li>C.3个</li>
+<li>D.2个</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+<p>解析:此图有三个实体可以用三个关系模式实现,有一个多对多的联系需要一个关系模式来实现,还有一个一对多的联系“聘任”,其可由实体“员工”对应的关系模式来实现,即在员工对应的关系模式中增加一个属性“商店号”即可。因此总计需要 4 个关系模式。</p>
+</blockquote>
+</li>
+<li><p>如下所示Chen方法表达的E-R图，将其转换为关系模式。不正确的选项是________。</p>
+<p><img src="https://nos.netease.com/edu-image/036C50A30B3A41ADBB08DD6283EB7E3F.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.学生(学号，姓名，出生日期)</li>
+<li>B.学生(学号，姓名，年，月，日)</li>
+<li>C.学生(学号，姓名，出生日期(年，月，日))</li>
+<li>D.学生(学号，姓名，出生日期)，出生日期(年，月，日)</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为D</p>
+<p>解析:选项 A 的转换是可以的,用程序解析出生日期提取年月日相关信息;选项 B 的转换是可以的,用程序合并年月日形成出生日期;选项 C 是不可以的,违反了关系的第一范式;选项 D 是可以的,出生日期这个关系可能没有什么意义,但从规则角度,类似这种类型的 E-R 图是可以这样转换的。</p>
+</blockquote>
+</li>
+<li><p>如下所示Chen方法表达的E-R图，将其转换为关系模式。不正确的选项是_________。</p>
+<p><img src="https://nos.netease.com/edu-image/3B7474D087DDDD934CDA0D2064909535.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.可以如下转换person（name, street, city）customer（name, credit-rating）employee（name, salary）</li>
+<li>B.可以如下转换person（name, street, city）customer（name, street, city, credit-rating）employee（name, street, city, salary）</li>
+<li>C.在一定条件下也可以如下转换customer（name, street, city, credit-rating）employee（name, street, city, salary）</li>
+<li>D.在一定条件下也可以如下转换customer（name, credit-rating）employee（name, street, city, salary）</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+<p>D。解析:选项 A 的转换是可以的,尽管存在查询 employee 的地址需要访问两个表的不利情况;选项 B 的转换是可以的,尽管存在地址信息可能同时存储三次的情况。选项 C 的转换是可以的,一定条件是指“ISA 联系是完全分类联系”。选项 D 的转换是不可以的,customer 丢失了相关地址信息,不符题意,故不正确。</p>
+</blockquote>
+</li>
+<li><p>关于E-R 图向关系模式的转换的规则正确的是_________。</p>
+<ul>
+<li>A.复合属性转换时只能将每个分量属性作为所在实体对应关系的属性</li>
+<li>B.一对一联系的转换只能将联系定义为一个新的关系，再将属性设为参与双方的关键字属性</li>
+<li>C.泛化实体与具体化实体在转换时，可以不要泛化实体，而仅将具体化实体转换成关系</li>
+<li>D.一对多联系的转换，需将多方参与实体的关键字作为单方参与实体对应关系的属性</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为A</p>
+<p>解析:选项 A 说法不正确,复合属性转换时,有两种方案并非单一一种,即:或者仅将分量属性转换到关系的属性,或者可将复合属性作为单一属性转换到关系的属性;选项 B 说法不正确,一对一联系的转换不需要定义新的关系,可将其与某一个实体一并转换成一个关系。选项 C 的说法是正确的,泛化实体与具体化实体在转换过程中,可以仅将具体化实体转换成关系。选项 D 的说法是不正确的,说反了,一对多联系的转换,需将单方参与实体的关键字作为多方参与实体对应关系的属性。</p>
+</blockquote>
+</li>
+<li><p><strong>下列由E-R图向关系模式转换具体实例中，明显不正确的是________。注意：关系模式中带下划线的属性为主键。</strong></p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/4DED9E5B241263E61C0953556398DC16.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/3A832D385907E9BA1C91ED836C067076.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/AEBC1959253576E8DEE681FA95351A20.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.<img src="https://nos.netease.com/edu-image/4317254E9551797FC348FC2AF049A684.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+<p>解析:选项 A 虽然也不是很正确,“一个供应商对一个项目供应零件仅能一次”这个假设是不正确的,但却有可能正确,因未明确给出。选项 B 的转换是正确的。选项C 的转换也是正确的。选项 D 的转换是不正确的,因为明确给出了“学生包含本科生、研究生、留学生、交换生等”,此分类联系是不完全分类联系,因此在转换关系模式的时候,泛化实体/一般实体是不能被弃掉的。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第四讲-1"><a href="#第四讲-1" class="headerlink" title="第四讲"></a>第四讲</h2><ol>
+<li><p>如果X决定Y，且在X决定Y中X没有多余的属性，则X→Y是**__**___。</p>
+<ul>
+<li>A.部分函数依赖</li>
+<li>B.传递函数依赖</li>
+<li>C.完全函数依赖</li>
+<li>D.多值依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+</blockquote>
+</li>
+<li><p>在关系模式R(U，F)中，如果X→Y，存在X的真子集X1，使X1→Y，称函数依赖X→Y为**__****__**_。</p>
+<ul>
+<li>A.平凡函数依赖</li>
+<li>B.部分函数依赖</li>
+<li>C.完全函数依赖</li>
+<li>D.传递函数依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+<li><p>如果X→Y，且Y→Z，则X→Z一定为**__**___。</p>
+<ul>
+<li>A.部分函数依赖</li>
+<li>B.传递函数依赖</li>
+<li>C.完全函数依赖</li>
+<li>D.都不正确</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为B</p>
+<p>解析：如果 X→Y，Y→Z，则 X→Z 是恒成立的，即其符合传递律。但若称其为传递函数依赖，则还需补充一些条件，即传递函数依赖比传递律要严格一些。故此，D正确。 </p>
+</blockquote>
+</li>
+<li><p>关系模式R(A1，A2，A3，A4，A5，A6)，如果A1→(A3，A4)； (A2，A4)→A5； (A3，A5)→ A6，则关于R的说法正确的是**__**___。</p>
+<ul>
+<li>A.即不存在对候选键的部分函数依赖，又不存在对候选键的传递函数依赖</li>
+<li>B.存在对候选键的部分函数依赖，但不存在对候选键的传递函数依赖</li>
+<li>C.不存在对候选键的部分函数依赖，但存在对候选键的传递函数依赖</li>
+<li>D.既存在对候选键的部分函数依赖，又存在对候选键的传递函数依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为C</p>
+<p>解析：此题候选键为(A1,A2)，能决定所有属性，但因有 A1→(A3,A4)，即存在部分函数依赖；又因有(A1，A2)→(A3，A5)；(A3，A5)→A6，所以存在传递函数依赖。</p>
+</blockquote>
+</li>
+<li><p>已知关系R如下表所示。仅就此表而言，函数依赖全部存在于R中的选项为**__**___。</p>
+<table>
+<thead>
+<tr>
+<th><strong>A1</strong></th>
+<th><strong>A2</strong></th>
+<th><strong>A3</strong></th>
+<th><strong>A4</strong></th>
+<th><strong>A5</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1</strong></td>
+<td><strong>2</strong></td>
+<td><strong>5</strong></td>
+<td><strong>4</strong></td>
+<td><strong>8</strong></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>6</strong></td>
+<td><strong>6</strong></td>
+<td><strong>9</strong></td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>2</strong></td>
+<td><strong>5</strong></td>
+<td><strong>4</strong></td>
+<td><strong>8</strong></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>7</strong></td>
+<td><strong>6</strong></td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>4</strong></td>
+<td><strong>5</strong></td>
+<td><strong>4</strong></td>
+<td><strong>8</strong></td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>4</strong></td>
+<td><strong>8</strong></td>
+<td><strong>5</strong></td>
+<td><strong>6</strong></td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>8</strong></td>
+<td><strong>5</strong></td>
+<td><strong>4</strong></td>
+<td><strong>8</strong></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>9</strong></td>
+<td><strong>8</strong></td>
+<td><strong>7</strong></td>
+<td><strong>6</strong></td>
+</tr>
+</tbody></table>
+<ul>
+<li>A.(A1，A2)→A4,  (A5, A4)→A3</li>
+<li>B.A1 →A4,   A5→A3</li>
+<li>C.(A2，A3)→A4，(A4，A5)→A2</li>
+<li>D.(A1，A3)→A4，(A3，A5)→A4</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为D</p>
+<p>解析：选项 A，这两个函数依赖均存在于 R 中；选项 B，这两个函数依赖均不存在于 R 中；选项 C，仅有（A2,A3）→A4 存在于 R 中；选项 D，仅有(A1,A3)→A4 存在于 R 中。 </p>
+</blockquote>
+</li>
+<li><p>已知关系R(A，B，C，D，E，F，G)，函数依赖集F为{ AB → CF，AD→CE，AG→B，D→C，B→D }，问：F的最小覆盖为**__**___。</p>
+<ul>
+<li>A.{ AB→C，AB→F，AD→C，AD→E，AG→B，B→D，D→C}</li>
+<li>B.{ AB→F，AD→E，AG→B，D→C，B→D}</li>
+<li>C.{ AB→F，AD→C，AG→B，D→C，B→D}</li>
+<li>D.{ A→F，B→F，AD→E，A→B，G→B，D→C，B→D}</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为D</p>
+</blockquote>
+</li>
+<li><p>已知关系R(A，B，C，D，E，F，G)，函数依赖集F为{ A →B，B→CDE，AD→G，CG→F }，问：能从F中推导出的函数依赖是**__**___。</p>
+<ul>
+<li>A.A→G， A→F</li>
+<li>B.C→F，G→F</li>
+<li>C.D→G，B→E</li>
+<li>D.B→G，C→G</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第五讲-1"><a href="#第五讲-1" class="headerlink" title="第五讲"></a>第五讲</h2><ol>
+<li><p>1NF即每个属性都是不可分的，没有复合属性和多值属性；</p>
+</li>
+<li><p>2NF即每个非主属性都完全依赖于候选键；</p>
+</li>
+<li><p>3NF没有传递依赖；</p>
+</li>
+<li><p>满足3NF必满足2NF，满足2NF必满足1NF</p>
+</li>
+<li><p>数据库的规范化是为了解决数据库中的插入问题、删除问题、以及数据冗余问题；</p>
+</li>
+<li><p>设有关系模式W(C,P,S,G,T,R)，其中各属性的含义是：C课程，P教师，S学生，G成绩，T时间，R教室，根据定义有如下数据依赖集  D={ C→P，(S,C)→G，(T,R)→C，(T,P)→R，(T,S)→R}。关系模式W的一个候选键是_____，W的规范化程度最高达到_____。 正确选项为__________。</p>
+<ul>
+<li>A. (S,C)，1NF</li>
+<li>B.(T,R)，3NF</li>
+<li>C.(T,P)，4NF</li>
+<li>D.(T,S)，2NF</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+</blockquote>
+</li>
+<li><p>在关系模式R(U，F)中，如果F是最小函数依赖集，则____________。</p>
+<ul>
+<li>A.R∈2NF</li>
+<li>B.R∈3NF</li>
+<li>C.R∈BCNF</li>
+<li>D.R的规范化程度与F是否最小函数依赖集无关。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你没选择任何选项</p>
+<p>注意一下</p>
+</blockquote>
+</li>
+<li><p>在关系模式R(U，F)中，R中任何非主属性对候选键完全函数依赖是R∈3NF的___________。</p>
+<ul>
+<li>A.充分必要条件</li>
+<li>B.必要条件</li>
+<li>C.充分条件</li>
+<li>D.既不充分也不必要条件</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+<p>前者是2NF的条件</p>
+</blockquote>
+</li>
+<li><p>对关系模式：学生(学号,姓名,课程号,课程名,成绩)，说法正确的是_________。</p>
+<ul>
+<li>A.不满足第2范式</li>
+<li>B.满足第2范式但不满足第3范式</li>
+<li>C.满足第3范式</li>
+<li>D.其他都不对</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+<p>有部分函数依赖</p>
+</blockquote>
+</li>
+<li><p>对关系模式：邮编(城市, 街道, 邮政编码)，说法正确的是_________。</p>
+<ul>
+<li>A.不满足第2范式</li>
+<li>B.满足第2范式但不满足第3范式</li>
+<li>C.满足第3范式</li>
+<li>D.其他都不对</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+</blockquote>
+</li>
+<li><p>一般情况，企业会将从一个供应商处一次所进的多种货物办理一次入库，因此设计了关系模式：入库单(单号, 日期, 库房, 供应商，物品, 数量, 金额)，下列说法正确的是___ ______。</p>
+<ul>
+<li>A.不满足第2范式</li>
+<li>B.满足第2范式但不满足第3范式</li>
+<li>C.满足第3范式</li>
+<li>D.其他都不对</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>对连锁商店的管理，设计了关系模式：商店(商店, 商品部, 商品，商品部经理)，下列说法正确的是_________。</p>
+<ul>
+<li>A.不满足第2范式</li>
+<li>B.满足第2范式但不满足第3范式</li>
+<li>C.满足第3范式</li>
+<li>D.其他都不对</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为C</p>
+<p>解析:依据题意寻找函数依赖有:(商店,商品)商品部,(商店,商品部),商品部经理。因此本题的候选键为(商店,商品),可以看出不存在部分函数依赖,满足第 2范式;但存在传递依赖,即商品部经理传递依赖于(商店,商品),不满足第 3 范式。故选项 B 正确。</p>
+</blockquote>
+</li>
+<li><p>对图书管理，已知一种图书只能放在一个房间，可放置在多个书架，一个书架可放置多本图书，一个房间有多个书架，一个房间有一个管理员，请分析关系模式：图书(书号, 书名, 出版日期, 出版社, 房间号, 书架号, 管理员)，说法正确的是        。</p>
+<ul>
+<li>A.不满足第2范式</li>
+<li>B.满足第2范式但不满足第3范式</li>
+<li>C.满足第3范式</li>
+<li>D.其他都不对</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>对设备管理，请分析关系模式：设备(设备编号, 设备名, 生产商编号，生产商名称，生产商地址，配件编号，配件名称，配件价格，设备价格)，说法正确的是_______________。</p>
+<ul>
+<li>A.不满足第2范式</li>
+<li>B.满足第2范式但不满足第3范式</li>
+<li>C.满足第3范式</li>
+<li>D.其他不对</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>已知关系模式R（A，B，C），函数依赖集F={B→C, B→A，A→BC}。则关于R，说法正确的是_______________。</p>
+<ul>
+<li>A.R不满足第2范式</li>
+<li>B.R满足第2范式但不满足第3范式</li>
+<li>C.R满足第3范式但不满足Boyce-Codd范式</li>
+<li>D.R满足Boyce-Codd范式</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为B</p>
+<p>解析:首先确定候选键,候选键为 A 能完全所有属性,B 也能完全决定所有属性,所以 A 和 B 为候选键,非主属性为 C。再进一步判断不存在部分函数依赖,不存在传递依赖,所以满足第 2 和第 3 范式。再看有没有不依赖于候选键的函数依赖,也不存在,故此 R 满足 Boyce-Codd 范式。选项 D 正确。</p>
+</blockquote>
+</li>
+<li><p>已知关系模式R（A，B，C，D），函数依赖集F={ A→C, DA→B }。则关于R，说法正确的是_______________。</p>
+<ul>
+<li>A.R不满足第2范式</li>
+<li>B.R满足第2范式但不满足第3范式</li>
+<li>C.R满足第3范式但不满足Boyce-Codd范式</li>
+<li>D.R满足Boyce-Codd范式</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>已知Sid商店，Pid商品编号，Cid商品名称，Did经营部，Mgr经营部经理，Scale经营部规模。下列属于3NF的关系模式是_________。</p>
+<ul>
+<li>A.R(Sid，Pid，Cid，Did，Mgr，Scale)</li>
+<li>B.R(Sid，Pid，Did)</li>
+<li>C.R(Sid，Pid，Cid，Did )</li>
+<li>D.R(Sid，Pid，Did，Scale)</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+<li><p>在R（XY）中，如果X→Y，并且对于X的某一个真子集X’，有X’→Y，则______。</p>
+<ul>
+<li>A.Y函数决定X</li>
+<li>B.Y对X完全函数依赖</li>
+<li>C.X为关系R的超码</li>
+<li>D.关系R属于2NF</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+</blockquote>
+</li>
+<li><p>设有关系模式R(A，B，C，D，E，F)，其函数依赖集为 { E→D，C→B，CE→F，B→A}，则R最高属于第几范式_________。</p>
+<ul>
+<li>A.1NF</li>
+<li>B.2NF</li>
+<li>C.3NF</li>
+<li>D.BCNF（Boyce-Codd范式）</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>设有关系模式R(A，B，C，D，E)，其函数依赖集为{A→B，CE→A，B→D}，则R最高属于第几范式_________。</p>
+<ul>
+<li>A.1NF</li>
+<li>B.2NF</li>
+<li>C.3NF</li>
+<li>D.BCNF（Boyce-Codd范式）</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第六讲"><a href="#第六讲" class="headerlink" title="第六讲"></a>第六讲</h2><ol>
+<li><p>关于模式分解，下列说法正确的是___________。</p>
+<ul>
+<li>A.一个数据库模式可以任意地分解为两个或多个模式，而其内容和依赖关系均将保持不变；</li>
+<li>B.将一个数据库模式R分解为两个模式R1和R2，则R上的任何关系r都有r = 投影(R1) (Natural-Join) 投影(R2)；</li>
+<li>C.将一个数据库模式R分解为两个模式R1和R2，则R1,R2一定能保证R上的函数依赖关系；</li>
+<li>D.我们可以找出将模式R既保持依赖又能无损连接的分解为两个模式R1和R2的方法。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为B</p>
+<p>解析:选项 A 的说法不正确,如果任意分解,内容和依赖关系不会保持不变。选项 B 的说法不正确,后面公式代表的是无损连接分解,任意分解是不一定会保证无损连接性的。 C 的说法不正确,任意分解是不一定会保持函数依赖关系的。选项 D 的说法是正确的,是有办法的。</p>
+</blockquote>
+</li>
+<li><p>关于关系的规范化，下列说法正确的是________。</p>
+<ul>
+<li>A.对于一个关系模式来说，规范化程度越高越好。</li>
+<li>B.满足Boyce-Codd范式的关系模式一定满足第三范式。</li>
+<li>C.第一范式要求非主属性完全函数依赖于候选键。</li>
+<li>D.当关系模式不满足某一范式时，可将其任意分解为两个关系模式并使每一个关系模式都满足该范式即可。</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+<p>解析:选项 A 说法不正确,通常达到第 3NF 或 Boyce-Codd 范式即可,并不是越高越好。选项 B 说法正确,满足 Boyce-Codd 范式则一定满足第三范式,反之则不然。选项 C 说法不正确,第一范式要求数据项是原子的,第二范式要求非主属性完全函数依赖于候选键。选项 D 说法不正确,不能任意分解,分解时要考虑无损连接性和保持依赖性。</p>
+</blockquote>
+</li>
+<li><p>给定关系模式R(U, F)，其中U={A1，A2，A3，A4，A5，A6} ，给定函数依赖集合F=A1→(A2,A3)；A3→A4；(A2,A3)→(A5,A6)； A6→A1 }，有一个分解r=R1(A1,A2,A3,A4)，R2(A3,A4,A5,A6)}，问该分解__________。</p>
+<ul>
+<li>A.既具有无损连接性，又保持函数依赖</li>
+<li>B.不具有无损连接性，但保持函数依赖</li>
+<li>C.具有无损连接性，但不保持函数依赖</li>
+<li>D.既不具有无损连接性，又不保持函数依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>解析:R1交R2 = (A3,A4) ,(A3,A4)既不能决定 A5,A6,又不能决定 A1,A2,故不具有无损连接性,因 A6→A1 既没有被 R1 保持,又没有被 R2 保持,所以不保持依赖。</p>
+</blockquote>
+</li>
+<li><p>注：如何判断是否能够无损连接：对几个小集合取交集，如果交集这个集合可以确定原来的集合，就能保证无损连接；</p>
+</li>
+<li><p>给定关系模式R(U, F)，其中U={A1，A2，A3，A4，A5，A6} ，给定函数依赖集合F=A1→(A2,A3)；A3→A4；(A2,A3)→(A5,A6)； A5→A1 }，有一个分解r=R1(A1,A2,A3,A4)，R2(A2,A3,A5,A6)}，问该分解__________。</p>
+<ul>
+<li>A.既具有无损连接性，又保持函数依赖</li>
+<li>B.不具有无损连接性，但保持函数依赖</li>
+<li>C.具有无损连接性，但不保持函数依赖</li>
+<li>D.既不具有无损连接性，又不保持函数依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+</blockquote>
+</li>
+<li><p>注：如何判断某一个分解是否保持函数依赖：看分解后的集合中是否具有所有原来的依赖关系</p>
+</li>
+<li><p>给定关系模式R(U, F)，其中U={A1，A2，A3，A4，A5，A6} ，给定函数依赖集合F=A1→(A2,A3)；A3→A4；(A2,A3)→(A5,A6)；A5→A2 }，有一个分解r=R1(A1,A2,A3,A4)，R2(A2,A3,A5,A6)}，问该分解__________。</p>
+<ul>
+<li>A.既具有无损连接性，又保持函数依赖</li>
+<li>B.不具有无损连接性，但保持函数依赖</li>
+<li>C.具有无损连接性，但不保持函数依赖</li>
+<li>D.既不具有无损连接性，又不保持函数依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>给定关系模式R(U, F)，其中U={A1，A2，A3，A4，A5，A6} ，给定函数依赖集合F=A1→(A2,A3)；A3→A4；(A2，A3)→A5；A6→A3 }，有一个分解r=R1(A1,A2,A3,A4)，R2(A2,A3,A5,A6)}，问该分解__________。</p>
+<ul>
+<li>A.既具有无损连接性，又保持函数依赖</li>
+<li>B.不具有无损连接性，但保持函数依赖</li>
+<li>C.具有无损连接性，但不保持函数依赖</li>
+<li>D.既不具有无损连接性，又不保持函数依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为A</p>
+<p>求出交集A2，A3，两个元素不能决定原来集合中的所有的元素因此不具备无损连接的特性；</p>
+</blockquote>
+</li>
+<li><p>给定关系模式R(U, F)，其中U={A1，A2，A3，A4，A5 } ，给定函数依赖集合F=A2→A1；A4→A1；A1→A5；(A1,A3)→A2；}。有一个分解r={R1(A1,A2,A3,A5)，R2(A3,A4)}，问该分解__________。</p>
+<ul>
+<li>A.既具有无损连接性，又保持函数依赖</li>
+<li>B.不具有无损连接性，但保持函数依赖</li>
+<li>C.具有无损连接性，但不保持函数依赖</li>
+<li>D.既不具有无损连接性，又不保持函数依赖</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+</blockquote>
+</li>
+<li><p>关系模式R(A1，A2，A3，A4，A5，A6)，给定函数依赖集合F={ A2→(A3，A5)；(A1，A3)→A6；(A2，A6)→ A4 }，则关于R，既保持依赖又无损连接地分解成第三范式，分解正确的是_________。</p>
+<ul>
+<li>A.r={R1(A2,A3, A5)，R2(A1,A3,A6)，R3(A2,A4,A6) }</li>
+<li>B.r={R1(A2,A3, A5)，R2(A1,A3,A6)，R3(A2,A4,A6)，R4(A1,A2) }</li>
+<li>C.r={R1(A2,A3,A5)，R2(A1,A2,A3,A4,A6)}</li>
+<li>D.r={R1(A1,A2,A3,A5)，R2(A2,A4,A6)}</li>
+</ul>
+<blockquote>
+<p>正确答案：B你没选择任何选项</p>
+<p>解析:选项 A,满足第三范式,保持依赖但不一定无损连接。选项 B,满足第三范式,保持依赖又无损连接,在保持依赖的基础上增加了包含候选键的关系。选项 C,保持依赖又无损连接,但不满足第三范式,此时 R2 候选键为(A1,A2,A3),A4 传递依赖于(A1,A2,A3),存在传递函数依赖。选项 D,既不保持依赖又不具无损连接性,而且不满足第<br>二范式,也就不满足第三范式;</p>
+</blockquote>
+<p>备注：上题需要判断是否满足第三范式，判断是否满足保持依赖，是否满足无损连接三个调节，可以逐一排除；满足第三范式，即在满足第一第二范式的基础上（每个元素不可分、每个非主属性都完全依赖于候选键）不存在传递依赖；</p>
+</li>
+<li><p>关系模式R(A1，A2，A3，A4，A5，A6，A7)，给定函数依赖集合F={ A1→A2； A1→A3； A3→A4；A3→A5；A5→(A6,A7) } 则关于R，既保持依赖又无损连接地分解成第三范式，分解正确的是_________。</p>
+<ul>
+<li>A.r={R1(A1,A2, A3)，R2(A3,A4,A5)，R3(A5,A6,A7) }</li>
+<li>B.r={R1(A1,A2,A3, A4,A5)，R2(A5,A6,A7) }</li>
+<li>C.r={R1(A1,A2, A3)，R2(A3,A4,A5,A6,A7) }</li>
+<li>D.r={R1(A2,A3,A6,A7)，R2(A1,A4,A5)}</li>
+</ul>
+<blockquote>
+<p>正确答案：A你没选择任何选项</p>
+<p>解析:选项 A,满足第三范式,保持依赖且无损连接。选项 B,保持依赖且无损连接,但存在传递依赖。选项 C,保持依赖且无损连接,但存在传递依赖。选项 D,满足第三范式,但即不具无损连接性,又不保持依赖。</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="下"><a href="#下" class="headerlink" title="下"></a>下</h1><h2 id="第一讲-2"><a href="#第一讲-2" class="headerlink" title="第一讲"></a>第一讲</h2><ol>
+<li><p>学习数据库物理存储，首先要理解磁盘的结构及其工作原理。下列说法正确的是_________。</p>
+<ul>
+<li>A.磁盘是由一组盘面构成，每个盘面又被从内到外划分成若干个同心圆，被称为磁道，而每个磁道又按圆周被划分成若干个扇形区域，被称为扇区。磁盘就是按照“盘面：磁道：扇区”来确定信息的存储地址的。一次磁盘操作只能读写一个盘面一个磁道的一个扇区。</li>
+<li>B.磁盘的盘面可以围绕主轴做高速旋转，进而可使某一扇区移动到磁头所在位置。一次磁盘操作可读写一个磁道的所有信息。</li>
+<li>C.磁盘通常有一个机械装置，称为读写臂，读写臂可使磁头沿磁盘的径向运动，使磁头在内侧磁道和外侧磁道之间移动，进而使磁头移动到某一磁道的某一扇区位置。一次磁盘操作可读写一个盘面的所有信息。</li>
+<li>D.一个磁盘的若干盘面可以同时旋转，位于不同盘面上的磁头可以同时移动。一次磁盘操作可以一次性读写多个盘面上相同磁道位置的扇区，即一次性读写多个扇区。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>解析：选项 A 说法不正确，“一次磁盘操作只能读写一个盘面一个磁道的一个扇区”不正确，可一次性读写多个扇区。</p>
+<p>选项 B 说法不正确，“一次磁盘操作可读写一个磁道的所有信息”不正确，一个磁道的所有扇区不能一次性读写出来。</p>
+<p>选项 C 说法不正确，“一次磁盘操作可读写一个盘面的所有信息”不正确，一个盘面包含多个磁道多个扇区，不能一次性读写完成。</p>
+<p>选项 D 说法是正确的。一次磁盘操作可以一次性读写多个盘面上相同磁道位置的扇区，即一次性读写多个扇区，因此不同盘面相同磁道位置被称为“柱面”，物理存储地址又可记为“盘面：柱面：扇区”。 </p>
+</blockquote>
+</li>
+<li><p>关于磁盘的读写问题。下列说法正确的是_________。</p>
+<ul>
+<li>A.磁盘可以一个存储字一个存储字的读写。</li>
+<li>B.磁盘仅可以以一个扇区为单位进行读写。</li>
+<li>C.磁盘可以以多个扇区为单位进行读写。</li>
+<li>D.其他说法都不正确。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为A</p>
+<p>。解析：选项 A 说法不正确，磁盘是机电装置，读写需要时间，所以不能以存储字为单位(太小)进行读写，应以批量换速度，一次读写更多的数据。选项 B 说法不正确，磁盘可以一次性读写多个扇区—相同柱面不同盘面的扇区可以一次性读写。选项 C 说法是正确的，磁盘可以以多个扇区为单位进行读写，相同柱面不同盘面的相同位置的扇区可以一次性读写。选项 D 说法是不正确的，因为其他中有正确的，故其本身不正确。</p>
+</blockquote>
+</li>
+<li><p>于磁盘的快速读写问题。下列说法不正确的是_________。</p>
+<ul>
+<li>A.将信息分块存储在同一磁道的连续扇区中，可以缩短磁盘读写数据的时间。</li>
+<li>B.将信息分块存储在不同盘面的相同柱面上，可以缩短磁盘读写数据的时间。</li>
+<li>C.将信息分块存储在多个磁盘上，多个磁盘同步工作，可以缩短磁盘读写数据的时间。</li>
+<li>D.将信息分块分散在不同柱面上存储，可以缩短磁盘读写数据的时间。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>不同柱面上的扇区是不能一次性读写完成的。</p>
+</blockquote>
+</li>
+<li><p>RAID，独立磁盘冗余阵列，是提高数据读写正确性和速度的重要方法。下列哪一项不是RAID可能采取的技术_________。</p>
+<ul>
+<li>A.块级拆分，将一个文件的不同块存储在不同磁盘上，保证数据读写的快速性。</li>
+<li>B.比特级拆分，将一个字节的不同位存储在不同磁盘上，保证数据读写的快速性。</li>
+<li>C.流水线，将数据组织成适宜于流水作业处理的结构，保存在多个磁盘上， 保证数据读写的快速性。</li>
+<li>D.互为校验盘，多个磁盘间互为校验盘，保证数据读写正确性。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>块级拆分，并行存取；，比特级拆分，并行存取；互为校验盘，可保证数据读写正确性；，盘内奇偶校验与盘间校验相结合，可进行纠错；</p>
+</blockquote>
+</li>
+<li><p>一个磁盘的基本信息为32个圆盘，64个盘面，每个盘面有65536个磁道，每个磁道(平均)有256个扇区，每个扇区有512个字节，问该磁盘的存储容量为_________。</p>
+<ul>
+<li>A.<img src="https://img2.ph.126.net/GL0kEohLl41OcABPSnf4dA==/6631680193678210214.png" alt="img"></li>
+<li>B.<img src="https://img2.ph.126.net/Q0Oq4CdXSbuo3t6wTp9IAA==/6631649407352626460.png" alt="img"></li>
+<li>C.<img src="https://img0.ph.126.net/P4aXTmQ53lgAIGOA8Tt2RQ==/6631271175349750104.png" alt="img"></li>
+<li>D.<img src="https://img1.ph.126.net/kvdr19rBg9K7bzEnIGEL1Q==/6631573541050311133.png" alt="img"></li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为C</p>
+<p>单位为B；</p>
+</blockquote>
+</li>
+<li><p>一个磁盘的基本信息为：磁盘以7200转/min旋转。柱面之间移动磁头组合从启动到停止需要1ms，每移动4000个柱面另加1ms。32个圆盘，64个盘面，每个盘面有65536个磁道，每个磁道(平均)有256个扇区，一个扇区512个字节，一个磁盘块=连续8个扇区的数据传输时间约为0.13毫秒。则读写16KB数据的时间为_________。</p>
+<ul>
+<li>A.最小时间为0.13毫秒</li>
+<li>B.最小时间为0.52毫秒</li>
+<li>C.最长时间为10.76毫秒</li>
+<li>D.最长时间为52.46毫秒</li>
+</ul>
+<blockquote>
+<p>B</p>
+</blockquote>
+</li>
+<li><p>下列说法正确的是_________。</p>
+<ul>
+<li>A.当数据库经过频繁的增加和删除记录后，数据库查询效率是不会发生变化的，即这种情况不会影响查询的。</li>
+<li>B.数据库以排序文件来组织，每当新增一条记录，都需要移动数据库记录以腾出空间将新增记录插入到其相应的排序位置。</li>
+<li>C.数据库以排序文件来组织，每当新增一条记录，将其写入溢出文件，DBA周期性地执行数据库命令以将溢出文件并入到排序文件中。</li>
+<li>D.建立一个股票交易数据库，应采用排序文件来组织，以提高检索速度。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>。解析：选项 A 说法不正确，频繁的增删记录后，数据库中会留存有被删除的记录(存在但不会显示出来)，会浪费存储空间，是会影响查询效率的。选项 B 说法不正确，每当新增记录时是将其放入溢出文件，待数据库重组时再合并到主文件中，因为大批量移动数据是危险的动作。选项 C 说法是正确的。选项 D 说法是不正确的，股票交易重要的是增删改数据的快速性，而不是检索速度，因此宜选用堆文件（无序文件）来组织数据。 </p>
+</blockquote>
+</li>
+<li><p>关于数据库的组织与存取方法，下列说法不正确的是________。</p>
+<ul>
+<li>A.当数据库是按照排序文件进行组织时，增加一条记录是将其写入溢出文件中，而不是直接写入排序文件；</li>
+<li>B.当对数据更新速度有较高要求时，通常采用无序记录文件即堆文件来组织；</li>
+<li>C.堆文件的查询访问速度要远高于排序文件的查询速度；</li>
+<li>D.无论是堆文件组织还是排序文件组织，在一段时间后都需要对数据库进行重组操作。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>数据库经过一段时间运行后需要进行重组，数据库重组可以提高数据库的访问效率。 </p>
+</blockquote>
+</li>
+<li><p>数据库重组是__________。</p>
+<ul>
+<li>A.对数据表的数据项进行调整；</li>
+<li>B.对数据表的记录进行调整；</li>
+<li>C.对数据表的物理存储进行调整；</li>
+<li>D.对数据表的结构进行调整；</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>解析：选项 A 说法是不正确的，对数据表的数据项进行调整，是数据库操纵，如 Update 语句；  选项 B 说法是不正确的，对数据表的记录进行调整，是数据库操纵，如Update 语句；选项 C 说法是正确的，调整数据表的物理存储是“数据库重组”；选项 D 说法是不正确的，改变数据表的结构或者说改变模式的定义，被称为“数据库重构”而不是“数据库重组”。 </p>
+</blockquote>
+</li>
+<li><p>关于数据库物理存储，下面说法正确的是__________。</p>
+</li>
+</ol>
+<ul>
+<li>A.DBMS总是把一个“表”存储成一个文件，一个文件仅包含一个表中的数据；</li>
+<li>B.DBMS既可以将若干个“表”的数据存储在一个文件中，又可以将一个“表”的数据存储在多个文件中；</li>
+<li>C.DBMS可以将若干个“表”的数据存储在一个文件中，但不可以将一个“表”的数据存储在多个文件中；</li>
+<li>D.DBMS不可以将若干个“表”的数据存储在一个文件中，但可以将一个“表”的数据存储在多个文件中；</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+<p>解析：选项 A 说法是不正确的，DBMS 并不总是把一个“表”存储成一个文件的。选项 B 说法是正确的，DBMS 既可以将若干个“表”的数据存储在一个文件中，又可以将一个“表”的数据存储在多个文件中，DBMS 可以将多个文件的数据组织成“表空间”进行管理。选项 C 说法是不正确的，DBMS 是可以将一个“表”的数据存储在多个文件中的。选项 D 说法是不正确的，DBMS 是可以将若干个“表”的数据存储在一个文件中的。 </p>
+</blockquote>
+<ol start="11">
+<li><p>在_________组织结构中，记录通常是以输入顺序存储的。</p>
+<ul>
+<li>A.顺序文件</li>
+<li>B.堆文件</li>
+<li>C.散列文件</li>
+<li>D.聚簇文件</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为A</p>
+<p>。解析：顺序文件是按照某一键值的顺序（升序或降序）存储；堆文件是无序记录文件，通常是按照记录的输入顺序存储的，但如要利用被删除记录的空间，则也可能将其插入到被删除记录的空间中。散列文件是按照关于键值的某一散列函数值确定的位置进行存储。聚簇文件是将一个表或多个表的数据集中在一起进行存储。</p>
+</blockquote>
+</li>
+<li><p>如果要将一批记录均匀地存储在n个数据块中，应采用_________组织结构。</p>
+<ul>
+<li>A.顺序文件</li>
+<li>B.堆文件</li>
+<li>C.散列文件</li>
+<li>D.聚簇文件</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为D</p>
+<p>散列文件组织具有将一批记录均匀存储在 n 个数据块中的特性。聚簇文件是将一个表或多个表的数据集中在一起进行存储。 </p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第二讲-2"><a href="#第二讲-2" class="headerlink" title="第二讲"></a>第二讲</h2><ol>
+<li><p>关于索引的下列说法正确的是_______。</p>
+<ul>
+<li>A.一个主文件上可以建立多个索引，但更新主文件数据时只更新一个索引</li>
+<li>B.一个主文件上只能建立一个索引，无论是更新还是查询都利用该索引</li>
+<li>C.一个主文件上只能有一个可决定物理存储的索引</li>
+<li>D.一个主文件上可以有一个或多个可决定物理存储的索引</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>解析:选项 A 说法是不正确的,更新主文件时必须更新该主文件的所有索引。选项 B 的说法是不正确的,一个主文件上可以建立多个索引。选项 C 说法是正确的,虽然一个主文件上可以建立多个索引,但只能有一个可决定物理存储的索引。选项 D 说法是不正确的,一个主文件上只能有一个可决定物理存储的索引。</p>
+</blockquote>
+</li>
+<li><p>关于索引的下列说法不正确的是_______。</p>
+<ul>
+<li>A.索引文件比主文件存储小很多，通常先查索引再找主文件速度会快很多</li>
+<li>B.索引文件存在与否不改变主文件的物理存储，所以索引可以随时被删除并重建</li>
+<li>C.虽然索引文件存在与否不改变主文件的物理存储，但更新主文件数据时要同步更新所有的索引</li>
+<li>D.索引文件增加了存储空间和维护负担，所以当主文件数据量很大时使用索引是效率不高的</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>索引是辅助存储结构,可以被随时删除并重建。</p>
+</blockquote>
+</li>
+<li><p>关于稀疏索引和稠密索引，下列说法正确的是_______。</p>
+<ul>
+<li>A.如果一个搜索码的值在稀疏索引中不存在，则在主文件中对应该搜索码值的记录也不存在</li>
+<li>B.如果一个搜索码的值在稀疏索引中存在一个，则在主文件中对应该搜索码值的记录也只存在一个</li>
+<li>C.如果一个搜索码的值在稠密索引中不存在，则在主文件中对应该搜索码值的记录也不存在</li>
+<li>D.如果一个搜索码的值在稠密索引中存在一个，则在主文件中对应该搜索码值的记录也只存在一个</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>解析:选项 A 说法是不正确的,稀疏索引是不一定包含主文件索引项的所有不同值的索引,所以搜索码的值在稀疏索引中不存在,不代表在主文件中也不存在。选项 B的说法是不正确的,稀疏索引可能是按索引项排序且无冗余存储的,如果索引项是非键属性,则搜索码的值在稀疏索引中仅存在一个,但在主文件中则可能存在多个。选项 C 说法是正确的,是这样的。选项 D 说法是不正确的,如果是非键属性上的索引,则搜索码的值在稠密索引上存在一个,其在主文件中可能存在多个。</p>
+</blockquote>
+</li>
+<li><p>关于主索引，下列说法不正确的是_______。</p>
+<ul>
+<li>A.主索引是对每一个存储块都有一个索引项</li>
+<li>B.主索引通常建立在有序主文件的基于主码的排序字段上</li>
+<li>C.主索引是关于主码的稠密索引</li>
+<li>D.主索引是按索引字段值进行排序的一个有序文件</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>解析:选项 A 说法是正确的,主索引是对每一存储块有一个索引项。选项 B说法是正确的,主索引通常建立在有序主文件的基于主码的排序字段上;选项 C 说法是不正确的,主索引通常是稀疏索引;选项 D 说法是正确的,主索引确实是按索引字段值进行排序的一个有序文件。</p>
+</blockquote>
+</li>
+<li><p>数据库主索引是一种_________的索引。</p>
+<ul>
+<li>A.对每一记录，都有一个索引项</li>
+<li>B.对每一存储块有一个索引项</li>
+<li>C.对索引字段上的每一个不同值有一个索引项</li>
+<li>D.其他都不对</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+<li><p>关于稠密索引的下列说法正确的是________。</p>
+<ul>
+<li>A.稠密索引是对每一个存储块都有一个索引项</li>
+<li>B.稠密索引的索引项的个数x与主文件索引字段上的不同值个数y有密切关系，一般而言要求x £ y</li>
+<li>C.主索引通常是关于主码的稠密索引</li>
+<li>D.稠密索引通常是按索引字段值进行排序的一个有序文件</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>解析:选项 A 说法是不正确的,“每一存储块有一个索引项”通常是稀疏索引。选项 B 说法是不正确的,稠密索引要求 x&gt;=y,即至少要包含主文件索引字段上的每一个不同值;选项 C 说法是不正确的,主索引通常是关于主码的稀疏索引;选项 D 说法是正确的,稠密索引确实是按索引字段值进行排序的一个有序文件。</p>
+</blockquote>
+</li>
+<li><p>关于索引的下列说法正确的是____________。</p>
+<ul>
+<li>A.在任何情况下，用索引进行查询都比不用索引进行查询要快</li>
+<li>B.执行一条查询语句，当有索引时，DBMS总是首先在索引中查找，然后根据索引中的指针到主文件中查找</li>
+<li>C.索引是DBMS自动建立和维护的，DBA或者用户无需建立也不能建立索引</li>
+<li>D.主索引是DBMS自动建立和维护的，关于其他数据项上的索引需要DBA来建立，DBMS可自动维护DBA建立的索引</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为B</p>
+<p>解析:选项 A 说法是不正确的,当主文件数据量较少时,用索引进行查询可能要多花一些时间,因为检索完索引,再检索主文件。选项 B 说法是不正确的,DBMS 会依据检索条件确定是否使用索引;选项 C 说法是不正确的,除主索引是 DBMS 自动建立的,其他索引可以由用户或 DBA 依据需要建立,但所有索引都是 DBMS 自动维护的;选项 D 说<br>法是正确的。</p>
+</blockquote>
+</li>
+<li><p>关于索引的下列说法不正确的是__________。</p>
+<ul>
+<li>A.主索引是对每一个存储块都有一个索引项</li>
+<li>B.稠密索引，对于Table中索引字段的每一个不同值，总是有一个索引项</li>
+<li>C.稠密索引，对于Table中的每一个记录，总是有一个索引项</li>
+<li>D.稀疏索引是对于Table中的部分记录有索引项</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为B</p>
+<p>解析:选项 A 说法是正确的,主索引确实是对每一个存储块都有一个索引项;选项 B 说法是正确的,稠密索引是对于 Table 中索引字段的每一个不同值,都有一个索引项;选项 C 说法是不正确的,稠密索引对于 Table 中的每一个记录,并不总是有一个索引项,而对于 Table 中索引字段的每一个不同值总是有一个索引项;选项 D 说法是正确的,稀疏索<br>引确实是对于 Table 中的部分记录有索引项。</p>
+</blockquote>
+</li>
+<li><p>关于聚簇索引和非聚簇索引，下列说法正确的是__________。</p>
+<ul>
+<li>A.聚簇索引中邻近的记录在主文件中不一定是邻近存储的，聚簇索引中一定不存在重复键值的索引项</li>
+<li>B.聚簇索引中邻近的记录在主文件中一定是邻近存储的，聚簇索引中一定不存在重复键值的索引项</li>
+<li>C.一个主文件只能有一个聚簇索引文件，但可以有多个非聚簇索引文件</li>
+<li>D.一个主文件可以有多个聚簇索引文件，也可以有多个非聚簇索引文件</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为D</p>
+<p>解析:选项 A 说法是不正确的,两个错误点:“不一定临近存储”和“一定不存在重复键值”。选项 B 说法是不正确的,一个错误点:“一定不存在重复键值”。选项 C说法是正确的。选项 D 说法是不正确的,一个错误点:“有多个聚簇索引文件”。</p>
+</blockquote>
+</li>
+<li><p>用B+树建立主索引，下列说法正确的是__________。</p>
+<ul>
+<li>A.叶结点某索引项X的左侧指针，指向键值=X记录所在的主文件存储块</li>
+<li>B.非叶结点某索引项X的左侧指针，指向键值=X记录所在的主文件存储块</li>
+<li>C.叶结点某索引项X的左侧指针指向键值&lt;X记录所在的主文件存储块</li>
+<li>D.非叶结点某索引项X的左侧指针指向键值&lt;X记录所在的主文件存储块；</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为C</p>
+<p>解析:选项 A 说法是正确的。选项 B 说法是不正确的,非叶结点索引项 X 的左侧指针指向的是键值小于 X 的索引文件存储块。两个错误点,一是“=X”不正确,二是“主文件存储块”。选项 C 说法是不正确的,“&lt;X”不正确。选项 D 说法是不正确的,“主文件存储块”不正确,应是“索引文件存储块”。</p>
+<p>注意看是否是叶节点，叶节点直接指向了对应的文件存储块；</p>
+</blockquote>
+</li>
+<li><p>用B+树建立主索引，下列说法正确的是__________。</p>
+<ul>
+<li>A.叶结点某索引项X的左侧指针，指向键值=X记录所在的索引文件存储块</li>
+<li>B.非叶结点某索引项X的左侧指针，指向键值=X记录所在的索引文件存储块</li>
+<li>C.叶结点某索引项X的左侧指针指向键值&lt;=X记录所在的索引文件存储块</li>
+<li>D.非叶结点某索引项X的左侧指针指向键值&lt;X记录所在的索引文件存储块</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为C</p>
+<p>没有&lt;=这一说</p>
+</blockquote>
+</li>
+<li><p>已知存储块大小为4096字节，在整型属性(一个整型数值占有4个字节)上建立B+树索引，一个指针占有8个字节，则该存储块最多能有______个索引项和______个指针。</p>
+<ul>
+<li>A.340， 341；</li>
+<li>B. 339， 340；</li>
+<li>C.341， 342；</li>
+<li>D.341， 340；</li>
+</ul>
+<blockquote>
+<p>正确答案：A你没选择任何选项</p>
+<p>解析:首先是具有 n 个索引项,n+1 个指针,因此选项 D 不正确,被排除。其次应用公式 4n+8(n+1)&lt;=4096,n 最大为 340.66 取整即为 340。索引项为 340 个,指针为341 个,选项 A 正确,选项 B 不正确和选项 C 不正确。</p>
+</blockquote>
+</li>
+<li><p>已知存储块大小为4096字节，在整型属性(一个整型数值占有4个字节)上建立B树索引，一个指针占有8个字节，则该非叶结点存储块最多能有______个索引项和______个指针。</p>
+<ul>
+<li>A.340， 341；</li>
+<li>B.340， 342；</li>
+<li>C.204， 410；</li>
+<li>D.204， 408；</li>
+</ul>
+<blockquote>
+<p>正确答案：C你没选择任何选项</p>
+<p>解析:这里要注意 B 树和 B+树的差别是 B 树非叶结点,每个索引项包含两个指针,一个指针指向索引文件存储块,一个指针指向主文件存储块。非叶结点首先是具有n 个索引项,(n+1)*2 个指针,应用公式 4n+8(n+1)*2&lt;=4096,n 的最大值为 204。由此可知204 个索引项,和 410 个指针,选项 C 是正确的。</p>
+</blockquote>
+</li>
+<li><p>关于B+树可以建立何种索引，下列说法不正确的是_________。</p>
+<ul>
+<li>A.用B+树可义建立候选键属性上的稀疏索引，但主文件必须按该属性排序存储</li>
+<li>B.用B+树可义建立候选键属性上的稠密索引，但主文件必须按该属性排序存储</li>
+<li>C.用B+树可义建立非候选键属性上的稠密索引；主文件可以按该属性排序存储，也可以不按该属性排序存储</li>
+<li>D.用B+树可义建立候选键属性上的稠密索引；主文件可以按该属性排序存储，也可以不按该属性排序存储</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为D</p>
+<p>解析:选项 A 说法是正确的。选项 B 说法不正确,如果建立候选键属性的稠密索引,主文件可以按该属性排序存储,也可以不按该属性排序存储。选项 C 说法是正确的。选项 D 说法是正确的。</p>
+</blockquote>
+</li>
+<li><p>关于B+树，下列说法不正确的是_________。</p>
+<ul>
+<li>A.如果发生合并，则一定会减少索引存储块的数目</li>
+<li>B.如果发生合并，则不一定会减少索引存储块的数目</li>
+<li>C.如果发生分裂，则一定会增加索引存储块的数目；</li>
+<li>D.如果发生分裂与合并，则一定伴随着指针的调整</li>
+</ul>
+<blockquote>
+<p>正确答案：A你错选为B</p>
+<p>解析:选项 A 说法是不正确的,合并可能会调整左右相邻结点的索引项,不一定会增加索引存储块的数目。选项 B 说法是正确的。选项 C 说法是正确的。选项 D 说法d是正确的。</p>
+</blockquote>
+</li>
+<li><p>关于B+树，下列说法正确的是_________。</p>
+<ul>
+<li>A.B+树在任何情况下都可以保证结点中指针的使用率大于等于50%</li>
+<li>B.B+树中所有结点的索引项，才能覆盖主文件的完整索引</li>
+<li>C.如果用B+树建立主索引，则B+树中所有结点的索引项都包含指向主文件存储块的指针</li>
+<li>D.B+树索引的所有叶子结点构成主文件的一个排序索引</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>选项 A 说法是不正确的,根结点中指针的使用不必一定大于等于 50%。选项 B 说法是不正确的,B 树是所有结点的索引项才能覆盖主文件的完整索引,但 B+树仅需要所有叶子结点的索引项,即可覆盖主文件的完整索引。选项 C 说法是不正确的,B+树中只有叶子结点的索引项包含指向主文件存储块的指针。选项 D 说法是正确的。</p>
+</blockquote>
+</li>
+<li><p>某同学X欲产生一棵B+树，绘制出了如下图所示的结果。另一位同学Y总结了该图作为B+树存在的问题如下： (I) 键值45的非叶结点的索引项不正确；(II) 键值13的叶结点的最右指针指向不正确；(III) 键值30的非叶结点不应该存在，应被合并到键值45的结点中；(IV)键值35的结点应被删除，因为键值30的结点被合并后，不需要了。(V)键值13的叶结点也应该被合并。按照B+树要求，你认为Y同学的说法哪些是正确的。正确的选项是_______________。</p>
+<p><img src="https://nos.netease.com/edu-image/F836D272898ECB57BB6709294CB6B7D9.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.Y同学的(I)-(V)说法都是正确的</li>
+<li>B.Y同学的(I)(II)III)(IV)(V)说法都是不正确的</li>
+<li>C.Y同学的(I)(II)III)(IV)说法是正确的，(V)说法不正确</li>
+<li>D.Y同学的(I)(II)(III)说法是正确的，(IV)(V)说法不正确</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为D</p>
+<p>解析:Y 同学的说法(I)正确,键值 45 的非叶结点的索引项不正确,与左侧指针指向的索引项键值相等不符合要求;说法(II)正确,键值 13 的叶结点的最右指针应指向下<br>一叶结点,不应指向 Null;说法(III)正确,键值 30 的非叶结点利用的指针数少于 1/2,应被合并。说法(IV)正确,键值 35 的结点确实不需要了,因为只需一个非叶结点即可。说法(V)不正确,键值 13 的叶结点可以不被合并。因此说(I)(II)(III)IIV)说法正确,而(V)说法不正确。因此,选项 C 是本题的正确答案。</p>
+</blockquote>
+</li>
+<li><p>已知一个存储块可存放主文件的5条记录，或存放索引文件的20个索引项。已知主文件有n条记录， 则创建稠密索引和稀疏索引各需要的存储块数是____和_____。</p>
+<ul>
+<li>A.n，n/20</li>
+<li>B.n/5，n/20</li>
+<li>C.n/20，n/5</li>
+<li>D.n/20，n/100</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>解析:主文件有 n 条记录,则索引键值个数可能有 n 个,即索引项个数可能有 n 个,一块可存放 20 个索引项,故创建稠密索引需要的存储块数是 n/20。而稀疏索引可以是为每一主文件的磁盘块建立一索引项,主文件 n 条记录,每存储块可存放 5 条记录,因此共需 n/5 个磁盘块,即有 n/5 个稀疏索引的索引项,一块可存放 20 个索引项,故创建稀疏<br>索引所需要的存储块数是 n/5/20,即 n/100。选项 D 正确。</p>
+<p>​</p>
+</blockquote>
+</li>
+<li><p>已知一个存储块可存放主文件的50条记录，或存放索引文件的500个索引项，要求存放主文件数据和存放索引文件数据的存储块最多只能填满80%， 已知主文件有n条记录， 则创建稠密索引和稀疏索引各需要的存储块数是____和_____。</p>
+<ul>
+<li>A.n/50，n/500</li>
+<li>B.n/40，n/400</li>
+<li>C.n/500，n/25000</li>
+<li>D.n/400，n/16000</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为C</p>
+<p>解析:主文件有 n 条记录,则索引键值个数可能有 n 个,即索引项个数可能有 n 个,一块可存放 500 个索引项但只能填满 80%,故创建稠密索引需要的存储块数是n/(500<em>0.8)。而稀疏索引可以是为每一主文件的磁盘块建立一索引项,主文件 n 条记录,每存储块可存放 50 条记录但只能填满 80%,因此共需 n/(50</em>0.8)个磁盘块,即有 n/(50<em>0.8)个<br>稀疏索引的索引项,一块可存放 500 个索引项但只能填满 80%,故创建稀疏索引所需要的存储块数是 n/((50</em>0.8)<em>(500</em>0.8)),即 n/100。选项 D 正确。</p>
+</blockquote>
+</li>
+</ol>
+<ol start="20">
+<li><p>主索引通常确定“表”数据的______。</p>
+<ul>
+<li>A.唯一性</li>
+<li>B.取值范围</li>
+<li>C.逻辑顺序</li>
+<li>D.物理顺序</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为C</p>
+<p>主索引通常是确定“表”数据物理存储顺序的索引。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第三讲-2"><a href="#第三讲-2" class="headerlink" title="第三讲"></a>第三讲</h2><ol>
+<li><p>已知BX为关系X的磁盘块数目，IX为关系X的元组的长度，TX为关系X的元组的数目，b为磁盘块或内存页的大小，M为可用内存页的数目。问：以下算法的适用条件是________。</p>
+<p><img src="https://nos.netease.com/edu-image/BA039305AAD4E881298399C834A36BE7.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.BR &lt; BS，BS &lt;M</li>
+<li>B.BR &gt; BS，BS &lt;M</li>
+<li>C.BS&gt; BR，BR &lt;M</li>
+<li>D.BS &lt; BR，BR &lt;M</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>解析:如上算法是一次性将 R 完整的读入到内存,将 S 一块一块的读入内存进行处理,因此只要 B R &lt;M,则无论 S 有多大都能被处理,因此“B S &gt; B R ,B R &lt;M”是正确<br>的。</p>
+</blockquote>
+</li>
+<li><p>已知BX为关系X的磁盘块数目，IX为关系X的元组的长度，TX为关系X的元组的数目，b为磁盘块或内存页的大小，M为可用内存页的数目，MX为分配给X的内存区域。问：不考虑结果关系的存取，以下算法的复杂性是________。</p>
+<p><img src="https://nos.netease.com/edu-image/336A7E5B4886D67AEDF4A4C4BB8630DD.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.BRBS  + BS</li>
+<li>B.(BR+BS )(M-2) + BS</li>
+<li>C.BRBS /(M-2) + BS</li>
+<li>D.(BR+BS )/(M-2)) + BS</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+<p>该算法一次性读入 S 的 M-2 个存储块,循环处理一遍 R 的每一个存储块。R 被循环读取了 B S /(M-2)次,S 被读取了一次。故正确答案为“B R B S /(M-2) + B S ”。</p>
+</blockquote>
+</li>
+<li><p>已知BX为关系X的磁盘块数目，IX为关系X的元组的长度，TX为关系X的元组的数目，b为磁盘块或内存页的大小，M为可用内存页的数目，MX为分配给X的内存区域。问：关于以下两个算法(a)(b)，说法正确的是______________。</p>
+<p><img src="https://nos.netease.com/edu-image/D4ADE76FF04A1490E7A1624166106A42.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.算法(a)和算法(b)的复杂性是相同的，算法(a)和算法(b)的适用条件是相同的</li>
+<li>B.算法(a)和算法(b)的复杂性是相同的，算法(a)和算法(b)的适用条件是不同的</li>
+<li>C.算法(a)和算法(b)的复杂性是不同的，算法(a)和算法(b)的适用条件是相同的</li>
+<li>D.算法(a)和算法(b)的复杂性是不同的，算法(a)和算法(b)的适用条件是不同的</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为D</p>
+<p>。解析:算法(a)和(b)的复杂性都是 B R +B S ,是相同的。但适用条件是不同的,算法(a)适用于内存充分大,足以装得下两个关系时才可应用;而算法(b)适用于内存只要能够完整的装下一个关系时即可应用。</p>
+</blockquote>
+</li>
+<li><p>下列关系代数操作，任何时候都能够用一趟算法实现的是______。</p>
+<ul>
+<li>A.<img src="https://nos.netease.com/edu-image/3AFBB10B2A971E6BCE5167C733EC2184.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>B.<img src="https://nos.netease.com/edu-image/83067DB3DF4857172AE854F869E90E67.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>C.<img src="https://nos.netease.com/edu-image/7314ABF314F972F5A99ADFFD909FC811.png?imageView&thumbnail=520x520&quality=100" alt="img"></li>
+<li>D.其他都不对</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为D</p>
+<p>解析:选择操作和包上的并操作,在任何时候都可以用一趟算法实现之。而集合上的并操作则不一定能够用一趟算法实现之。故选项(B)是正确的。</p>
+</blockquote>
+</li>
+<li><p>关于给出的九个关系代数操作：</p>
+<p><img src="https://nos.netease.com/edu-image/5B02D30BBDBCBEA69387445D48A7FF21.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<p>问任何时候都能够用一趟算法实现的操作的个数是_______。</p>
+<ul>
+<li>A.0</li>
+<li>B.1</li>
+<li>C.2</li>
+<li>D.大于2</li>
+</ul>
+<blockquote>
+<p>正确答案：B你没选择任何选项</p>
+<p>解析:这九个操作只有包上的并操作,在任何时候都可以用一趟算法实现之。其他均都不一定能够用一趟算法实现之。故选项(B)是正确的。</p>
+</blockquote>
+</li>
+<li><p>已知R和S的参数BR=BS=10,000，可用内存页数目为M。若要进行R和S的Theta-连接操作，没有索引可以使用，忽略结果存取的I/O次数。问：M分别应是怎样的值，才能使磁盘的I/O次数不超过(1)200,000，(2)25,000，(3)20,000。结果正确的是______________。</p>
+<ul>
+<li>A.M&gt;560， M&gt;6,000， M&gt;20,000</li>
+<li>B.M&gt;500， M&gt;10,000，M&gt;30,000</li>
+<li>C.M&gt;530， M&gt;6700，M&gt;10,000</li>
+<li>D.M&gt;630， M&gt;4,700，M&gt;15,000</li>
+</ul>
+<blockquote>
+<p>正确答案：C你没选择任何选项</p>
+<p>解析:<br>依据大关系算法复杂性“B R B S /(M-2) + B S ”。如 B R B S /(M-2) + B S &lt;200,000,则可求出 M 应大于 530,如 B R B S /(M-2) + B S &lt;25,000,则可求出 M 应大于 6700。20,000 次只允许 R 和 S 各装入内存一次,此时只需要将 R 或 S 中的某一个完全装入内存,而另一个可以一块一块装入,即 M 应大于 10,000 即可。故选项 C 是正确的。</p>
+</blockquote>
+</li>
+<li><p>下面是一个迭代器实现算法。该算法实现的是____________操作。</p>
+<p><img src="https://nos.netease.com/edu-image/D8CD4BBF45B7A2AFBF7D256D30877E35.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.R并S</li>
+<li>B.R 交S</li>
+<li>C.R - S</li>
+<li>D.S - R</li>
+</ul>
+<blockquote>
+<p>正确答案：A你没选择任何选项</p>
+</blockquote>
+</li>
+<li><p>下面是一个迭代器实现算法。该算法实现的是____________操作。</p>
+<p><img src="https://nos.netease.com/edu-image/3A8FEF0213469009B1AC9AAFD24DEB67.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.R 并S</li>
+<li>B.R 交S</li>
+<li>C.R - S</li>
+<li>D.S - R</li>
+</ul>
+<blockquote>
+<p>正确答案：C你没选择任何选项</p>
+</blockquote>
+</li>
+<li><p>下面是一个迭代器实现算法。该算法实现的是____________操作。</p>
+<p><img src="https://nos.netease.com/edu-image/918D586A4F1685C9D87FDC83F3219B61.png?imageView&thumbnail=520x520&quality=100" alt="img"></p>
+<ul>
+<li>A.R 并 S</li>
+<li>B.R 交 S</li>
+<li>C.R - S</li>
+<li>D.S - R</li>
+</ul>
+<blockquote>
+<p>正确答案：B你没选择任何选项</p>
+</blockquote>
+</li>
+<li><p>假设关系R的元组个数为T(R)，元组的大小为I(R)，存储块的大小为b，B(R)=T(R)*I(R)/b。关于表空间扫描算法，下列说法正确的是________。</p>
+<ul>
+<li>A.表空间扫描算法的复杂性始终为B(R)</li>
+<li>B.表空间扫描算法的复杂性可能为B(R)，也可能为T(R)</li>
+<li>C.表空间扫描算法的复杂性始终为T(R)</li>
+<li>D.其他说法都不正确</li>
+</ul>
+<blockquote>
+<p>正确答案：B你没选择任何选项</p>
+<p>解析:利用表空间扫描算法,还要看关系是如何存储的,如果是聚簇关系(一个块中仅是该关系的元组),则其复杂性为 B(R),但如果是非聚簇关系,如果一个块中多个关系的元组混合存放,则可能一个元组在一个块中,则其复杂性为 T(R)。故选项 B 是正确的。选项 E,因为其他中有正确的,故此不正确。</p>
+</blockquote>
+</li>
+<li><p>已知关系R的参数如下：聚簇存储磁盘块数B(R) = 1,000，元组数T(R) = 20,000，R中属性A的不同值的个数记为V(R, A)=100。R上有基于属性A的排序索引。关于<strong>s</strong>A=0(R)，下列说法正确的是_______。</p>
+<ul>
+<li>A.如果R是聚簇存储的且不使用索引，则该操作的执行代价为1000个I/O</li>
+<li>B.如果不使用索引，则该操作的执行代价为1000个I/O</li>
+<li>C.如果R是聚簇存储的且使用索引，则该操作的执行代价为1000个I/O</li>
+<li>D.如果R是聚簇存储的且使用索引，则该操作的执行代价平均为100个I/O</li>
+</ul>
+<blockquote>
+<p>正确答案：A你没选择任何选项</p>
+<p>解析:选项 A 是正确的,聚簇存储且不使用索引,查询代价为 B(R)。选项 B是不正确的,因为如果 R 是非聚簇存储的,则其执行代价可能是 I(R)=20,000,此时要看 R是聚簇存储的还是非聚簇存储的。选项 C 是不正确的,如果使用索引,则其执行代价通常是远小于 B(R)的。选项 D 是不正确的,如果 R 是聚簇存储的且使用索引,则查询代价=B(R)/V(R,A)=1000/100=10 个 I/O。</p>
+</blockquote>
+</li>
+<li><p>关于<strong>去</strong>重复&amp;(R)操作的一趟扫描算法，下列说法不正确的是____________。</p>
+<ul>
+<li>A.非精确的讲，算法的应用前提是B(R) &lt; =M，其中M为可用内存块数，B(R)为R中数据所占用的磁盘块数。</li>
+<li>B.算法的关键是建立内存数据结构，可以建立散列结构，也可以建立排序结构，目的是进行快速比较。</li>
+<li>C.算法可以做到只与一个内存块中的数据进行比较，即可判断出是否有重复。</li>
+<li>D.算法需要首先对R的所有数据建立内存数据结构，然后才能判断是否有重复的元组存在。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你选对了</p>
+<p>解析:选项 A 说法是正确的,只要内存块数足以装得下整个关系,即可执行。更严格的说,只要内存块数足以装得下关系中不重复值的元组数目,即可执行。选项 B 说法是正确的。选项 C 说法是正确的,可以通过散列,将具有相同值的元组散列到同一内存块中,因此同一内存块中没有重复,则即是没有重复。选项 D 说法不正确,不需要首先对 R<br>的所有数据建立内存数据结构,可以边执行边建立即可。</p>
+</blockquote>
+</li>
+<li><p>分组聚集操作的一趟扫描算法______________。</p>
+<ul>
+<li>A.非精确的讲，算法的应用前提是B(R) &lt; =M，其中M为可用内存块数，B(R)为R中数据所占用的磁盘块数</li>
+<li>B.算法的关键是建立内存数据结构，可以建立散列结构，也可以建立排序结构，目的是进行快速比较</li>
+<li>C.算法可以做到一条记录只与一个或少量几个内存块中的数据进行分组聚集计算</li>
+<li>D.算法可以边执行边建立内存数据结构，即仅对已处理过的数据建立内存数据结构，便可进行各个分组的聚集计算</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为A</p>
+<p>解析:选项 A 说法是正确的,只要内存块数足以装得下整个关系,即可执行。更严格的说,只要内存块数足以装得下关系中所有的分组及其每一分组上的不同值,即可执行。选项 B 说法是正确的。选项 C 说法是正确的,可以通过散列,将具有相同分组值的元组散列到同一内存块中。选项 D 说法是不正确的,有些分组聚集计算是在建立起完整的数据结构后才能进行,但有些是可以的。选项 E 说法是正确的,需要首先对 R 的所有数据建立内存数据结构(将相同组的数据聚集在一起),然后再分组聚集计算即可。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="第四讲-2"><a href="#第四讲-2" class="headerlink" title="第四讲"></a>第四讲</h2><ol>
+<li><p>已知内存共有8块，若要排序有70块的数据集，应如何组织，才能使磁盘读写次数最少。下列方案中磁盘读写次数最少的方案是________。</p>
+<ul>
+<li>A.方案I：(1)以8块为一个单位划分子集合，每个子集合进行内排序并存储，形成9个已排序子集合（其中包含一个仅有6块的子集合）；(2)接着在9个子集合中选择3个子集合  (其中包含仅有6块的子集合)，进行一个三路归并，形成一个已排序子集合；(3)再将剩余5个子集合与刚才归并后形成的子集合，进行一个七路归并，形成最终的已排序集合。这个方案的磁盘读写次数最少。</li>
+<li>B.方案II：(1)以7块为一个单位划分子集合，每个子集合进行内排序并存储，形成10个已排序子集合；(2)接着在10个子集合中任选5个子集合进行一个五路归并，形成一个已排序子集合；(3)再将剩余5个子集合与刚才归并后形成的子集合，进行一个六路归并，形成最终的已排序集合。这个方案的磁盘读写次数最少。</li>
+<li>C.方案III：(1)以8块为一个单位划分子集合，每个子集合进行内排序并存储，形成9个已排序子集合（其中包含一个仅有6块的子集合）；(2)接着在9个子集合中任选七个子集合进行一个七路归并，形成一个已排序子集合；(3)再将剩余2个子集合与刚才归并后形成的子集合，进行一个三路归并，形成最终的已排序集合。这个方案的磁盘读写次数最少。</li>
+<li>D.方案IV：(1)以8块为一个单位划分子集合，每个子集合进行内排序并存储，形成9个已排序子集合；(2)接着在9个子集合中任选5个子集合进行一个五路归并，形成一个已排序子集合；(3)再将剩余4个子集合与刚才归并后形成的子集合，进行一个五路归并，形成最终的已排序集合。这个方案的磁盘读写次数最少。</li>
+</ul>
+<blockquote>
+<p>A</p>
+<p>解析:少量内存排序大规模数据,首先是要划分子集合并进行子集合排序。划分原则是子集合块数&lt;=可用内存块数,然后将其装入内存并进行排序后再写回磁盘。此一步骤四个方案都满足要求,且磁盘读写次数都是 70<em>2=140 次(读一次,写一次)。关键是多路归并的磁盘读写次数的差异。方案 I,先做三路归并(3 个子集合</em>(8 块子集合+8 块子集合+6 块子集合)<em>2 次=44 次—因有一个集合为 6 块),再做 7 路归并(70</em>2=140 次),所以总的磁盘读写次数为 140+140+44=324 次。方案 II,先做五路归并(5 个子集合<em>7 块每个子集合</em>2次=70 次,再做六路归并(70<em>2=140 次),所以总的磁盘读写次数为 140+140+70=350 次。方案 III,先做七路归并(7 个子集合</em>8 块每个子集合<em>2 次=112 次,再做三路归并(70</em>2=140 次),所以总的磁盘读写次数为 140+140+112=392 次。方案 IV,先做五路归并(5 个子集合*8 块每个 子 集 合 <em>2 次 =80 次 , 再 做 五 路 归 并 (70</em>2=140 次 ) , 所 以 总 的 磁 盘 读 写 次 数 为140+140+80=360 次。通过比较:选项 A 方案的磁盘读写次数最少。</p>
+</blockquote>
+</li>
+<li><p>已知内存共有100块，若要排序有10000块的数据集，则下列说法正确的是_____。</p>
+<ul>
+<li>A.该数据集可以在两趟内实现排序，磁盘读写次数为40000次。</li>
+<li>B.该数据集不能在两趟内实现排序，磁盘读写次数为40400次。</li>
+<li>C.该数据集可以在两趟内实现排序，磁盘读写次数为40400次。</li>
+<li>D.该数据集不能在两趟内实现排序，磁盘读写次数为60000次。</li>
+</ul>
+<blockquote>
+<p>正确答案：B你错选为C</p>
+<p>B。解析:100 块内存,每个子集合 100 块,10000 块数据集需要划分为 100 个子集合。100 块内存,留出一块作为输出块,则最多可进行 99 路归并。因此在进行最终排序前,需要先做一个 2 路归并,即将 2 个子集合归并成 1 个有序集合,然后再做 99 路归并。因此,“该数据集不能在两趟内实现排序”,需要“外加一个 2 路归并”,因此总的次数应为10000*4+100(一百块每个子集合)*2(两个子集合)*2(读一次写一次)=40400 次。</p>
+</blockquote>
+</li>
+<li><p>已知内存共有8块，若要排序有100块的数据集，则给定多路归并算法如下：(1)以8块为一个单位划分子集合，每个子集合进行内排序并存储，形成13个已排序子集合(含一个仅有4块的子集合)；(2)接着在13个子集合中任选7个子集合（包含仅有4块的子集合）进行一个七路归并，形成一个已排序子集合；(3)再将剩余6个子集合与刚才归并后形成的子集合，进行一个七路归并，形成最终的已排序集合。问：这个方案的磁盘读写次数是_______。</p>
+<ul>
+<li>A.200</li>
+<li>B.400</li>
+<li>C.504</li>
+<li>D.512</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为D</p>
+<p>解析:8 块内存,每个子集合 8 块,100 块数据集需要划分为 13 个子集合(其中一个仅有 4 块),读一次写一次,子集合划分并排序需要 100*2 次磁盘读写。8 块内存,留出一块作为输出块,则最多可进行 7 路归并,第一个七路归并的次数为 52(六个 8 块子集合+一个 4 块子集合) *2 (读一次写一次) =104 次。最后一个七路归并的次数为 100*2 (读<br>一次写一次)=200 次,因此,总的次数为 200+104+200=504 次。</p>
+</blockquote>
+</li>
+<li><p>关于基于排序的两趟算法，下列说法不正确的是_______。</p>
+<ul>
+<li>A.基于排序的两趟算法的第一趟都是划分子表并排序。每一个子表应都能装入内存，并进行排序，然后再存回磁盘。</li>
+<li>B.基于排序的两趟算法的第二趟是进行归并，在归并的过程中可以边排序边去重复，归并完成即去重复操作完成。</li>
+<li>C.基于排序的两趟算法的第二趟是进行归并，在归并的过程中可以一边排序一边进行分组并进行聚集计算，归并完成即分组聚集计算操作完成。</li>
+<li>D.基于排序的两趟算法的第二趟是进行归并，先归并处理第一个关系的元组，边归并边去重复，归并处理完成后，再归并处理第二个关系的元组，边归并边去重复，归并处理完成后即完成两个关系的集合并操作。</li>
+</ul>
+<blockquote>
+<p>正确答案：D你错选为C</p>
+<p>选项 C 说法是正确的,归并过程中,相同分组的元组会按归并次序出现,只要在归并过程中将同一分组的相关元组进行聚集计算即可完成分组聚集计算操作。</p>
+<p>D 说法是不正确的,按该选项说法是不能完成集合并操作的,集合并操作的关键是在归并过程中是否存在 R 与 S 相同的元组,相同的元组只保留一个。应该将 R 与 S 同时进行归并,并区分是 R 的元组还是 S 的元组,然后判断 R 的元组和 S 的元组是否相同,只保留一个。</p>
+</blockquote>
+</li>
+<li><p>已知关系R和S。关系占用的磁盘块数B(R)=1000，B(S)=1000，已知可用内存页数M=40。采用基于排序的算法，下列说法正确的是_______。</p>
+<ul>
+<li>A.用一趟算法即可实现R和S的集合并操作。</li>
+<li>B.用两趟算法即可实现R和S的集合并操作。</li>
+<li>C.用一趟算法即可实现R和S的包的并操作。</li>
+<li>D.必须用两趟算法才能实现R和S的包的并操作。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为B</p>
+<p>解析:关系 R 需划分为 25 个子集合,S 需划分为 25 个子集合,子集合排序并存储,此为第一趟。在第二趟归并过程中至少需要 50 个内存块,而目前只有 40 个内存块,一次一趟归并不能够完成。因此:选项 A 说法是不正确的,集合并操作需要去重复,而R 的排序和 S 的排序都不能在一趟内完成。选项 B 说法是不正确的,集合并操作需要去重复,由于不能同时进行 R 和 S 的归并排序(需要先将 R 的 12 个子集合归并成 1 个子集合,使 R 有 14 个子集合,这样才能同时进行 R 和 S 的归并),即不能在两趟内完成。选项 C 说法是正确的,包的并不需要去重复,所以一趟内可以完成。选项 D 说法是不正确的,包的并不需要去重复,所以一趟内可以完成,不必用两趟。</p>
+</blockquote>
+</li>
+<li><p>已知关系R和S。关系占用的磁盘块数B(R)=1000，B(S)=500，已知可用内存页数M=50。采用基于排序的算法，下列说法正确的是_______。</p>
+<ul>
+<li>A.用一趟算法即可实现R和S的集合并操作。</li>
+<li>B.用两趟算法才能实现R和S的集合并操作。</li>
+<li>C.用一趟算法即可实现R和S的集合交操作。</li>
+<li>D.用两趟算法才能实现R和S的包的并操作。</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+<li><p>关于基于散列的两趟算法，下列说法不正确的是_______。</p>
+<ul>
+<li>A.基于散列的两趟算法的第一趟是散列子表。用某一个散列函数，将具有相同散列值的元组散列到相同的子表中并存回磁盘。 </li>
+<li>B.基于散列的两趟算法的第二趟是用与第一趟相同的散列函数，将子表再散列到内存的不同内存块中，在具有相同散列值的所有内存块中去重复，即是在整个关系上去重复。所有子表处理完成，去重复操作即告完成。</li>
+<li>C.基于散列的两趟算法的第二趟是用与第一趟不同的散列函数，将子表再散列到内存的不同内存块中，在具有相同散列值的所有内存块中去重复，即是在整个关系上去重复。所有子表处理完成，去重复操作即告完成。</li>
+<li>D.两次散列函数的选择是不同的，第一趟是在大范围上进行散列，将一个大数据集散列成若干个具有相同散列值的散列子表，第二趟是在小范围上进行散列，将具有某相同散列值的散列子表(大范围上散列值相等)散列到内存的某一块或几块(小范围上散列值相等)。</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+<li><p>关于R与S的并、交、差运算的基于散列的两趟算法，其中第一趟都是划分子表，都要求子表的存储块数要小于可用内存块数，以便子表可以一次性装入内存进行处理。关于划分子表，下列说法正确的是_______。</p>
+<ul>
+<li>A.必须用相同的散列函数将R和S分别散列成若干个子表。</li>
+<li>B.必须用不同的散列函数将R和S分别散列成若干个子表。 </li>
+<li>C.可以用相同的散列函数，也可以用不同的散列函数，将R和S分别散列成若干子表。</li>
+<li>D.划分子表根本不用散列函数。</li>
+</ul>
+<blockquote>
+<p>正确答案：A你选对了</p>
+</blockquote>
+</li>
+<li><p>关于基于散列的两趟算法和基于排序的两趟算法的基本思想，下列说法正确的是_______。</p>
+<ul>
+<li>A.排序算法是先划分子表，独立处理子表（第一趟），然后再对各子表进行关联性处理（第二趟）；散列算法是先划分子表，独立处理子表（第一趟），然后再对各子表进行关联性处理（第二趟）；</li>
+<li>B.排序算法是先划分子表，独立处理子表（第一趟），然后再对各子表进行关联性处理（第二趟）；散列算法是先从关联性角度处理，形成子表（第一趟），然后再独立处理每一个子表（第二趟）。</li>
+<li>C.排序算法是先从关联性角度处理，形成子表（第一趟），然后再独立处理每一个子表（第二趟）。散列算法是先划分子表，独立处理子表（第一趟），然后再对各子表进行关联性处理（第二趟）；</li>
+<li>D.排序算法是先从关联性角度处理，形成子表（第一趟），然后再独立处理每一个子表（第二趟）；散列算法是先从关联性角度处理，形成子表（第一趟），然后再独立处理每一个子表（第二趟）。</li>
+</ul>
+<blockquote>
+<p>正确答案：B你选对了</p>
+</blockquote>
+</li>
+<li><p>关于连接运算R (JOIN on R.A=S.B) S的基于散列的两趟算法，下列说法不正确的是_______。</p>
+<ul>
+<li>A.必须以相同的散列函数分别散列R和S，形成若干个散列子表。</li>
+<li>B.散列过程中，R必须以A属性值作为散列函数的键值，S必须以B属性值作为散列函数的键值。</li>
+<li>C.散列过程中，R必须以A和B属性值作为散列函数的键值，S也必须以A和B属性值作为散列函数的键值。</li>
+<li>D.第二趟处理中，须将R的子表再完整地散列到内存的若干块中，然后再一块一块处理S对应子表的每一块，以便快速决定可以连接的元组。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你选对了</p>
+</blockquote>
+</li>
+<li><p>关于基于散列的两趟算法，下列说法正确的是_______。</p>
+<ul>
+<li>A.第一趟散列和第二趟散列的目的都是提高数据处理的速度。</li>
+<li>B.第一趟散列的目的是提高数据处理的速度，而第二趟散列的目的是使数据子集具有某一种特性(如具有相同的散列值)。</li>
+<li>C.第一趟散列的目的是使数据子集具有某一种特性(如具有相同的散列值)，而第二趟散列的目的是提高数据处理的速度。</li>
+<li>D.第一趟散列和第二趟散列的目的都是使数据子集具有某一种特性。</li>
+</ul>
+<blockquote>
+<p>正确答案：C你错选为D</p>
+<p>解析:选项 C 说法是正确的。第一趟散列的目的是使数据子集具有某一种特性(如具有相同的散列值),以便于将“规模数据全集上的操作”等价地 转换为“(数据子集上操作)的简单并集”。而第二趟散列的目的是提高数据处理的速度,散列到不同内存块中,使得比较时快速地和少量内存块中的数据进行比较。</p>
+</blockquote>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A"><span class="toc-number">1.</span> <span class="toc-text">上</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%AE%B2"><span class="toc-number">1.1.</span> <span class="toc-text">第一讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2"><span class="toc-number">1.2.</span> <span class="toc-text">第二讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E8%AE%B2"><span class="toc-number">1.3.</span> <span class="toc-text">第三讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2"><span class="toc-number">1.4.</span> <span class="toc-text">第四讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E8%AE%B2"><span class="toc-number">1.5.</span> <span class="toc-text">第五讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0"><span class="toc-number">1.6.</span> <span class="toc-text">第六章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0"><span class="toc-number">1.7.</span> <span class="toc-text">第七章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E8%AE%B2"><span class="toc-number">1.8.</span> <span class="toc-text">第八讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E8%AE%B2"><span class="toc-number">1.9.</span> <span class="toc-text">第九讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E8%AE%B2"><span class="toc-number">1.10.</span> <span class="toc-text">第十讲</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%AD"><span class="toc-number">2.</span> <span class="toc-text">中</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%AE%B2-1"><span class="toc-number">2.1.</span> <span class="toc-text">第一讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2-1"><span class="toc-number">2.2.</span> <span class="toc-text">第二讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E8%AE%B2-1"><span class="toc-number">2.3.</span> <span class="toc-text">第三讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2-1"><span class="toc-number">2.4.</span> <span class="toc-text">第四讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E8%AE%B2-1"><span class="toc-number">2.5.</span> <span class="toc-text">第五讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E8%AE%B2"><span class="toc-number">2.6.</span> <span class="toc-text">第六讲</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8B"><span class="toc-number">3.</span> <span class="toc-text">下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%AE%B2-2"><span class="toc-number">3.1.</span> <span class="toc-text">第一讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2-2"><span class="toc-number">3.2.</span> <span class="toc-text">第二讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E8%AE%B2-2"><span class="toc-number">3.3.</span> <span class="toc-text">第三讲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E8%AE%B2-2"><span class="toc-number">3.4.</span> <span class="toc-text">第四讲</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/01/26/q-of-db/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/01/26/q-of-db/&text=数据库的问题集"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/01/26/q-of-db/&is_video=false&description=数据库的问题集"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据库的问题集&body=Check out this article: https://vhdsih.github.io/2018/01/26/q-of-db/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/01/26/q-of-db/&title=数据库的问题集"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/01/26/q-of-db/&name=数据库的问题集&description=&lt;p&gt;战神-中国大学MOOC数据库课后习题与知识点&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/01/26/q-of-db/&t=数据库的问题集"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

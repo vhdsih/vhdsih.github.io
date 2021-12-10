@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习基石》系列课程（十二） 我们学习过线性分类模型，现在我们将学习非线性模型！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12 Nonlinear Transformation">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/14/mlfound12/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习基石》系列课程（十二） 我们学习过线性分类模型，现在我们将学习非线性模型！">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/7.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/8.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/9.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/10.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/11.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/12.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/13.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/14.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/15.png">
+<meta property="article:published_time" content="2018-10-14T11:18:13.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.462Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/14/mlfound12/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>12 Nonlinear Transformation</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/15/mlfound13/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/13/mlfound11/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/14/mlfound12/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/14/mlfound12/&text=12 Nonlinear Transformation"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/14/mlfound12/&is_video=false&description=12 Nonlinear Transformation"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=12 Nonlinear Transformation&body=Check out this article: https://vhdsih.github.io/2018/10/14/mlfound12/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/14/mlfound12/&name=12 Nonlinear Transformation&description=&lt;p&gt;《机器学习基石》系列课程（十二）&lt;/p&gt;
+&lt;p&gt;我们学习过线性分类模型，现在我们将学习非线性模型！&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/14/mlfound12/&t=12 Nonlinear Transformation"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quadratic-Hypotheses"><span class="toc-number">1.</span> <span class="toc-text">Quadratic Hypotheses</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nonlinear-Transform"><span class="toc-number">2.</span> <span class="toc-text">Nonlinear Transform</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Price-of-Nonlinear-Transform"><span class="toc-number">3.</span> <span class="toc-text">Price of Nonlinear Transform</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structrued-Hypothesis-Sets"><span class="toc-number">4.</span> <span class="toc-text">Structrued Hypothesis Sets</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        12 Nonlinear Transformation
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-14T11:18:13.000Z" itemprop="datePublished">2018-10-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习基石》系列课程（十二）</p>
+<p>我们学习过线性分类模型，现在我们将学习非线性模型！</p>
+<span id="more"></span>
+<h2 id="Quadratic-Hypotheses"><a href="#Quadratic-Hypotheses" class="headerlink" title="Quadratic Hypotheses"></a>Quadratic Hypotheses</h2><p>到目前为止，我们所学习的都是线性分类模型，对于这些模型，我们通常可以找到一条线（或超平面）将我们的数据分为两个部分，我们只需要对每个数据点算一下分数就能实现这一点。</p>
+<p>但是这样的模型是受限的！在理论上，我们使用的线性模型，VC维度是比较小的，但是实际上我们会遇到一些数据，这些数据对于线性模型是不能做到区分的，那么此时我们不论选择假设空间中的哪一条线，其Ein都会很大！</p>
+<p><img src="/2018/10/14/mlfound12/1.png" alt="limited data"> </p>
+<p>此时我们该怎样突破我们的线性模型所带来的限制呢？举个例子，对于上面的分布数据点，一种直观的想法是：我们使用一个圆圈来对数据进行区分：</p>
+<p><img src="/2018/10/14/mlfound12/2.png" alt="circular"> </p>
+<p>此时数据点集D虽然不是线性可分的，但是我们仍然可以使用一个圆来区分这些数据。那么我么只要看一看点是否在圆的内部即可，假设这个圆形的半径是sqrt(0.6)，此时我们的h(x):</p>
+<p><img src="/2018/10/14/mlfound12/3.png" alt="hsep(x)"> </p>
+<p>就像上面所说的，我们的一些数据尽管不能使用线性模型来分开，然而我们可以使用圆形来分开，同样我们也能用同样的方法来实现圆形的线性回归以及圆形的Logistic Regression。然而，如果只是这样简单地将其推广，还是很麻烦，我们需要一个一个地去重新推导，现在我们从另一个角度来看这个问题：</p>
+<p><img src="/2018/10/14/mlfound12/4.png" alt="h(x)"> </p>
+<p>我们将h(x),整理为如上的形式，如果我们将每一个平方项都用zi表示，系数用wi表示，将圆形半径作为z0，并将其乘以1作为z0。此时，是不是有似曾相识的感觉？</p>
+<p>没错，这就是线性模型的一般结构，或者说，我们的数据看起来是不能线性分开的，但是如果我们将每一个数据点都转换到z空间，那么这些数据就变成线性可分的了：</p>
+<p><img src="/2018/10/14/mlfound12/5.png" alt="transformation"> </p>
+<p>然而，我们现在的转换还是受限的，虽然随着参数的不同，我们在z空间上的线性模型可以表示为当前空间中的不同曲线模型（圆形分类模型、椭圆分类模型、双曲线分类模型），然而，你能不能做到一个圆心不在原点的圆形分类模型吗？答案显然是不能的，因为我们的h(x)中没有包含一次项，也就不能对其进行平移变换。如果我们需要一个包含所有曲线的二次Hypothesis该怎么办？简单的想法就是将所有的项都添进去，包括常数项、一次项、二次项（包含两个未知数的乘积）。</p>
+<p><img src="/2018/10/14/mlfound12/6.png" alt="big hx"> </p>
+<p>其中Φ2为：</p>
+<p><img src="/2018/10/14/mlfound12/7.png" alt="info"> </p>
+<h2 id="Nonlinear-Transform"><a href="#Nonlinear-Transform" class="headerlink" title="Nonlinear Transform"></a>Nonlinear Transform</h2><p>现在通过空间的变换，我们将我们有的不能线性分开的数据转换到能够线性分开的z空间上。我们希望在z空间上也有一个Good Perceptron能够将数据分开。然而我们现在只知道在x空间上怎样对{(x, y), …}这样的数据分类并获得一个Good Perceptron。那么我们现在要做的是对z空间上的数据{(zn=Φ2(x), y), …}寻找一个Good Perceptron。</p>
+<p>我们可以这样考虑：</p>
+<ol>
+<li>将原始数据转换到z空间。</li>
+<li>在z空间上得到一个Good Perceptron，此时可以使用任何一种线性分类算法。</li>
+<li>将z空间上的Perceptron转换回x空间。</li>
+</ol>
+<p><img src="/2018/10/14/mlfound12/8.png" alt="the nonlinear transform steps"> </p>
+<p>使用上面的方法，我们就能够很轻松地实现在二次空间上的PLA、Regression等算法了。</p>
+<p>实际上特征转换的思想我们并不陌生，在第三章我们介绍各种特征（具体特征、原始特征、抽象特征等）时，我们就接触了这种思想：对于手写数字，我们知道的是每一个数字的各个位置的像素灰度数值，我们可能可以将这些raw feature转换为平面密度和对称性等来实现对数字的分类和识别！</p>
+<h2 id="Price-of-Nonlinear-Transform"><a href="#Price-of-Nonlinear-Transform" class="headerlink" title="Price of Nonlinear Transform"></a>Price of Nonlinear Transform</h2><p>现在我们将上述方法推广到n维（上面介绍的是利用二次曲线来分开平面上的点，现在我们使用n次曲线同样实现这件事），如果我们需要Q次的变换：</p>
+<p><img src="/2018/10/14/mlfound12/9.png" alt="q-th transformation"> </p>
+<p>如果我们的hypothesis能够包含所有的q次曲线，那么需要将所有可能的项都包含进来，此时，我们使用排列组合的知识，能够知道此时这个h(x)的维度的复杂度是O(Q**d)。此时我们可以知道，不论我们是使用PLA还是其他的模型，我们都需要大量的时间来更新参数，同时，也需要更大的空间来存储这些参数。如果Q越大，那么计算和存储这些参数所需要的代价也就越大！</p>
+<p><img src="/2018/10/14/mlfound12/10.png" alt="complexity"> </p>
+<p>同时，也代表此时的VC dimension也是至少d̃ +1这么大，随着q的增加也越来越大。但是我们可以证明此时的Dvc最多是d̃ +1，因为在z空间上任何d̃ +2个点都不能被shatter，那么在x空间上同样如此。</p>
+<p>那么Q变大，VC Dimension也变大有什么坏处呢？通常q次数越高，我们很容易让Ein变得很小，但是却很难让Eout和Ein相等。如果q的次数很小，我们能够做到Ein和Eout相等，但是却很难让Ein变得很小：</p>
+<p><img src="/2018/10/14/mlfound12/11.png" alt="generalization"> </p>
+<p>我们该怎样选择一个合适的q呢，很明显，q既不是越大越好也不是越小越好！那么能不能使用人眼来选择呢？<br>首先，对于高纬度空间，人类是很难对其进行想象的。其次，就算是一个比较低的纬度的空间，我们这样做往往会也会带来一些风险：我们人脑会首先对这些模型进行优化，然而我们在计算时却忽略了我们自己优化所带来的代价，这些代价可能很大，从而会对q的选择带来影响。</p>
+<h2 id="Structrued-Hypothesis-Sets"><a href="#Structrued-Hypothesis-Sets" class="headerlink" title="Structrued Hypothesis Sets"></a>Structrued Hypothesis Sets</h2><p>现在我们重新看一看我们的转换过程。<br><img src="/2018/10/14/mlfound12/12.png" alt="transform revisited"> </p>
+<p>我们列举了从0次到Q次的转换，通过观察这些转换方程，我们可以推断出，所有低次的变换都是高次变换的特例，我们可以用一张图来表示：</p>
+<p><img src="/2018/10/14/mlfound12/13.png" alt="include"> </p>
+<p>我们把这种关系称为假设空间H的结构。对于这些假设空间之间的关系，我们可以使用一张图来概况：</p>
+<p><img src="/2018/10/14/mlfound12/14.png" alt="shs"> </p>
+<p>即随着维度q的增大，VC Dimension逐渐增大，而其Ein能获得的最小值则越来越小。实际上此时随着维度的增大，其Ein、Eout和模型的复杂度之间存在这样的关系：</p>
+<p><img src="/2018/10/14/mlfound12/15.png" alt="complexity and others"> </p>
+<p>对于这张图我们已经不陌生了，这也就说明，更高维度的模型其复杂度也越高，虽然我们在高维模型可以获得好的Ein，但是我们真正关心的从来都不是Ein，而是Eout。此时模型的复杂度很高，我们却很难获得好的Eout！</p>
+<p>由此，我们的学习一般不能从一个很高的维度开始，否则我们可能根本无法优化。一般我们都会从线性模型开始学习，它是简单高效安全的，实际上，很多时候线性模型就能取得很好的效果！</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习基石》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quadratic-Hypotheses"><span class="toc-number">1.</span> <span class="toc-text">Quadratic Hypotheses</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nonlinear-Transform"><span class="toc-number">2.</span> <span class="toc-text">Nonlinear Transform</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Price-of-Nonlinear-Transform"><span class="toc-number">3.</span> <span class="toc-text">Price of Nonlinear Transform</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structrued-Hypothesis-Sets"><span class="toc-number">4.</span> <span class="toc-text">Structrued Hypothesis Sets</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/14/mlfound12/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/14/mlfound12/&text=12 Nonlinear Transformation"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/14/mlfound12/&is_video=false&description=12 Nonlinear Transformation"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=12 Nonlinear Transformation&body=Check out this article: https://vhdsih.github.io/2018/10/14/mlfound12/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/14/mlfound12/&title=12 Nonlinear Transformation"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/14/mlfound12/&name=12 Nonlinear Transformation&description=&lt;p&gt;《机器学习基石》系列课程（十二）&lt;/p&gt;
+&lt;p&gt;我们学习过线性分类模型，现在我们将学习非线性模型！&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/14/mlfound12/&t=12 Nonlinear Transformation"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

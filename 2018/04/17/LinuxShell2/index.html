@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="catcat通常用于读取、显示或者拼接文件内容，也可以用将来自标准输入和文件的数据进行组合。 12# 读取文件内容的一般写法：cat file1 file2 ...  将标准输出和文件中的内容拼接在一起 1234&gt; echo &amp;#x27;a&amp;#x27; &gt; test.txt&gt; echo &amp;#x27;b&amp;#x27; | cat - test.txt # - 作为stdin文件的文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LinuxShell2 - cat, find, xargs and tr">
+<meta property="og:url" content="https://vhdsih.github.io/2018/04/17/LinuxShell2/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="catcat通常用于读取、显示或者拼接文件内容，也可以用将来自标准输入和文件的数据进行组合。 12# 读取文件内容的一般写法：cat file1 file2 ...  将标准输出和文件中的内容拼接在一起 1234&gt; echo &amp;#x27;a&amp;#x27; &gt; test.txt&gt; echo &amp;#x27;b&amp;#x27; | cat - test.txt # - 作为stdin文件的文件">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-04-17T02:53:39.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.458Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="Linux Shell">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>LinuxShell2 - cat, find, xargs and tr</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/04/28/LinuxShell3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/04/16/LinuxShell1/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/04/17/LinuxShell2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&text=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&is_video=false&description=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinuxShell2 - cat, find, xargs and tr&body=Check out this article: https://vhdsih.github.io/2018/04/17/LinuxShell2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&name=LinuxShell2 - cat, find, xargs and tr&description=&lt;h2 id=&#34;cat&#34;&gt;&lt;a href=&#34;#cat&#34; class=&#34;headerlink&#34; title=&#34;cat&#34;&gt;&lt;/a&gt;cat&lt;/h2&gt;&lt;p&gt;cat通常用于读取、显示或者拼接文件内容，也可以用将来自标准输入和文件的数据进行组合。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;bash&#34;&gt; 读取文件内容的一般写法：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;cat file1 file2 ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;将标准输出和文件中的内容拼接在一起&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;bash&#34;&gt; &lt;span class=&#34;built_in&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;#x27;a&amp;#x27;&lt;/span&gt; &amp;gt; test.txt&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;bash&#34;&gt; &lt;span class=&#34;built_in&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;#x27;b&amp;#x27;&lt;/span&gt; | cat - test.txt &lt;span class=&#34;comment&#34;&gt;# - 作为stdin文件的文件名&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;b&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;a&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/04/17/LinuxShell2/&t=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cat"><span class="toc-number">1.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">2.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xargs"><span class="toc-number">3.</span> <span class="toc-text">xargs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tr"><span class="toc-number">4.</span> <span class="toc-text">tr</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        LinuxShell2 - cat, find, xargs and tr
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-04-17T02:53:39.000Z" itemprop="datePublished">2018-04-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/System/">System</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Linux-Shell/" rel="tag">Linux Shell</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h2><p>cat通常用于读取、显示或者拼接文件内容，也可以用将来自标准输入和文件的数据进行组合。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 读取文件内容的一般写法：</span></span><br><span class="line">cat file1 file2 ...</span><br></pre></td></tr></table></figure>
+
+<p>将标准输出和文件中的内容拼接在一起</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&#x27;a&#x27;</span> &gt; test.txt</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&#x27;b&#x27;</span> | cat - test.txt <span class="comment"># - 作为stdin文件的文件名</span></span></span><br><span class="line">b</span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<ul>
+<li>使用参数 ‘-s’ 压缩相邻的空白行，另外，对于这个任务也可以使用 ‘tr’ 命令实现</li>
+<li>使用参数 ‘-T’ 使用’^I’显示Tab。</li>
+<li>使用参数 ‘-n’ 在显示过程中添加行号。使用 ‘-b’ 忽略对空行的标号。</li>
+<li>其他参数，请查看man手册。</li>
+</ul>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>find是Unix/Linux上最棒的工具之一，也是很复杂的命令之一，但是许多人并没有真正掌握它。<br>find命令的工作原理是沿着文件的层次结构向下遍历，匹配符合匹配条件的文件，并且执行相应的操作。下面是find指令的基本的应用场景和使用方法。</p>
+<ol>
+<li><p>开始<br> 列出某一个目录下的所有文件和文件夹。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> find base_path</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> example</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find /home/somebody/Musics</span></span><br><span class="line">output dirs and files</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用参数 -<span class="built_in">print</span> 打印</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果不用该参数会将所有文件打印出来</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此时使用<span class="string">&#x27;\n&#x27;</span>分隔</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用参数 -print0 打印</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此时使用<span class="string">&#x27;\0&#x27;</span>分隔</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用正则搜索<br> 使用’-name’参数指明文件名必须要匹配的字符串。同时，也可以使用通配符，如’*.txt’表明所有以txt结尾的文件。然后使用’-print’打印目标。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在某目录下寻找所有的以txt结尾的文件并且打印出来</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find /home/me/ -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p> 使用参数’-iname’忽略字母大小写，其作用与’-name’类似，只不过该参数忽略大小写。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> ls</span></span><br><span class="line">A.txt B.TXT</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span></span><br><span class="line">A.txt</span><br><span class="line">B.TXT</span><br></pre></td></tr></table></figure>
+<p> 匹配多种文件，使用or操作。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> ls</span></span><br><span class="line">a.txt b.pdf c.md</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . \( -name <span class="string">&#x27;*.txt&#x27;</span> -o -name <span class="string">&#x27;*.pdf&#x27;</span> \) -<span class="built_in">print</span></span></span><br><span class="line">a.txt</span><br><span class="line">b.pdf</span><br></pre></td></tr></table></figure>
+<p> 选项’-path’来匹配文件路径。’-name’参数总是对给定的文件名进行匹配，而’-path’则将文件路径作为一个整体进行匹配。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -path <span class="string">&#x27;*/linux/*&#x27;</span> -<span class="built_in">print</span></span></span><br></pre></td></tr></table></figure>
+<p> 选项’-regex’的参数和’-path’类似，但是前者是基于正则表达式进行的。正则表达式是通配符的高级形式。下面是几个例子：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 匹配所有的py文件和sh文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -regex <span class="string">&quot;.*\(\.py\|\.sh\)$&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 匹配过程忽略大小写</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -iregex <span class="string">&quot;.*\(\.py\|\.sh\)$&quot;</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>后续会有另外的博文介绍正则表达式!</p>
+</blockquote>
+</li>
+<li><p>否定参数<br> find命令可以使用’!’否定命令参数，表示寻找不匹配某种模式的文件</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 寻找不以txt为结尾的文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . ! -name <span class="string">&quot;*.txt&quot;</span> -<span class="built_in">print</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>基于目录深度的搜索<br> 在find指令运行过程中，可以采用深度选项来限制find遍历目录的深度。<br> 可以设置’-maxzdepth’指定最大深度，使用’-mindepth’设置最小的深度。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在当前目录下寻找以f开头的文件或者目录</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -maxdepth 1 -name <span class="string">&quot;f*&quot;</span> -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 打印距离当前目录最少有两个目录的文件（f开头）</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -mindepth 2 -name <span class="string">&quot;f*&quot;</span> -<span class="built_in">print</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：-maxdepth和-mindepth两个参数应该作为find的第三个参数出现，否则将会影响到find的效率。因为find就不得不做一些不必要的检查。例如，当-type是第三个参数，-maxdepth是第四个参数，则会首先寻找符合type的文件，然后检查目录层次。反过来，会先检查目录层次，到达指定层次以后就不会继续深入了。</p>
+</blockquote>
+</li>
+<li><p>根据文件类型搜索<br> Unix类操作系统将一切视为文件，文件类型包括普通文件，目录，符号链接，硬链接，字符设别，块设备，套接字，FIFO等。<br> 可以使用’-type’按照文件类型进行过滤。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出目录</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> d -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 普通文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 符号链接</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> l -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 字符设备 -- c</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 块设别   -- b</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 套接字   -- s</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> FIFO     -- p</span></span><br></pre></td></tr></table></figure></li>
+<li><p>按照时间搜索<br> Unix/Linux文件系统的三种时间戳如下：<br> (1) 访问时间 -atime: 用户最近一次访问文件的时间。<br> (2) 修改时间 -mtime: 文件内容最后被修改的时间。<br> (3) 变化时间 -ctime: 文件元数据（权限、所有者）信息最后修改时间。</p>
+<blockquote>
+<p>Unix中没有文件创建时间的概念！</p>
+</blockquote>
+<p> 结合以上时间戳和find指令，可以按照时间搜索文件，同时还会带有’+’、’-‘符号，前者表示大于，后者表示小于。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打印最近7天内被访问的所有文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find -<span class="built_in">type</span> f -atime -7 -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 刚好7天访问的文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find -<span class="built_in">type</span> f -atime 7 -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 7天以前访问的所有文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find -<span class="built_in">type</span> f -atime +7 -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改时间和变化时间也同理</span></span><br></pre></td></tr></table></figure>
+<p> 需要注意的是-xtime的单位都是天，基于分钟计算的如下：<br> (1) -amin<br> (2) -mmin<br> (3) -cmin</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 7min以内访问的文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -amin -7 -<span class="built_in">print</span></span></span><br></pre></td></tr></table></figure>
+<p> 使用-newer参数通过与指定文件的时间戳相比较得到目的文件。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -newer file.txt -<span class="built_in">print</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>基于文件大小的搜索</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 大2kB的文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -size +2k</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 小于2kB的文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -size -2k</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 等于2kB</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -size 2k</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 其它单位</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> b 块（512B）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> c 字节</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> w 字 （2字节）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> k</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> M</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> G</span></span><br></pre></td></tr></table></figure></li>
+<li><p>删除匹配文件<br> 使用 ‘-delete’ 参数删除find得到的结果。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 删除当前目录下所有的.swp文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -name <span class="string">&quot;*.swp&quot;</span> -delete</span></span><br></pre></td></tr></table></figure></li>
+<li><p>权限匹配<br> 根据文件的权限进行查找，列出具备特定权限的文件。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查找权限为644的文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -perm 644 -<span class="built_in">print</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 没有设置好权限的文件</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f ! -perm 644 -<span class="built_in">print</span></span></span><br></pre></td></tr></table></figure>
+<p> 查找某一个用户的文件</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> user参数可为用户名或者uid</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -user dongchangzhang -<span class="built_in">print</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>执行命令<br>find借助 ‘-exec’ 选项与其他命令配合，使find命令具备强大的功能。<br>例如，我们找到了所有没有设定好权限的文件，并对其设定权限，只需要一条指令即可：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f !-perm 644 -<span class="built_in">exec</span> chmod 644 &#123;&#125; \;</span></span><br></pre></td></tr></table></figure>
+<p>在以上的命令中 {} 会被替换为每一个匹配的文件名。’-exec’后面可以跟任何指令，{}依次替换为匹配后的文件名。每个文件执行一次指令。如果希望一次性执行命令，则在’-exec’中使用’+’替换。另外，虽然对每个文件单独执行命令，但是其全部的输出流是一个完整的。<br>需要注意的是，’-exec’命令不能跟多个命令，但是我们可以这样做：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> .... -<span class="built_in">exec</span> ./cmds.sh &#123;&#125; \;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>跳过目录<br>在查找过程中有一些目录是不需要搜索的，我们可以跳过以节约时间。该技巧也被成为修剪。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> find . \( -name <span class="string">&quot;.git&quot;</span> -prune \) -o \( -<span class="built_in">type</span> f -<span class="built_in">print</span> \)</span></span><br></pre></td></tr></table></figure>
+<p>前者表示忽略.git文件夹，后者为具体查找命令。</p>
+</li>
+</ol>
+<h2 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h2><p>xargs擅长将标准输入数据转换成命令行参数。xargs也能将单行或者多行数据转换为其他的数据格式。例如将单行变为多行或者多行变为单行。<br>xargs应该紧跟在管道操作符之后，以标准输入作为主要的源数据流。它使用stdin并通过提供命令行参数来执行其他的命令。例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cmd | xargs</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>单行转为多行<br> 以空格替换’\n’。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat a.txt</span></span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">4</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> cat a.txt | xargs</span></span><br><span class="line">1 2 3 4</span><br></pre></td></tr></table></figure></li>
+<li><p>单行输入替换为多行输出<br> 指定每行的最大参数数量-n，可以将stdin中的文本划分为多行，每行n个参数。每个参数都是由” “分隔开的字符串。空格是默认的定界符。<br> 当然也可以自定义分界符：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;splitXsplitXsplitXsplit&quot;</span> | xargs -d X</span></span><br><span class="line">split split split split</span><br></pre></td></tr></table></figure>
+<p> 结合’-n’我们可以将输出换为多行</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;splitXsplitXsplitXsplit&quot;</span> | xargs -d X -n 2</span></span><br><span class="line">split split</span><br><span class="line">split split</span><br></pre></td></tr></table></figure></li>
+<li><p>读取stdin并且格式化参数传递给命令<br> 为了方便理解，我们有以下的脚本，脚本的作用是打印传递给脚本的参数，并且在参数后添加’#’。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> file name a.sh</span></span><br><span class="line">echo $* &#x27;#&#x27;</span><br></pre></td></tr></table></figure>
+<p> 当运行该脚本，我们会看到这样的结果：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> ./a.sh arg1 arg2</span></span><br><span class="line">arg1 arg2 #</span><br></pre></td></tr></table></figure>
+<p> 此时我们遇到这样一个问题将一个含有参数列表的文件中的所有参数传递给上述脚本时，我们可以：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat args.txt</span></span><br><span class="line">arg1</span><br><span class="line">arg2</span><br><span class="line">arg2</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> cat args.txt | xargs -n 1 ./a.sh</span></span><br><span class="line">arg1 #</span><br><span class="line">arg2 #</span><br><span class="line">arg3 #</span><br></pre></td></tr></table></figure>
+<p> 多么神奇的事情啊！如果你一次需要传递多个参数呢？</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat args.txt | xargs -n 2 ./a.out</span></span><br><span class="line">arg1 arg2 #</span><br><span class="line">arg3 #</span><br></pre></td></tr></table></figure>
+<p> 当一次性传递所有的参数呢？</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat args.txt | xargs ./a.out</span></span><br><span class="line">arg1 arg2 arg3 #</span><br></pre></td></tr></table></figure>
+<p> 除此之外，如果你的参数的一部分是固定的，而另一部分是需要从参数列表中变化的呢？<br> 可以使用’-I’指定需要替换的参数，{}将最终被参数替换。在与xargs命令结合使用时，对于每一个参数，命令都会执行一次。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat args.txt | xargs -I &#123;&#125; ./a.sh -p &#123;&#125; -l</span> </span><br><span class="line">-p arg1 -l #</span><br><span class="line">-p arg2 -l #</span><br><span class="line">-p arg3 -l #</span><br></pre></td></tr></table></figure></li>
+<li><p>xargs和find<br> xargs和find可以结合在一起使用，并且可以大大提升工作效率。在简要了解find和xargs的使用方法之前，一种常犯的错误需要注意：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -name <span class="string">&quot;*.txt&quot;</span> -<span class="built_in">print</span> | xargs rm -f</span></span><br></pre></td></tr></table></figure>
+<p> 上面的操作很危险，可能会删除不必要的文件！因为我们无法预测find输出的结果的定界符是什么，并且很多文件名包含空格，从而误删文件。</p>
+<blockquote>
+<p>因此，只要我们把find的输出作为xargs的输入使用，就必须使用-print0和find结合使用，使用字符’\0’来分割每一个查找到的文件</p>
+</blockquote>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> xargs -0 使用<span class="string">&#x27;\0&#x27;</span>作为输入定界符</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> find . -<span class="built_in">type</span> f -name <span class="string">&quot;*.txt&quot;</span> -print0 | xargs -0 rm -f</span></span><br></pre></td></tr></table></figure>
+<p> 举栗子：统计所有c文件的行数</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> find path -<span class="built_in">type</span> f -name <span class="string">&quot;*.c&quot;</span> -print0 | xargs -0 wc -l</span></span><br></pre></td></tr></table></figure></li>
+<li><p>运用while和子shell<br> xargs只能以有限的几种方式提供参数，而且不能为多组命令传递参数，要执行包含来自标准输入的多个参数的命令，有一种灵活的方法。包含while循环的子shell可以用来读取参数，然后通过一种巧妙的方式执行命令。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat files.txt | (<span class="keyword">while</span> <span class="built_in">read</span> arg; <span class="keyword">do</span> cat <span class="variable">$args</span>; <span class="keyword">done</span>)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 和 cat files.txt | xargs -I &#123;&#125; cat &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p> 以上cat $args可以替换为多个命令。</p>
+</li>
+</ol>
+<h2 id="tr"><a href="#tr" class="headerlink" title="tr"></a>tr</h2><p>tr可以用于对来自标准输入的内容进行字符的替换、删除以及重复字符的压缩。其也被称为转换命令。需要注意的是，tr命令只接受stdin，不能通过命令行参数来接受输入。它的一般的调用格式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> tr [options] set1 set2</span></span><br></pre></td></tr></table></figure>
+<p>上述的指令，将来自stdin的输入字符从set1映射到set2，然后输出到stdout。其中set1和set2均为字符类或者字符集。如果两个字符集和的长度不同，那么set2将会不断重复其最后一个字符，直到长度与set1相同。如果set2长度大于set1，那么超出的部分将会被忽略。</p>
+<ol>
+<li>大小写转换 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;HELLO, WORLD!&quot;</span> | tr <span class="string">&#x27;A-Z&#x27;</span> <span class="string">&#x27;a-z&#x27;</span></span></span><br><span class="line">hello, world!</span><br></pre></td></tr></table></figure>
+ 上述’a-z’等都是集合。那么如何定义一个集合呢？<br> 我们可以按需追加字符或者字符类构造自己的集合。对于’a-z-}’、’a-ce-x’、’a-c0-9’、’aA.,’等都是合法的结合。定义字符无需写一连串字符，只需要定义’开始字符-终止字符’即可，但是如果上述的开始和终止字符没有顺序关系，那么就将其看为3个独立的字符了。<br> 当然，tr也可以用于其他字符的替换。</li>
+<li>加密和解密<br> tr将一个字符集映射到另外一个字符集的原理，我们可以用来进行对文本加密。 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> 1234 | tr <span class="string">&#x27;0-9&#x27;</span> <span class="string">&#x27;9876543210&#x27;</span></span></span><br><span class="line">8765</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&#x27;tr came, tr saw, tr conquered.&#x27;</span> | tr <span class="string">&#x27;a-zA-Z&#x27;</span> <span class="string">&#x27;n-za-mN-ZA-M&#x27;</span></span></span><br><span class="line">ge pnzr, ge fnj, ge pbadhrerq.</span><br></pre></td></tr></table></figure></li>
+<li>字符删除和求补<br> ‘tr’命令使用参数’-d’可以删除stdin中的特定字符集： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;Hello 123 world 456&quot;</span> | tr -d <span class="string">&#x27;0-9&#x27;</span></span></span><br><span class="line">Hello world</span><br></pre></td></tr></table></figure>
+ 可以使用’-c’参数来求set1的补集<br> 如下面的例子，从输入文本中删除所有不在补集中的字符： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> hello 1 char 2 next 4 | tr -d -c <span class="string">&#x27;0-9&#x27;</span></span></span><br><span class="line">1 2 4</span><br></pre></td></tr></table></figure>
+ 在上述例子中，补集包括除了数字、空格、换行符之外的所有字符。由于指定了参数’-d’，因此这些字符被删除了。</li>
+<li>压缩字符<br> 在文本处理中的一个任务是压缩多个连续的空格为一个，或者其他类似的任务。使用tr可轻松实现这一个任务。 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;hello     world    my   love&quot;</span> | tr -s <span class="string">&#x27; &#x27;</span></span></span><br><span class="line">hello world my love</span><br></pre></td></tr></table></figure>
+ 对该用法我们可以举出这样的一个例子：将文件中的所有数字相加 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat nums.txt</span></span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> cat nums.txt | <span class="built_in">echo</span> $[ $(tr <span class="string">&#x27;\n&#x27;</span> <span class="string">&#x27;+&#x27;</span>) 0 ]</span></span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+ 在上述指令中的最后的0不可缺少。tr命令将stdin变为’1+2+3+4+5+’，最后填一个0使表达式完整。</li>
+<li>字符类<br> tr可以使用不同的字符类：<br> 使用字符类的方法如下： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> tr [:lower:] [:upper:]</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alnum</td>
+<td>字母和数字</td>
+</tr>
+<tr>
+<td>alpha</td>
+<td>字母</td>
+</tr>
+<tr>
+<td>cntrl</td>
+<td>控制字符</td>
+</tr>
+<tr>
+<td>digit</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>graph</td>
+<td>图形字符</td>
+</tr>
+<tr>
+<td>lower</td>
+<td>小写字符</td>
+</tr>
+<tr>
+<td>print</td>
+<td>可打印字符</td>
+</tr>
+<tr>
+<td>punct</td>
+<td>标点符号</td>
+</tr>
+<tr>
+<td>space</td>
+<td>空白字符</td>
+</tr>
+<tr>
+<td>xdigit</td>
+<td>16进制字符</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<blockquote>
+<p>参考：Linux Shell脚本攻略第二章</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cat"><span class="toc-number">1.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">2.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xargs"><span class="toc-number">3.</span> <span class="toc-text">xargs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tr"><span class="toc-number">4.</span> <span class="toc-text">tr</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/04/17/LinuxShell2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&text=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&is_video=false&description=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinuxShell2 - cat, find, xargs and tr&body=Check out this article: https://vhdsih.github.io/2018/04/17/LinuxShell2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&title=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/04/17/LinuxShell2/&name=LinuxShell2 - cat, find, xargs and tr&description=&lt;h2 id=&#34;cat&#34;&gt;&lt;a href=&#34;#cat&#34; class=&#34;headerlink&#34; title=&#34;cat&#34;&gt;&lt;/a&gt;cat&lt;/h2&gt;&lt;p&gt;cat通常用于读取、显示或者拼接文件内容，也可以用将来自标准输入和文件的数据进行组合。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;bash&#34;&gt; 读取文件内容的一般写法：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;cat file1 file2 ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;将标准输出和文件中的内容拼接在一起&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;bash&#34;&gt; &lt;span class=&#34;built_in&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;#x27;a&amp;#x27;&lt;/span&gt; &amp;gt; test.txt&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;bash&#34;&gt; &lt;span class=&#34;built_in&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;#x27;b&amp;#x27;&lt;/span&gt; | cat - test.txt &lt;span class=&#34;comment&#34;&gt;# - 作为stdin文件的文件名&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;b&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;a&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/04/17/LinuxShell2/&t=LinuxShell2 - cat, find, xargs and tr"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

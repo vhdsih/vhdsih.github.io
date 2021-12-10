@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="终端录制使用 script 和 scriptreplay 可以实现终端命令的录制播放。通常，录制视频需要大量的空间，而使用此命令得到的仅仅是文本文件，大小一般是KB级别的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LinuxShell3 - more commands">
+<meta property="og:url" content="https://vhdsih.github.io/2018/04/28/LinuxShell3/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="终端录制使用 script 和 scriptreplay 可以实现终端命令的录制播放。通常，录制视频需要大量的空间，而使用此命令得到的仅仅是文本文件，大小一般是KB级别的。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-04-28T05:31:28.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.458Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="Linux Shell">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>LinuxShell3 - more commands</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/05/03/install-opencv-on-windows/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/04/17/LinuxShell2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&text=LinuxShell3 - more commands"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&is_video=false&description=LinuxShell3 - more commands"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinuxShell3 - more commands&body=Check out this article: https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&name=LinuxShell3 - more commands&description=&lt;h2 id=&#34;终端录制&#34;&gt;&lt;a href=&#34;#终端录制&#34; class=&#34;headerlink&#34; title=&#34;终端录制&#34;&gt;&lt;/a&gt;终端录制&lt;/h2&gt;&lt;p&gt;使用 script 和 scriptreplay 可以实现终端命令的录制播放。通常，录制视频需要大量的空间，而使用此命令得到的仅仅是文本文件，大小一般是KB级别的。 &lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/04/28/LinuxShell3/&t=LinuxShell3 - more commands"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E5%BD%95%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">终端录制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-number">2.</span> <span class="toc-text">校验和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%92%8C%E6%95%A3%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">加密和散列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E3%80%81%E5%94%AF%E4%B8%80%E3%80%81%E9%87%8D%E5%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">排序、唯一、重复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">临时文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">6.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E9%80%9F"><span class="toc-number">7.</span> <span class="toc-text">并行加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">批量操作</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        LinuxShell3 - more commands
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-04-28T05:31:28.000Z" itemprop="datePublished">2018-04-28</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/System/">System</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Linux-Shell/" rel="tag">Linux Shell</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="终端录制"><a href="#终端录制" class="headerlink" title="终端录制"></a>终端录制</h2><p>使用 script 和 scriptreplay 可以实现终端命令的录制播放。通常，录制视频需要大量的空间，而使用此命令得到的仅仅是文本文件，大小一般是KB级别的。 </p>
+<span id="more"></span>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 录制</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> script -t 2&gt; timing.log -a output.session</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Input Your Commands</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">exit</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 播放</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> scriptreplay timing.log output.session</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="校验和"><a href="#校验和" class="headerlink" title="校验和"></a>校验和</h2><p>checksum用来从文件中生成校验和秘钥，然后利用这个校验和秘钥核实文件的完整性。使用校验和可以确保文件在传输过程中没有损坏。<br>最知名和最广泛使用的校验和技术是md5sum和SHA-1。它们对文件内容使用相应的算法来生成校验和。</p>
+<ol>
+<li><p>md5sum<br> 使用md5sum直接计算文件的md5sum</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> md5sum filename</span></span><br><span class="line">3234234... filename</span><br></pre></td></tr></table></figure>
+<p> 输出的md5序列是一个16进制的字符串。我们可以将生成的md5重定向到一个文件md5sum.md5，然后用这个文件来核实数据的完整性</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5sum file &gt; md5sum.md5</span><br></pre></td></tr></table></figure>
+<p> 当对多个文件求checksum时，输出的每一行为每个文件的checksum</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> md5sum file1 file2 file3</span></span><br><span class="line">[checksum1] file1</span><br><span class="line">[checksum2] file2</span><br><span class="line">[checksum3] file3</span><br></pre></td></tr></table></figure>
+<p> 进行校验使用如下的命令参数</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> md5sum -c file.md5</span></span><br></pre></td></tr></table></figure></li>
+<li><p>SHA-1<br> sha-1与md5sum使用方法类似，只需要将md5sum替换为sha1sum即可。</p>
+</li>
+<li><p>补充内容<br> 对于多个文件和文件夹，可以使用md5deep或sha1deep，你可能需要安装这些命令。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> md5deep -rl path &gt; dir.md5</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -r 表示使用递归，-l表示使用相对路径</span></span><br></pre></td></tr></table></figure>
+
+<p> 当然，你也可以使用find命令来完成这个任务</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find path -type f -print0 | xargs -0 md5sum &gt;&gt; dir.md5</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="加密和散列"><a href="#加密和散列" class="headerlink" title="加密和散列"></a>加密和散列</h2><p>加密技术可以防止数据遭到未被授权的访问。常见的加密和散列的工具包括：crypt、gpg、base64、md5sum、sha1sum以及openssl</p>
+<ol>
+<li><p>crypt</p>
+<p> crypt是一个简单的加密工具，它从stdin接受一个文件以及口令作为输入，然后将加密后的数据输出到stdout。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> crypt &lt;input-file&gt; output-file</span></span><br><span class="line">Enter passphrase:</span><br></pre></td></tr></table></figure>
+<p> 该命令需要输入一个口令。同样，我们也可以通过命令行参数提供口令：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> crypt PASSPHRASE -d &lt;encrypted-file&gt; output-file</span></span><br></pre></td></tr></table></figure></li>
+<li><p>gpg<br> gpg(GNU隐私保护)是一种使用广泛的工具，它使用加密技术保护文件，确保数据到达目的地之前不会被读取。gpg签名同样用于电子邮件签名，从而证明发送方的真实性。<br> gpg加密</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> gpg -c filename</span></span><br></pre></td></tr></table></figure>
+
+<p> 通过交互方式读取口令，生成filename.gpg，使用下面命令解密：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg filename.gpg</span><br></pre></td></tr></table></figure>
+<p> 此外，base64、md5sum 和 sha1sum使用方法类似。</p>
+</li>
+<li><p>shadow-like散列(salt散列)</p>
+<p> 例如存储在’/etc/shadow’下的用户密码，我们可以利用openssl生成shadow密码。shadow密码通常都是salt密码。所谓SALT就是额外的一个字符串，用来起混淆的作用，使密码难以破解。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> openssl passwd -1 -salt SALT PASSWD</span></span><br></pre></td></tr></table></figure>
+
+<p> 其中，SALT和PASSWD分别是你的字符串和密码。</p>
+</li>
+</ol>
+<h2 id="排序、唯一、重复"><a href="#排序、唯一、重复" class="headerlink" title="排序、唯一、重复"></a>排序、唯一、重复</h2><p>使用sort对文本和stdin排序，利用uniq去重。</p>
+<ol>
+<li><p>基础内容</p>
+<p> 对一组文件排序</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sort file1 file2 file3 &gt; result.txt</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> sort file1 file2 file3 -o result.txt</span></span><br></pre></td></tr></table></figure>
+
+<p> 也可以改变排序的顺序和确定顺序的依据</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 逆序</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> sort -r file</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 按照数字顺序</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> sort -n file</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 按照月份</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> sort -M monthes.txt</span></span><br></pre></td></tr></table></figure>
+
+<p> 合并两个有序的文件</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">sort -m file1 file2</span></span><br></pre></td></tr></table></figure>
+
+<p> 找出有序文件中的不重复的行</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sort file1 file2 | unique</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行’sort -C filename’命令的返回值和文件是否有序有关系。如果文件有序，则返回0，否则返回非0。</p>
+</blockquote>
+</li>
+<li><p>sort的复杂用法</p>
+<p> sort可以对包含键值对结构的数据根据键或者列来进行排序，例如，我们有如下数据：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat data.txt</span></span><br><span class="line">1 mac 2000</span><br><span class="line">2 win 4000</span><br><span class="line">3 bsd 1000</span><br><span class="line">4 linux 1000</span><br></pre></td></tr></table></figure>
+
+<p> 上述数据目前使用第一列的序号进行排序，我们也可以自行指定第二或者第三列进行排序。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sort -nrk 1</span></span><br><span class="line">4 linux 1000</span><br><span class="line">3 bsd 1000</span><br><span class="line">2 win 4000</span><br><span class="line">1 mac 2000</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> sort -k 2</span></span><br><span class="line">3 bsd 1000</span><br><span class="line">4 linux 1000</span><br><span class="line">1 max 2000</span><br><span class="line">2 win 4000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>要注意的是参数’-n’指的是使用数字顺序进行排序。如果需要以数字顺序排序，必须显示指出该参数。</p>
+</blockquote>
+<p> 此外，可以使用参宿’-b’忽略空格等多余字符，使用’-d’以字典序进行排序。也可以明确指明行内某些字符作为排序键，只需要指明起始位置：</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sort -nk 1,4 data.txt</span></span><br></pre></td></tr></table></figure></li>
+<li><p>uniq</p>
+<blockquote>
+<p>uniq的输入必须是有序的数据</p>
+</blockquote>
+<p> 该命令通过消除重复的内容，从给定的数据中找到唯一的行，也可以用来寻找重复的行。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat sorted.txt</span></span><br><span class="line">bash</span><br><span class="line">foss</span><br><span class="line">hack</span><br><span class="line">hack</span><br><span class="line"><span class="meta">#</span><span class="bash"> 去除重复</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> uniq sorted.txt</span></span><br><span class="line">bash</span><br><span class="line">foss</span><br><span class="line">hack</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> sort unsorted.txt | uniq</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 唯一</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> uniq -u sorted.txt</span></span><br><span class="line">bash</span><br><span class="line">foss</span><br></pre></td></tr></table></figure>
+
+<p> 统计每一行的数目</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sort unsorted.txt | uniq -c</span></span><br><span class="line">    1 bash</span><br><span class="line">    1 foss</span><br><span class="line">    2 hack</span><br></pre></td></tr></table></figure>
+
+<p> 列出重复的行</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sort unsorted.txt | uniq -d</span></span><br><span class="line">hack</span><br></pre></td></tr></table></figure>
+
+<p> 结合’-s’和’-w’参数可以指定键。其中s参数表示跳过前n个字符，w参数指定用于比较的最大的字符数目。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cat data.txt</span></span><br><span class="line">u:01:gnu</span><br><span class="line">d:04:linux</span><br><span class="line">u:01:bash</span><br><span class="line">u:01:hack</span><br></pre></td></tr></table></figure>
+
+<p> 对于上述文件，我们希望仅仅对其中的数字进行比较</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sort data.txt | uniq -s 2 -w 2</span></span><br><span class="line">d:04:linux</span><br><span class="line">u:01:bash</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="临时文件"><a href="#临时文件" class="headerlink" title="临时文件"></a>临时文件</h2><p>Linux 的临时文件的存储目录为’/tmp’。其中的内容在每一次系统重启以后都会被清空。我们在创建临时文件时，可以采用不同的方法来为临时数据生成标准的文件名。</p>
+<p>使用mktemp在’/tmp’目录中生成一个临时文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> filename=`mktemp`</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$filename</span></span></span><br><span class="line">/tmp/tmp.Adsijidi</span><br></pre></td></tr></table></figure>
+
+<p>使用’-d’参数生成目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> dirname=`mktemp -d`</span></span><br></pre></td></tr></table></figure>
+
+<p>如果仅仅需要名字，不需要在磁盘中创建相应文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> tempfile= `mktemp -u`</span></span><br></pre></td></tr></table></figure>
+
+<p>根据模板创建</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> mktemp test.XXX</span></span><br><span class="line">test.ase</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使模板正常工作，至少需要3个’X’</p>
+</blockquote>
+<h2 id="文件分割"><a href="#文件分割" class="headerlink" title="文件分割"></a>文件分割</h2><p>当需要将一个大文件分割成多个小文件时，我们需要使用’split’命令。下面是几种不同的文件分割方法。</p>
+<p>按照大小分割。例如将一个大小为100KB的文件分割为每一个为10KB的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> split -b 10k input.data</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ls</span></span><br><span class="line">input.data xaa xab ...</span><br></pre></td></tr></table></figure>
+
+<p>切分以后，文件名以xaa、xab命名。如果以数字为后缀，可以使用参数’-d’，使用’-a’来限制后缀的长度</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> split -b 10k input.data -d -a 4</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ls</span></span><br><span class="line">input.data x0009 x0019 ...</span><br></pre></td></tr></table></figure>
+
+<p>此外，除了k以外，还可以使用M、G、c（byte）、w（word）等后缀。</p>
+<p>制定文件前缀名：在命令后添加前缀名即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> split -b 10k data.file d -a 4 split_file</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ls</span></span><br><span class="line">split_file0000    split_file0001 ...</span><br></pre></td></tr></table></figure>
+
+<p>使用参数”-l nu_of_lines”按照数据的行数来进行切分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; split -l 10 data.txt</span><br><span class="line"># 得到各是10行的文件</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Another One: csplit</p>
+</blockquote>
+<p>csplit 是split的一个变体。后者仅仅能根据文件的大小和行数进行切分，但是前者可以根据文本自身的特点进行分割。是否存在某个单词或者文本内容都可以作为分割文件的条件。</p>
+<p>有如下的日志文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ cat server.log </span><br><span class="line">SERVER-1</span><br><span class="line">[connection] 192.168.0.1 success </span><br><span class="line">[connection] 192.168.0.2 failed </span><br><span class="line">[disconnect] 192.168.0.3 pending </span><br><span class="line">[connection] 192.168.0.4 success </span><br><span class="line">SERVER-2 </span><br><span class="line">[connection] 192.168.0.1 failed </span><br><span class="line">[connection] 192.168.0.2 failed </span><br><span class="line">[disconnect] 192.168.0.3 success </span><br><span class="line">[connection] 192.168.0.4 failed </span><br><span class="line">SERVER-3 </span><br><span class="line">[connection] 192.168.0.1 </span><br><span class="line">pending [connection] 192.168.0.2 </span><br><span class="line">pending [disconnect] 192.168.0.3 </span><br><span class="line">pending [connection] 192.168.0.4 failed</span><br></pre></td></tr></table></figure>
+
+<p>任务是将上述的文件分割为server1.log、server2.log和server3.log。可以使用如下的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csplit server.log /SERVER/ -n 2 -s &#123;*&#125; -f server -b &quot;%02d.log&quot; ; rm server00.log</span><br></pre></td></tr></table></figure>
+
+<p>其中/SERVER/用来匹配一行，{*}表示重复执行分割，直至文件结尾。*可以替换为数字表示执行分割的次数。-s表示静默方式，不打印其他信息，-n表示分割文件后的文件名后缀的数字的个数。-f表示分割文件的前缀，-b表示后缀的格式。在这里文件名即前缀加后缀。</p>
+<blockquote>
+<p>根据扩展名切分文件名</p>
+</blockquote>
+<p>借助”%”符号可以方便将“名称.扩展名”这种名称提取出来。对于sample.jpg，下面是一个例子，将名称提取出来</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">file=&quot;sample.jpg&quot;</span><br><span class="line">name=$&#123;file%.*&#125;</span><br><span class="line">echo name is $name</span><br><span class="line"></span><br><span class="line">output: name is sample</span><br></pre></td></tr></table></figure>
+
+<p>对于${VAR%.*}的含义如下：首先删除位于%右侧的通配符，上述例子为”.*“，通配符由右侧向左侧进行匹配。然后为VAR赋值。对于sample.jpg，首先通配符匹配到.jpg，删除通配符对VAR进行赋值，得到sample。</p>
+<p>注意”%”是非贪婪模式，仅仅匹配从右到左的最短的结果。还有一个是”%%”，但是该模式是从右到左贪婪的，即匹配最长结果。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> VAR=hack.fun.book.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$&#123;VAR%.*&#125;</span></span></span><br><span class="line">hack.fun.book</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$&#123;VAR%%.*&#125;</span></span></span><br><span class="line">hack</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除前缀</p>
+</blockquote>
+<p>使用#和##可以删除前缀。其用法与%类似，不同的是其是从左向右匹配的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> VAR=hack.fun.book.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$&#123;VAR#*.&#125;</span></span></span><br><span class="line">fun.book.txt</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$&#123;VAR##*.&#125;</span></span></span><br><span class="line">txt</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="并行加速"><a href="#并行加速" class="headerlink" title="并行加速"></a>并行加速</h2><p>如果需要你的程序需要进行大量的计算，属于cpu密集的应用，为了提高运行效率，就应该充分利用多核。</p>
+<p>举个栗子：对多个文件进行md5sum计算：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> file name is md5.sh</span></span><br><span class="line"></span><br><span class="line">PIDARRAY=()</span><br><span class="line">for file in F1.iso F2.iso</span><br><span class="line">do</span><br><span class="line">    md5sum $file &amp;</span><br><span class="line">    PIDARRAY+=(&quot;$!&quot;)</span><br><span class="line">done</span><br><span class="line">wait $&#123;PIDARRAY[@]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当执行上述脚本时，获得的结果与下面的运行结果相同。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5sum F1.iso F2.iso</span><br></pre></td></tr></table></figure>
+
+<p>但是由于多个命令是并行执行的，可以更快得到结果。其工作原理就是使用’&amp;’操作符将shell命令置于后台执行。为了避免循环结束时脚本退出，使用$!获取最后一个进程的PID，使用wait来等待这些进程。</p>
+<h2 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h2><p>利用rename、mv结合find，命令可以实现批量操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span> </span><br><span class="line"><span class="meta">#</span><span class="bash">文件名: rename.sh</span> </span><br><span class="line"><span class="meta">#</span><span class="bash">用途: 重命名 .jpg 和 .png 文件</span> </span><br><span class="line">count=1; </span><br><span class="line">for img in `find . -iname &#x27;*.png&#x27; -o -iname &#x27;*.jpg&#x27; -type f -maxdepth 1` </span><br><span class="line">do </span><br><span class="line">	new=image-$count.$&#123;img##*.&#125; </span><br><span class="line">	echo &quot;Renaming $img to $new&quot; </span><br><span class="line">	mv &quot;$img&quot; &quot;$new&quot; </span><br><span class="line">	let count++ </span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出如下：</span> </span><br><span class="line"><span class="meta">$</span><span class="bash"> ./rename.sh</span> </span><br><span class="line">Renaming hack.jpg to image-1.jpg </span><br><span class="line">Renaming new.jpg to image-2.jpg </span><br><span class="line">Renaming next.png to image-3.png</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考：Linux Shell 脚本攻略</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E5%BD%95%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">终端录制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-number">2.</span> <span class="toc-text">校验和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%92%8C%E6%95%A3%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">加密和散列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E3%80%81%E5%94%AF%E4%B8%80%E3%80%81%E9%87%8D%E5%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">排序、唯一、重复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">临时文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">6.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E9%80%9F"><span class="toc-number">7.</span> <span class="toc-text">并行加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">批量操作</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&text=LinuxShell3 - more commands"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&is_video=false&description=LinuxShell3 - more commands"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinuxShell3 - more commands&body=Check out this article: https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&name=LinuxShell3 - more commands&description=&lt;h2 id=&#34;终端录制&#34;&gt;&lt;a href=&#34;#终端录制&#34; class=&#34;headerlink&#34; title=&#34;终端录制&#34;&gt;&lt;/a&gt;终端录制&lt;/h2&gt;&lt;p&gt;使用 script 和 scriptreplay 可以实现终端命令的录制播放。通常，录制视频需要大量的空间，而使用此命令得到的仅仅是文本文件，大小一般是KB级别的。 &lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/04/28/LinuxShell3/&t=LinuxShell3 - more commands"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

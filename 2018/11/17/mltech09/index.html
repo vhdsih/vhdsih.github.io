@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习技法》系列课程（九）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="25 Decision Tree">
+<meta property="og:url" content="https://vhdsih.github.io/2018/11/17/mltech09/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习技法》系列课程（九）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/17/mltech09/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/17/mltech09/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/17/mltech09/3.png">
+<meta property="article:published_time" content="2018-11-17T12:15:36.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.500Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/11/17/mltech09/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>25 Decision Tree</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/11/18/mltech10/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/11/11/mltech08/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/11/17/mltech09/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/11/17/mltech09/&text=25 Decision Tree"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/11/17/mltech09/&is_video=false&description=25 Decision Tree"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=25 Decision Tree&body=Check out this article: https://vhdsih.github.io/2018/11/17/mltech09/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/11/17/mltech09/&name=25 Decision Tree&description=&lt;p&gt;《机器学习技法》系列课程（九）&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/11/17/mltech09/&t=25 Decision Tree"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Tree-Hypothesis"><span class="toc-number">1.</span> <span class="toc-text">Decision Tree Hypothesis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Tree-Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Decision Tree Algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Tree-Heuristics-in-C-amp-RT"><span class="toc-number">3.</span> <span class="toc-text">Decision Tree Heuristics in C&amp;RT</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        25 Decision Tree
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-11-17T12:15:36.000Z" itemprop="datePublished">2018-11-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习技法》系列课程（九）</p>
+<span id="more"></span>
+
+<h2 id="Decision-Tree-Hypothesis"><a href="#Decision-Tree-Hypothesis" class="headerlink" title="Decision Tree Hypothesis"></a>Decision Tree Hypothesis</h2><p>我们学习了将多个假设g融合到一起使用的方法：Blending、Bagging以及AdaBoost，使用这些Aggregate的方法，我们可以提高模型的性能（即使每一个g都只能比瞎猜要好一点）。如果我们现在手上已经有了一些假设g，那么我们可以通过uniform、non-uniform、conditional等方式将它们融合在一起（Blending）；如果我们现在手上没有这些g，那么我们需要从数据中学习到一些g，然后将其组合到一起：我们可以使用Bagging的方法来做uniform的组合，使用AdaBoost的方法来做non-uniform的组合。现在我们将学习一种新的方案：决策树（Decision Tree），使用它我们可以学习到一些g，并将其有条件的（conditional）组合到一起！</p>
+<p>我们在数据结构课程中学习了树形结构，对于决策树来说，他的每一个非叶子节点就是一个条件，或者说是基本的假设（g），它们通常是很简单的，而连接这个节点的每一条边都表示条件相应的取值（或者取值范围），而每一个叶子节点则表示最终的结果。</p>
+<p>我们可以从两个角度来看决策树这种学习算法：</p>
+<ol>
+<li>我们可以将整个决策树这个假设G(x)看做是多个从根节点到叶子的路径的组合（多个假设g的组合）。</li>
+<li>可也以递归地看待决策树，每一个决策树都是由根节点（一个基本假设）和多个子决策树构成的。</li>
+</ol>
+<p>对于决策树，其最重要的优点就是他的可解释性，只要构建了一个决策树，我们就能清晰地看到它的决策过程。同时，它也是简单高效的。然而对于决策树来说，它缺少必要的理论支撑，我们很难说明怎样让它做得好或者说为什么它能做得好（或者说对于决策树有很多的解释方案）。同时存在多种决策树的构建方案，但是并不存在一种代表性的算法。</p>
+<h2 id="Decision-Tree-Algorithm"><a href="#Decision-Tree-Algorithm" class="headerlink" title="Decision Tree Algorithm"></a>Decision Tree Algorithm</h2><p>我们可以将决策树表示为如下形式：</p>
+<p><img src="/2018/11/17/mltech09/1.png" alt="decision tree"> </p>
+<p>这是一种递归的表示方案，其中C表示根节点的假设取值一共有C个，从而有C个子决策树。</p>
+<p>我们如果要构建这样的一棵决策树，则需要有四个要点：</p>
+<ol>
+<li>决策树有几个分支（每个假设有几个取值）。</li>
+<li>怎样将数据D拆分（当假设取值为某一个值，则对应某一部分数据：Dc = {(x, y)| b(x) = c}）。</li>
+<li>每一个条件的选择。</li>
+<li>决策树构建的终止条件。</li>
+</ol>
+<p>下面我们学习一种构建决策树的方法：Classification and Regression Tree (C&amp;RT)。该算法分支数目C=2，也就是说使用该算法构建的决策树是一棵二叉树；其次，它最后的叶子是一个常数（哪一类）。也因此，如果使用该算法构建的决策树要解决的问题是一个回归问题，其可以使用平方误差；如果解决的是一个分类问题，则可以使用01Error。</p>
+<p>我们提到决策树构建需要解决4个问题，上面我们已经说明C&amp;RT的分支数（C）是2；而在每一个节点对数据进行拆分的方法是decision stump，也就是根据某一个简单的条件，将数据分为两部分。而决定使用哪一个条件来拆分数据的方法是引入一个纯净度（purifying）来衡量条件的好坏，与之相对的则是不纯净度（impurify），我们一般通过最小化不纯净度来决定条件的选择：</p>
+<p><img src="/2018/11/17/mltech09/2.png" alt="bi-branching"> </p>
+<p>上面的表达式是不纯净度的表达式，其表示在假设h的条件下两个分支不纯净度的加和，如果b(x)越小，说明在该结点这个假设h越好。</p>
+<p><img src="/2018/11/17/mltech09/3.png" alt="ein"> </p>
+<p>如上图所示，我们提到C&amp;RT的每一个叶子都是常数，那么如果解决回归问题，可以使用平方误差，如果是分类问题，可以使用01误差（看大多数相同的数据和其他数据的差）。然而，我们进一步讨论分类问题，会发现这种衡量方法只会考虑数量最多的数据，而其他数据不会被考虑到，因此可以使用Gini指数来作为分类问题的求解方法(它也更适合用于分类问题)：它考虑了所有数据。</p>
+<p>最后我们考虑决策树的终止条件，其包含两个条件：</p>
+<ol>
+<li>如果最终的数据仅仅包含相同的数据，此时无法继续切分，所以可以终止算法。</li>
+<li>如果数据对应的yn是相同的，此时说明不纯度为0，可以终止算法。</li>
+</ol>
+<h2 id="Decision-Tree-Heuristics-in-C-amp-RT"><a href="#Decision-Tree-Heuristics-in-C-amp-RT" class="headerlink" title="Decision Tree Heuristics in C&amp;RT"></a>Decision Tree Heuristics in C&amp;RT</h2><p>C&amp;RT方法很容易处理二分类、回归以及多分类问题。然而，对于一个完全成长的决策树，很可能Ein=0，但是Eout是非常大的。因为随着决策树构建的进行，构建每个节点的数据越来越少，这就导致了overfitting。</p>
+<p>由此，我们需要regularization的方法来降低复杂度。对于决策树，其模型的复杂度体现在叶子节点的数量，所以，我们可以不切那么多的树叶，一个好的决策树，不但它的ein很低，树叶的数量也要少。所以，当我们得到一棵完全成长的决策树以后，可以去掉一些叶子，选择ein稍稍大一点但是复杂度小一点的，这个方法就是剪枝。</p>
+<p>如果考虑所有可能的切法,这看起来不容易做到。实际操作中，我们可以在得到完全长成的树以后，把每一个叶子摘掉，看哪个Ein最小，然后试着摘第二个叶子，第三个叶子…</p>
+<p>此外，我们也会遇到非数值性的特征，使用决策树我们同样可以处理这样的问题，此时对于不同的类别可以采用“左”、“右”来切分而不是0、1。</p>
+<p>我们还可能会遇到特征缺失的场景，我们的一种解决方案是surrogate branch，就是选择近似的特征来替代这些缺失的特征。那么怎样选择近似的特征呢？如果两种特征切分结果是类似的，说明它们相似。可以将其存储，在预测时遇到缺失数据以后，使用它替代缺失的特征。</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习技法》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Tree-Hypothesis"><span class="toc-number">1.</span> <span class="toc-text">Decision Tree Hypothesis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Tree-Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Decision Tree Algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decision-Tree-Heuristics-in-C-amp-RT"><span class="toc-number">3.</span> <span class="toc-text">Decision Tree Heuristics in C&amp;RT</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/11/17/mltech09/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/11/17/mltech09/&text=25 Decision Tree"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/11/17/mltech09/&is_video=false&description=25 Decision Tree"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=25 Decision Tree&body=Check out this article: https://vhdsih.github.io/2018/11/17/mltech09/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/11/17/mltech09/&title=25 Decision Tree"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/11/17/mltech09/&name=25 Decision Tree&description=&lt;p&gt;《机器学习技法》系列课程（九）&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/11/17/mltech09/&t=25 Decision Tree"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

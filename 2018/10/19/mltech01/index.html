@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习技法》系列课程（一） 从本节开始学习SVM！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="17 Linear Support Vector Machine">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/19/mltech01/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习技法》系列课程（一） 从本节开始学习SVM！">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/11.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/12.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/13.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/14.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/15.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/16.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/17.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/18.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/19.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/19/mltech01/20.png">
+<meta property="article:published_time" content="2018-10-19T11:38:48.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.481Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/19/mltech01/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>17 Linear Support Vector Machine</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/21/mltech02/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/18/mlfound16/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/19/mltech01/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/19/mltech01/&text=17 Linear Support Vector Machine"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/19/mltech01/&is_video=false&description=17 Linear Support Vector Machine"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=17 Linear Support Vector Machine&body=Check out this article: https://vhdsih.github.io/2018/10/19/mltech01/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/19/mltech01/&name=17 Linear Support Vector Machine&description=&lt;p&gt;《机器学习技法》系列课程（一）&lt;/p&gt;
+&lt;p&gt;从本节开始学习SVM！&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/19/mltech01/&t=17 Linear Support Vector Machine"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Large-Margin-Separation-Hyperplane"><span class="toc-number">1.</span> <span class="toc-text">Large-Margin Separation Hyperplane</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Standard-Large-Margin-Problem"><span class="toc-number">2.</span> <span class="toc-text">Standard Large-Margin Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Support-Vector-Machine"><span class="toc-number">3.</span> <span class="toc-text">Support Vector Machine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reasons-Behind-Large-Margin-Hyperplane"><span class="toc-number">4.</span> <span class="toc-text">Reasons Behind Large-Margin Hyperplane</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        17 Linear Support Vector Machine
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-19T11:38:48.000Z" itemprop="datePublished">2018-10-19</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习技法》系列课程（一）</p>
+<p>从本节开始学习SVM！</p>
+<span id="more"></span>
+
+<h2 id="Large-Margin-Separation-Hyperplane"><a href="#Large-Margin-Separation-Hyperplane" class="headerlink" title="Large-Margin Separation Hyperplane"></a>Large-Margin Separation Hyperplane</h2><p>我们首先回顾已经学过的PLA和Pocket算法，它们都是找到一条直线（或超平面）将数据点按照类别分开。但是经过PLA或者Pocket得到的目标可能有很多，比如：</p>
+<p><img src="/2018/10/19/mltech01/1.png" alt="many possible"> </p>
+<p>就像上图那样，每一条直线都是有可能得到的，并且都是分类正确而且满足VC Bound。然而，如果让我们来直观地做出选择，第三图得到的分类直线才是最好的，因为这条直线距离两个种类的距离很平均，可能对于新的数据会具备更好的泛化能力。</p>
+<p>为什么说最右边的直线表现最好呢，我们可以有两个角度来解释：<br>首先我们可以假定在获得每个数据是时都可能存在偏差，也就是我们得到的数据可能在真实的数据的附近，如图：</p>
+<p><img src="/2018/10/19/mltech01/2.png" alt="noice"> </p>
+<p>那么图三能够容忍更多的噪音的发生，那么它的鲁棒性也就更好。相反，对于前两张图，很容易出现overfitting问题。</p>
+<p>其次，我们从分类线（超平面）来考虑这个问题。如果我们的最终结果的鲁棒性越好，那么也就说明我们得到的线（超平面）越胖：</p>
+<p><img src="/2018/10/19/mltech01/3.png" alt="fat line"> </p>
+<p>所谓的越胖，也就是最近的数据点距离直线的距离越大。</p>
+<p>因此，我们如果想要选出最好的直线（超平面），就需要在满足分类需要的条件下，让所有点距离其的距离(margin(w))最大化：</p>
+<p><img src="/2018/10/19/mltech01/4.png" alt="result"> </p>
+<h2 id="Standard-Large-Margin-Problem"><a href="#Standard-Large-Margin-Problem" class="headerlink" title="Standard Large-Margin Problem"></a>Standard Large-Margin Problem</h2><p>既然条件之一是距离最大化，那么我们该怎样求解距离问题呢？</p>
+<p>首先，我们将变量使用矩阵表示，不同于我们之前的习惯，我们需要将w0放在外面作为b，同时也忽略了x0：</p>
+<p><img src="/2018/10/19/mltech01/5.png" alt="how to get distance"> </p>
+<p>此时，现在我们的假设空间变为：</p>
+<p><img src="/2018/10/19/mltech01/6.png" alt="hypothesis"> </p>
+<p>此时我们的分类线（超平面）满足wTx + b = 0。我们需要任意数据点x到该平面的距离，下面是我们的求解方法：</p>
+<p>![how to calculate the distance]](7.png) </p>
+<p>首先，我们任取分类面上两点x’和x’’，带入平面方程我们有：</p>
+<ol>
+<li>wTx’ = -b。</li>
+<li>wTx’’ = -b。</li>
+</ol>
+<p>二者化简有：wT(x’’ - x’) = 0。说明此时wT垂直于分类面。所以，如果我们需要获得平面外一点到平面的距离，我们需要做一个投影运算，即将向量(x - x’)投影到垂直于平面的方向，也就是w的方向。</p>
+<p>distance = project(x - x’) to DIRw</p>
+<p>化简得到：</p>
+<div align> ![distance](8.png) 
+
+<p>需要注意的是我们现在使用的超平面是一个分类界面，那么它就会附带更多的一些属性。其中之一是如果用每个点xn对应的类别yn乘以(wTxn + b)，那么结果是大于0的：</p>
+<div align> ![rule](9.png) 
+
+<p>那么此时我们可以将距离表达式中的绝对值符号去掉了：</p>
+<div align> ![distance format](10.png) 
+
+<p>现在我们的目标变成了如下的形式：</p>
+<p><img src="/2018/10/19/mltech01/11.png" alt="goal 1"> </p>
+<p>然而，这个表达依旧很复杂，难以求解，我们继续化简。我们对一个分类面的表达式进行化简，我们知道，对于一个等式来说，方程两边乘以相同的数仍然是成立的，那么，我们可以放缩：</p>
+<p><img src="/2018/10/19/mltech01/12.png" alt="scaling"> </p>
+<p>也就是让距离最近的点满足其结果为1。此时我们所需要的margin(b, w)就变味了1 / ||w||</p>
+<p>那么我们现在的目标：</p>
+<p><img src="/2018/10/19/mltech01/13.png" alt="goal 2"> </p>
+<p>然而求解依旧复杂，我们继续考虑放缩，我们可以考虑将条件进一步放宽一些，然而我们仍能够证明依然存在最近的点满足等于1。此时，我们将上一个目标变形（将最大化问题变为最小化，即变为倒数，同时乘以1/2为了方便后续的计算，同时变为平方，用来去掉距离的根号），得到了最终的目标：</p>
+<p><img src="/2018/10/19/mltech01/14.png" alt="goal final"> </p>
+<h2 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h2><p>上一节中我们得到的表达式我们称之为标准问题。当我们使用其求解一个分类问题时，我们得到的最终的超平面，此时就是SVM。<br>那么什么是支持向量机（SVM）？</p>
+<p><img src="/2018/10/19/mltech01/15.png" alt="svm"> </p>
+<p>如上图所示，我们在寻找最胖的分类界面时，需要被方框圈住的点，而没有被圈住的点我们并不需要。我们把这些被圈住的点称为支撑向量（候选者）。而支持向量机（SVM）就是通过这些支撑向量候选者，学习到最胖的超平面。</p>
+<p>尽管解决SVM问题并不容易，我们不能利用Gradient Descent等方法，但是比较幸运的是在数学上有类似问题的解决方法：二次规划（quadratic programming）。</p>
+<p>然而我们需要对其做一些变换，使其满足Quadratic Programming的标准形式，后者的标准形式如下：</p>
+<p><img src="/2018/10/19/mltech01/16.png" alt="qp"> </p>
+<p>我们需要知道u, Q, p等，通过变换，有：</p>
+<p><img src="/2018/10/19/mltech01/17.png" alt="value convert"> </p>
+<p>因此，如果我们需要解决线性SVM问题，需要以下三步：</p>
+<p><img src="/2018/10/19/mltech01/18.png" alt="solution"> </p>
+<p>如果是非线性的，需要做空间变换，将点变换到z空间。</p>
+<h2 id="Reasons-Behind-Large-Margin-Hyperplane"><a href="#Reasons-Behind-Large-Margin-Hyperplane" class="headerlink" title="Reasons Behind Large-Margin Hyperplane"></a>Reasons Behind Large-Margin Hyperplane</h2><p>为什么要选择最胖(Large Margin)的分类界面呢？我们从正则化和VC两个方面来看这个问题。</p>
+<p>首先我们对比SVM和Regularization：</p>
+<p><img src="/2018/10/19/mltech01/19.png" alt="compare svm and reg"> </p>
+<p>我们可以看到二者很类似，正则化是最小化Ein而其限制条件是wTw &lt; C；而SVM是最小化wTw，它的限制条件其实也就是Ein=0。二者实际的作用类似，效果相近，所以SVM也可以说是一种weight-decay regularization!</p>
+<p>另一方面，我们从VC维度来看这个问题。如果我们选择最胖的线，那么它能够shatter的点也就越少，从而VC维度也就会比原来的PLA更低，从而就可能有更好的泛化效果。</p>
+<p>我们考虑演算法的VC维度（之前的VC Dimension是假设空间的Dvc，其和数据无关，而演算法的Dvc和数据有关）：</p>
+<p><img src="/2018/10/19/mltech01/20.png" alt="ball"> </p>
+<p>在圆上有三个点。如果我们线的胖度为0时，实际就是PLA算法，此时dvc=3<br>如果胖度大于 √3 / 2那么不能找到一条线来shatter3个点。</p>
+<p>使用Large Margin的分类面可以降低模型的复杂度，因为dvc更小，具备更好的泛化能力，同时，边界也比较简单，因为我们可能有更好的Ein。</p>
+<p>此时如果对于非线性问题，我们的SVM结合特征转换，可能能够得到更好的结果！</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习技法》课程！</p>
+</blockquote>
+<p>— END —</p>
+</div></div></div>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Large-Margin-Separation-Hyperplane"><span class="toc-number">1.</span> <span class="toc-text">Large-Margin Separation Hyperplane</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Standard-Large-Margin-Problem"><span class="toc-number">2.</span> <span class="toc-text">Standard Large-Margin Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Support-Vector-Machine"><span class="toc-number">3.</span> <span class="toc-text">Support Vector Machine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reasons-Behind-Large-Margin-Hyperplane"><span class="toc-number">4.</span> <span class="toc-text">Reasons Behind Large-Margin Hyperplane</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/19/mltech01/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/19/mltech01/&text=17 Linear Support Vector Machine"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/19/mltech01/&is_video=false&description=17 Linear Support Vector Machine"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=17 Linear Support Vector Machine&body=Check out this article: https://vhdsih.github.io/2018/10/19/mltech01/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/19/mltech01/&title=17 Linear Support Vector Machine"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/19/mltech01/&name=17 Linear Support Vector Machine&description=&lt;p&gt;《机器学习技法》系列课程（一）&lt;/p&gt;
+&lt;p&gt;从本节开始学习SVM！&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/19/mltech01/&t=17 Linear Support Vector Machine"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

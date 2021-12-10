@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习技法》系列课程（八）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="24 Adaptive Boostring">
+<meta property="og:url" content="https://vhdsih.github.io/2018/11/11/mltech08/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习技法》系列课程（八）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/11/mltech08/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/11/mltech08/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/11/mltech08/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/11/mltech08/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/11/11/mltech08/5.png">
+<meta property="article:published_time" content="2018-11-11T13:21:31.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.499Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/11/11/mltech08/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>24 Adaptive Boostring</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/11/17/mltech09/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/28/mltech07/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/11/11/mltech08/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/11/11/mltech08/&text=24 Adaptive Boostring"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/11/11/mltech08/&is_video=false&description=24 Adaptive Boostring"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=24 Adaptive Boostring&body=Check out this article: https://vhdsih.github.io/2018/11/11/mltech08/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/11/11/mltech08/&name=24 Adaptive Boostring&description=&lt;p&gt;《机器学习技法》系列课程（八）&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/11/11/mltech08/&t=24 Adaptive Boostring"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation-of-Boosting"><span class="toc-number">1.</span> <span class="toc-text">Motivation of Boosting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Diversity-by-Re-weighting"><span class="toc-number">2.</span> <span class="toc-text">Diversity by Re-weighting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adaptive-Boosting-Algorithm"><span class="toc-number">3.</span> <span class="toc-text">Adaptive Boosting Algorithm</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        24 Adaptive Boostring
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-11-11T13:21:31.000Z" itemprop="datePublished">2018-11-11</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习技法》系列课程（八）</p>
+<span id="more"></span>
+
+<p>在上一章，我们学习了Aggregation方法：如果将多个不同的hypotheses组合在一起使用，我们能够获得更好的性能。我们介绍了实现Aggregation的两种方法，Blending和Bagging。对于Blending，我们可以视各个hypothesis是同等重要的（一个一票），也可以使用线性或者非线性的组合方法。对于Bagging，它通过使用bootstrap方法从原始数据中抽取多个相同容量的数据副本，从而学习到很多不同的hypothesis用于Aggregation。下面我们学习一种新的方案：Adaptive Boostring。</p>
+<h2 id="Motivation-of-Boosting"><a href="#Motivation-of-Boosting" class="headerlink" title="Motivation of Boosting"></a>Motivation of Boosting</h2><p>我们从实际生活的一个场景来引出我们所要讲述的内容：幼儿园的小朋友如何学习从很多的水果中正确区分出苹果。<br>很多小朋友可能会从不同的角度来提出区分的方案，比如形状是圆形的，比如颜色是红色的，比如说过是有柄的等等。可能单单对于其中的几个是不能完成任务的，但是多个组合在一起就能够起到区分的作用。<br>在这个教导小朋友学习识物的过程中，老师起到的一个很大的作用是除了要指出哪些是对的以外，还要指出小朋友在哪里犯错了，让小朋友的注意力集中到那些值得注意的特征上面。<br>在这里，每一个小朋友就像我们学习过程中的每一个假设（g），而老师则可以类比于我们所使用的学习算法，重要的是这个学习算法能够指导学习的关注点可以放在关键的部分（如那些分类错误的点）。</p>
+<h2 id="Diversity-by-Re-weighting"><a href="#Diversity-by-Re-weighting" class="headerlink" title="Diversity by Re-weighting"></a>Diversity by Re-weighting</h2><p>我们首先从Bagging讲起，其核心是bootstrap方法：从样本数量为N的数据中又放回地抽取N个数据，所得到的新的数据就会包含一些重复的数据点。我们可以使用更简单的方法来表示这些数据：我们使用ui表示每一个数据点包含的数目，ui可能是0，也可能是大于0小于N的任意数字，可以把ui看作是数据的权重，而bootstrap方法就是用来产生这些u，从而能够学习不同的g用以Bagging。</p>
+<p>我们将添加了这些参数un的演算法称为Weighted Base Algorithm，如果某个点很重要，就为其添加较大的un权重，其需要最小化的Ein为：</p>
+<p><img src="/2018/11/11/mltech08/1.png" alt="ein to minimize"> </p>
+<p>对于这样的Weighted-base问题，我们在之前的学习中就有所接触，我们在SVM以及逻辑回归中也使用了类似的方法。对于SVM，其添加的un，最终会移动到参数α的上界。在SGD的LR算法中un可以决定抽样的比例。</p>
+<p>现在我们回头来看我们的Bagging问题，它如果能够达到很好的效果，其条件之一是每一个g要不同，越不同，效果越好。那么我们该怎样选择u来让g更加多样性呢（另一层意思是怎样优化bootstrap来达到增加g多样性的目的）？</p>
+<p>考虑在两轮中使用un(t)和un(t+1)获得的gt和gt+1。如果我们选出的gt在使用权重un(t+1)时效果越差，那么gt和与gt类似的假设就都不会被选择，这也就说明了gt+1和gt差别就会很大。那么我们从全局上考虑，如果让所有的g整体上表现最好，那么让其发生的更随机，就类似丢硬币：概率为1/2：</p>
+<p><img src="/2018/11/11/mltech08/2.png" alt="idea"> </p>
+<p>让在gt下un(t+1)正确的和错误的点一样多！</p>
+<h2 id="Adaptive-Boosting-Algorithm"><a href="#Adaptive-Boosting-Algorithm" class="headerlink" title="Adaptive Boosting Algorithm"></a>Adaptive Boosting Algorithm</h2><p>上一节中，我们讨论了optimal re-weighting，其意义是首先将手上的gt的错误率a计算出来，然后把错误的点做（1-a）比例的放缩，然后把正确的点做a的放缩。现在我们定义一个新的比例因子来代替上面的a：</p>
+<p><img src="/2018/11/11/mltech08/3.png" alt="new factor"> </p>
+<p>这样就能把错误放大，正确缩小了，这样就能专注于错误的数据！</p>
+<p>现在我们可以基本写出Adaptive Boosting，其使用un来代替bagging算法中的bootstrap，每一轮通过un获得gt（通过最小化01Error），在下一轮更新un时，通过上述的“方片”因子进行处理。然而，还存在两个问题没有处理：</p>
+<ol>
+<li>un怎样初始化？</li>
+<li>各个g怎样组合到一起？</li>
+</ol>
+<p>对于第一个问题，u1 = 1 / N。对于第二个问题，我们肯定不能采用同等权重的方案，因为在这里有的g做得好，但是同样存在g做的很糟糕，他们的比例基本是随机的。提出该算法的作者则在每次update un时都自动计算每个g的比例系数：αt=ln(“方片”)，其意义表示：如果gt越好，那么αt越大，如果犯错的概率为1/2，则其起不到作用αt=0，如果犯错概率为0，则这一个g就能完美完成任务，则αt为无穷大。这就是我们这一节中要了解的Adaptive Boostring（AdaBoost）Algorithm：</p>
+<p><img src="/2018/11/11/mltech08/4.png" alt="adaboost"> </p>
+<p>该算法的具体过程如下：</p>
+<p><diva align="center"> <img src="/2018/11/11/mltech08/5.png" alt="adaboost - code"> </diva></p>
+<p>对于AdaBoost，我们可以从VC Bound的角度来考虑其复杂度，这里不再具体解释。这里有一个结论：如果其中的g能够比胡乱猜要做得好（错误率小于1/2）就能够保证在T = O（logN）次迭代后让Ein(G)很小，并且Eout可以做到基本小于Ein(G)。</p>
+<p>对于AdaBoost，只要g比随机要做得好，那么它就能很健壮！</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习技法》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation-of-Boosting"><span class="toc-number">1.</span> <span class="toc-text">Motivation of Boosting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Diversity-by-Re-weighting"><span class="toc-number">2.</span> <span class="toc-text">Diversity by Re-weighting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adaptive-Boosting-Algorithm"><span class="toc-number">3.</span> <span class="toc-text">Adaptive Boosting Algorithm</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/11/11/mltech08/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/11/11/mltech08/&text=24 Adaptive Boostring"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/11/11/mltech08/&is_video=false&description=24 Adaptive Boostring"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=24 Adaptive Boostring&body=Check out this article: https://vhdsih.github.io/2018/11/11/mltech08/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/11/11/mltech08/&title=24 Adaptive Boostring"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/11/11/mltech08/&name=24 Adaptive Boostring&description=&lt;p&gt;《机器学习技法》系列课程（八）&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/11/11/mltech08/&t=24 Adaptive Boostring"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习基石》系列课程（二）我们已经知道，机器学习模型由两部分组成：演算法和Hypothesis Set。如果我们想要让计算机学习去回答答案为是、否这样的问题时（就像第一章中的信用卡发放的问题那样），我们需要怎样的演算法，我们又应该使用什么样的hypothesis set呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02 Learning to Answer Yes or No">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/07/mlfound2/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习基石》系列课程（二）我们已经知道，机器学习模型由两部分组成：演算法和Hypothesis Set。如果我们想要让计算机学习去回答答案为是、否这样的问题时（就像第一章中的信用卡发放的问题那样），我们需要怎样的演算法，我们又应该使用什么样的hypothesis set呢？">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/7.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/8.png">
+<meta property="article:published_time" content="2018-10-07T12:21:00.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.470Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/07/mlfound2/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>02 Learning to Answer Yes or No</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/08/mlfound3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/07/mlfound1/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/07/mlfound2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/07/mlfound2/&text=02 Learning to Answer Yes or No"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/07/mlfound2/&is_video=false&description=02 Learning to Answer Yes or No"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=02 Learning to Answer Yes or No&body=Check out this article: https://vhdsih.github.io/2018/10/07/mlfound2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/07/mlfound2/&name=02 Learning to Answer Yes or No&description=&lt;p&gt;《机器学习基石》系列课程（二）&lt;br&gt;我们已经知道，机器学习模型由两部分组成：演算法和Hypothesis Set。如果我们想要让计算机学习去回答答案为是、否这样的问题时（就像第一章中的信用卡发放的问题那样），我们需要怎样的演算法，我们又应该使用什么样的hypothesis set呢？&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/07/mlfound2/&t=02 Learning to Answer Yes or No"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Perceptron-Hypothesis-Set"><span class="toc-number">1.</span> <span class="toc-text">Perceptron Hypothesis Set</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Perceptron-Learning-Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Perceptron Learning Algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guarantee-of-PLA"><span class="toc-number">3.</span> <span class="toc-text">Guarantee of PLA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Non-Separable-Data"><span class="toc-number">4.</span> <span class="toc-text">Non-Separable Data</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        02 Learning to Answer Yes or No
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-07T12:21:00.000Z" itemprop="datePublished">2018-10-07</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习基石》系列课程（二）<br>我们已经知道，机器学习模型由两部分组成：演算法和Hypothesis Set。如果我们想要让计算机学习去回答答案为是、否这样的问题时（就像第一章中的信用卡发放的问题那样），我们需要怎样的演算法，我们又应该使用什么样的hypothesis set呢？</p>
+<span id="more"></span>
+
+<h2 id="Perceptron-Hypothesis-Set"><a href="#Perceptron-Hypothesis-Set" class="headerlink" title="Perceptron Hypothesis Set"></a>Perceptron Hypothesis Set</h2><p>有一种简单的Hypothesis Set可以做这件事，这种Hypothesis Set是the Perceptron。<br>我们仍然以银行是否发放信用卡为例子，我们令每一位顾客的信息为x，其中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = (x1, x2, x3, x4, ..., xd)</span><br></pre></td></tr></table></figure>
+<p>即针对该任务，需要考虑d个用户的特征。我们需要学习一个权重向量（决定这d个特征那个更重要）w：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w = (w1, w2, w3, ..., wd)</span><br></pre></td></tr></table></figure>
+<p>我们设定一个阈值threshold，当所有特征和权重乘积的和大于threshold时，可认为是被接受的，否则则是被拒绝的。用数字来表示可以认为前者为1，后者为-1。用数学表示该公式为h(x):<br><img src="/2018/10/07/mlfound2/1.png" alt="hx"><br>当然我们还可以将上面的公式进一步化简，即将threshold当成一个属性，其权重为1，然后我们将它用向量来表示，具体过程如下：<br><img src="/2018/10/07/mlfound2/2.png" alt="hx-format"><br>这样做以后计算过程就变成了两个向量的内积了</p>
+<p>上面描述了Perceptron function是什么，那么它们长什么样子呢？在R2（二维空间）中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h(x) = sign(w0 + w1 * x1 + w2 * x2)</span><br></pre></td></tr></table></figure>
+<p>其实就是一条直线，可以将平面上的点分为两部分。而在更高维度的空间上，其表现为一组超平面，可以将空间内的点分为两个部分。最终我们需要另接受的点在直线（超平面）的一端，被拒绝的点在另一端。</p>
+<h2 id="Perceptron-Learning-Algorithm"><a href="#Perceptron-Learning-Algorithm" class="headerlink" title="Perceptron Learning Algorithm"></a>Perceptron Learning Algorithm</h2><p>Perceptron Hypothesis Set中包含了无数条（infinite）直线（或超平面），我们需要从中选出一条最适合的’g’。我们不知道f，唯一知道的是数据是由f产生的，理想中的g必须让我们看过的资料的结果和f产生的一模一样。但是g太多了，计算起来太困难了。<br>我们的一个解决方法是从任意一个g0开始（其权重为w0），每次调整使其越来越好，最终找到一条没有更多错误的g。<br>例如：我们由w0开始，使用数据集中犯错的点来纠正它。当我们的向量是wt时，我们发现一个错误点是(xn, yn)，sign(wt * xn) != yn; 此时我们的纠正方式如下：<br><img src="/2018/10/07/mlfound2/3.png" alt="wt"><br>上述方法的本质是让每一次w的更新都能使得直线向正确的方向移动。最终找不到更多错误的时候就找到最终的g了。</p>
+<h2 id="Guarantee-of-PLA"><a href="#Guarantee-of-PLA" class="headerlink" title="Guarantee of PLA"></a>Guarantee of PLA</h2><p>然而，我们面临的一个问题是PLA真的能顺利进行吗？PLA如果最终能够停止（找到了最好的g），那么前提条件是数据集必须线性可分（Linear Separability），我们假设我们所给的数据集是线性可分的，那么此时我们能否证明PLA一定可以停止吗？<br>可以这样思考，当存在一个完美的wf，使得yn = sign(wft * xn) (wft是wf的转置),此时得到的g就是最好的。此时必定满足：<br><img src="/2018/10/07/mlfound2/4.png" alt="wf"><br>此外，从数学的角度说，两个单位向量内积越大，则说明两个向量越接近。那么有下面的计算：<br><img src="/2018/10/07/mlfound2/5.png" alt="wfwt+1"><br>可以说明，每一次更新wf和wt的乘积都是越来越大的（注意：因为没有考虑wf和wt的长度，所以此时不能说明wf和wt是在靠近）。因此我们考虑PLA算法的一个重要的性质：仅仅针对错误点更新，因此，必定有：<br><img src="/2018/10/07/mlfound2/6.png" alt="signynerror"><br>我们再看wt+1是什么样子的：<br><img src="/2018/10/07/mlfound2/7.png" alt="growthslowly"><br>可以说明wt增大缓慢，成长值只会受到xn项影响。xn ** 2最多长max||xn|| ** 2。我们计算将wf和wt正规化后内积：<br><img src="/2018/10/07/mlfound2/8.png" alt="signynerror"><br>随着次数的增大，越来越大，即使wt和wf越来越靠近。因此对于线性可分的数据PLA最终是可以停止的。</p>
+<h2 id="Non-Separable-Data"><a href="#Non-Separable-Data" class="headerlink" title="Non-Separable Data"></a>Non-Separable Data</h2><p>我们已经证明了，在数据是线性可分的前提下PLA算法是可以停止的，PLA算法好处是简单快速，几十行代码就可以搞定，对任意维度的数据都是有效的。但是你有没有发现矛盾的地方？<br>前面，PLA执行的前提是假设数据线性可分，那到底可不可分，我们需要做了实验才知道，可是做了实验又多久会停止？没停止可能是没有找到最好的g，也可能是数据根本不可分。那么怎样在一个含有噪音的数据集上寻找到一条犯错最少的线（定义为最好的线）呢？目前没有最好的方法，这是一个np难的问题。<br>我们可以使用Pocket Algorithm，它是PLA的一个变形，根本上是一种贪心的思想，每一次都keep best weights in pocket。直到看过了足够多的线，就认为它是最好的。</p>
+<p>但是Pocket Algorithm要比PLA慢。</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习基石》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Perceptron-Hypothesis-Set"><span class="toc-number">1.</span> <span class="toc-text">Perceptron Hypothesis Set</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Perceptron-Learning-Algorithm"><span class="toc-number">2.</span> <span class="toc-text">Perceptron Learning Algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guarantee-of-PLA"><span class="toc-number">3.</span> <span class="toc-text">Guarantee of PLA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Non-Separable-Data"><span class="toc-number">4.</span> <span class="toc-text">Non-Separable Data</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/07/mlfound2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/07/mlfound2/&text=02 Learning to Answer Yes or No"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/07/mlfound2/&is_video=false&description=02 Learning to Answer Yes or No"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=02 Learning to Answer Yes or No&body=Check out this article: https://vhdsih.github.io/2018/10/07/mlfound2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/07/mlfound2/&title=02 Learning to Answer Yes or No"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/07/mlfound2/&name=02 Learning to Answer Yes or No&description=&lt;p&gt;《机器学习基石》系列课程（二）&lt;br&gt;我们已经知道，机器学习模型由两部分组成：演算法和Hypothesis Set。如果我们想要让计算机学习去回答答案为是、否这样的问题时（就像第一章中的信用卡发放的问题那样），我们需要怎样的演算法，我们又应该使用什么样的hypothesis set呢？&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/07/mlfound2/&t=02 Learning to Answer Yes or No"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

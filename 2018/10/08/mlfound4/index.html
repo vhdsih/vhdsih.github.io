@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习基石》系列课程（四）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04 Feasibility of Learning">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/08/mlfound4/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习基石》系列课程（四）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/7.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/8.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/9.png">
+<meta property="article:published_time" content="2018-10-08T11:47:22.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.471Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/08/mlfound4/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>04 Feasibility of Learning</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/09/mlfound5/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/08/mlfound3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/08/mlfound4/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/08/mlfound4/&text=04 Feasibility of Learning"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/08/mlfound4/&is_video=false&description=04 Feasibility of Learning"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=04 Feasibility of Learning&body=Check out this article: https://vhdsih.github.io/2018/10/08/mlfound4/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/08/mlfound4/&name=04 Feasibility of Learning&description=&lt;p&gt;《机器学习基石》系列课程（四）&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/08/mlfound4/&t=04 Feasibility of Learning"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning-is-Impossible"><span class="toc-number">1.</span> <span class="toc-text">Learning is Impossible?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Probability-to-the-Rescue"><span class="toc-number">2.</span> <span class="toc-text">Probability to the Rescue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connection-to-Learning"><span class="toc-number">3.</span> <span class="toc-text">Connection to Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connection-to-Real-Learning"><span class="toc-number">4.</span> <span class="toc-text">Connection to Real Learning</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        04 Feasibility of Learning
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-08T11:47:22.000Z" itemprop="datePublished">2018-10-08</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习基石》系列课程（四）</p>
+<span id="more"></span>
+
+<h2 id="Learning-is-Impossible"><a href="#Learning-is-Impossible" class="headerlink" title="Learning is Impossible?"></a>Learning is Impossible?</h2><p>虽然我们已经学习了PLA，并使用PLA尝试回答是否问题，但是有一个惊悚的问题我们可能并没有发现：如果对学习没有添加任何限定，Learning可能是做不到的。我们总是在根据有限的数据来选择g，然而对于选择出的g，我们真的能够说g和f最相似吗。这显然是不能的。<br>机器学习中有“No Free Launch”定理，其指出我们没有理由得出对我们已有经验物体之外的推理。<br>那么我们需要添加怎样的假设能够让Learning在理论上可以进行呢？</p>
+<h2 id="Probability-to-the-Rescue"><a href="#Probability-to-the-Rescue" class="headerlink" title="Probability to the Rescue"></a>Probability to the Rescue</h2><p>我们可以从其它场景入手，推论出一些未知的关系：</p>
+<p><img src="/2018/10/08/mlfound4/1.png" alt="green_red_bin"> </p>
+<p>我们可以想象有这样一个瓶子：</p>
+<ol>
+<li>瓶子中有很多橘黄色和绿色的弹珠。</li>
+<li>我们现在并不知道两种颜色弹珠的数量所占的比例。</li>
+</ol>
+<p>我们能不能通过从瓶子中随便抓一把，从而推断出瓶子中橘黄色弹珠所占的比例呢？（假设弹珠很多，难以计数）。为了表示简单，我们假设：</p>
+<ol>
+<li>橘黄色的弹珠所占的比例为u，u是未知的。</li>
+<li>绿色的弹珠所占的比例为1 - u。</li>
+<li>我们从瓶中抓出一把中橘黄色弹珠所占的比例为v。</li>
+<li>抓出的绿色弹珠比例为1 - v。</li>
+</ol>
+<p>现在问题就转换为了u和v是否相等的问题了。然而，二者可能不相等，因为可能抓出的都是绿色，而瓶子中都是橘黄色的；当然，也可能u和v是很接近的。那么一般来讲，v是否能够表示u呢？为了解决这个问题，我们需要使用到霍夫丁不等式（Hoeffding’s Inequality):</p>
+<p><img src="/2018/10/08/mlfound4/2.png" alt="hoeffding"> </p>
+<p>该不等式说明了这样一个问题：对于一个很大的N，v和u相差很小（绝对值小于e)。那么根据这个不等式，我们也可以说，当从瓶子中抓取的弹珠很多的时候，v和u相等是大概率可能正确的（PAC：probably approximately correct）。</p>
+<h2 id="Connection-to-Learning"><a href="#Connection-to-Learning" class="headerlink" title="Connection to Learning"></a>Connection to Learning</h2><p>在上面，我们针对有橘黄和绿色弹珠的小球的比例估计问题，使用hoeffding不等式说明了在N足够大的情况下，是能够说明u和v相等是PAC。然而这听起来和我们所要探索的Learning问题没有什么关系。实际上我们可以将Learning问题类比为瓶子弹珠颜色概率问题：<br>我们现在仅仅考虑一个确定的hypoothesis h(x)，我们所要证明的是h(x)和目标函数f(x)是否相同。我们现在假设有这样的一个瓶子，其满足以下要求：</p>
+<ol>
+<li>瓶子中每个球都是一个数据x。</li>
+<li>对瓶子中任意一个球x，如果h(x) == f(x)，那么这个球就是橘黄色的。</li>
+<li>对瓶子中任意一个球x，如果h(x) != f(x)，那么这个球就是绿色的。</li>
+</ol>
+<p><img src="/2018/10/08/mlfound4/3.png" alt="h-o-g"> </p>
+<p>我们所需要验证的是，当瓶子中的数据数目N很大时，瓶子中的橘黄色球的比例和不在瓶子中的橘黄色球（瓶子中只是我们用来学习的数据，瓶子外还有很多未知的数据）的比例相等这个事件是否PAC。<br>为了方便后续的表示，我们定义两个变量：Ein(h)和Eout(h)，分别用来表示已有数据内的错误概率和未知数据的错误率。</p>
+<p><img src="/2018/10/08/mlfound4/4.png" alt="eineout"> </p>
+<p>那么类比上一部分的小球实验，对于一个确定的假说h，在“big data”的条件下，根据霍夫丁不等式，我们可以推论出Ein(h)和Eout(h)是很接近的。</p>
+<p><img src="/2018/10/08/mlfound4/5.png" alt="hoeffdingeineout"> </p>
+<p>那么，如果我们选择一个Ein(h)很小的假说h，我们就可以说 “g = h”是PAC。也就是说，在Learning中，在我们已有的数据上g和f是接近的，那么在未知的数据上，g和f很接近是PAC的。</p>
+<h2 id="Connection-to-Real-Learning"><a href="#Connection-to-Real-Learning" class="headerlink" title="Connection to Real Learning"></a>Connection to Real Learning</h2><p>不过在实际学习任务中，h并不是确定的，我们有很多很多的h等待我们去选择。</p>
+<p><img src="/2018/10/08/mlfound4/6.png" alt="multiple h"> </p>
+<p>在这种情况下，如果我们验证的所有假说h中有一个hM竟然能够达到最佳的效果（全是绿色的球），但是实际上瓶子中还是有大量的橘黄色的球, 或者说Ein(h)和Eout(h)相差很远。这时候我们根本不能认定这个假说hM是最好的。这件事在概率上是很有可能发生的，而且还是有很大概率会发生的。举个例子，我们的瓶子中不再放球了，而是放硬币：<br><img src="/2018/10/08/mlfound4/7.png" alt="coin"><br>那么如果每次抛5次，一共抛150次，我们可以计算出出现5次一样的面的概率竟然是99%。<br>霍夫丁不等式只是保证了绝大部分是对的，但是仍然会存在坏的现象，只是几率很小而已。而我们的选择则进一步恶化了这种几率。<br>对于出现上述情况的数据，我们将其称为BAD DATA，也就是说，只要存在一次BAD，那么这些数据就是BAD。我们只有在没有BAD的数据中Learning才能得到正确的结果。<br>我们从hoeffding不等式可知，这些BAD的数据出现的概率是很小的，</p>
+<p><img src="/2018/10/08/mlfound4/8.png" alt="bad not many"> </p>
+<p>在我们的演算法自由自在选择数据时候，总共的BAD数据出现的概率：</p>
+<p><img src="/2018/10/08/mlfound4/9.png" alt="all bad"> </p>
+<p>可以得出，其也是很小很小的，因此在有限的h中，不管M、N是多少，选择h都是安全的。也就是在有限的h中，数据足够多，我们就能学习！也就是在这种情况下，机器学习是成立的。</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习基石》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning-is-Impossible"><span class="toc-number">1.</span> <span class="toc-text">Learning is Impossible?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Probability-to-the-Rescue"><span class="toc-number">2.</span> <span class="toc-text">Probability to the Rescue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connection-to-Learning"><span class="toc-number">3.</span> <span class="toc-text">Connection to Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connection-to-Real-Learning"><span class="toc-number">4.</span> <span class="toc-text">Connection to Real Learning</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/08/mlfound4/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/08/mlfound4/&text=04 Feasibility of Learning"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/08/mlfound4/&is_video=false&description=04 Feasibility of Learning"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=04 Feasibility of Learning&body=Check out this article: https://vhdsih.github.io/2018/10/08/mlfound4/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/08/mlfound4/&title=04 Feasibility of Learning"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/08/mlfound4/&name=04 Feasibility of Learning&description=&lt;p&gt;《机器学习基石》系列课程（四）&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/08/mlfound4/&t=04 Feasibility of Learning"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

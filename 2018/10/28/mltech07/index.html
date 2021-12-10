@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习技法》系列课程（七）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="23 Blending and Bagging">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/28/mltech07/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习技法》系列课程（七）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/4.png">
+<meta property="article:published_time" content="2018-10-28T09:42:46.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.498Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/28/mltech07/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>23 Blending and Bagging</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/11/11/mltech08/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/26/mltech06/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/28/mltech07/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/28/mltech07/&text=23 Blending and Bagging"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/28/mltech07/&is_video=false&description=23 Blending and Bagging"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=23 Blending and Bagging&body=Check out this article: https://vhdsih.github.io/2018/10/28/mltech07/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/28/mltech07/&name=23 Blending and Bagging&description=&lt;p&gt;《机器学习技法》系列课程（七）&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/28/mltech07/&t=23 Blending and Bagging"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation-of-Aggregation"><span class="toc-number">1.</span> <span class="toc-text">Motivation of Aggregation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Uniform-Blending"><span class="toc-number">2.</span> <span class="toc-text">Uniform Blending</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-and-Any-Blending"><span class="toc-number">3.</span> <span class="toc-text">Linear and Any Blending</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bagging-Bootstrap-Aggregation"><span class="toc-number">4.</span> <span class="toc-text">Bagging (Bootstrap Aggregation)</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        23 Blending and Bagging
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-28T09:42:46.000Z" itemprop="datePublished">2018-10-28</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习技法》系列课程（七）</p>
+<span id="more"></span>
+<h2 id="Motivation-of-Aggregation"><a href="#Motivation-of-Aggregation" class="headerlink" title="Motivation of Aggregation"></a>Motivation of Aggregation</h2><p>在机器学习中，我们可能需要将一些假设函数和特征组合在一起使用，这就是我们现在要说的Aggregation。那么我们为什么要引入这个方法，其原因就在于融合多个hypothese往往能够获得更好的性能表现。</p>
+<p>那么直观来看，我们该怎样融合？</p>
+<ol>
+<li>我们之前使用Validation的方法来选择最佳的hypothesis，这仅仅利用了一个h(x)。</li>
+<li>平等地使用多个h(x)，就像投票一样，看那个票数多，这就是所谓的uniformly。</li>
+<li>由于不同的假设函数的重要程度不同，可能有的起到了决定作用，另一些则没那么重要，所以可以对不同的h(x)赋予不同的权重（non-uniformly）。</li>
+<li>添加一些条件，如果满足条件，就使用这种假设，并且根据所满足的程度赋予不同的权重（conditionally）。</li>
+</ol>
+<p>对于上面的几种方案，我们很容易将其用数学形式表达出来，其中：</p>
+<ol>
+<li>选择Eval最小的（argmin）：G(x) = gt’(x), t’= argminEval(gt)。</li>
+<li>G(x) = sign(sum(g(x)))。</li>
+<li>G(x) = sign(sum(a * g(x)))</li>
+<li>G(x) = sign(sum(q(x)* g(x)))</li>
+</ol>
+<p>** 注：可以到机器学习技法第七个ppt中查看具体的公式 **</p>
+<p>实际上我们发现，第四个使用一个函数q(x)来确定条件，其他几种方法都是它的子集。</p>
+<p>但是，在这里我们需要注意的是，如果我们联合了多个hypothesis来做分类，那么怎么选择最优的就很重要。我们应该选择优化Eval而不是Ein，否则这将会给计算带来巨大的困难（要考虑所有Hypothesis的dvc）。</p>
+<p>在我们之前一直做的都是从假设空间中选择最优的h(x)，然而，我们现在使用了Aggregation，它将一些不同的hypotheses综合到一起考虑，可能这里的一些假设函数要比最优的假设函数的效果还差，我们还能保证得到的结果比仅仅用一个最佳h(x)要好吗？答案是肯定的，对多个假设合理的组合（尽管他们中的个体是weak的）能够获得更好的性能！我们可以从PLA的分类结果来考虑：PLA有多条分类边界，最好的是距离两种点的距离都很远的（或者说在中间的），这就是我们SVM能得到的结果，如果我们将PLA的所有结果平均一下，可以发现它基本就是最中间的那条。</p>
+<h2 id="Uniform-Blending"><a href="#Uniform-Blending" class="headerlink" title="Uniform Blending"></a>Uniform Blending</h2><p>我们考虑使用Uniform Blending来解决分类问题，这个就像刚刚所说的，是一个投票问题，每个假设g(x)都有同样的权重1，然后将他们线性组合以后取sign来分类：</p>
+<blockquote>
+<p>G(X) = sign(sum(1 * gt(x))) {t from 1 to T}</p>
+</blockquote>
+<p>对于这种解决方案，如果gt都是相同的，实际上和使用一个gt没什么两样。如果gt是不同的，根据投票的原理，少数人服从多数，最终G(x)的结果也会收到gt中占比多的情况所影响。</p>
+<p>当然，这种方法也同样使用于多分类问题，其核心思想是没有任何区别的。</p>
+<p>那么如果我们想将uniform blending方法用到回归问题上呢？简单的将所有假设函数的数值加到一起输出肯定是不行的，我们可以加和取平均来解决这种问题。</p>
+<blockquote>
+<p>G(X) = 1 / T * sum(1 * gt(x)) {t from 1 to T}</p>
+</blockquote>
+<p>和分类问题类似，如果gt是相同的，那和使用一个gt没有区别，如果不同，对多个取平均可能会比单个的表现要好，因为一般来说，总会存在一些gt要小于f，而另一些要大于f，平均后和f比会更加接近。</p>
+<p>如果我们使用了多个假设函数，甚至是很简单的uniform blending，我们最终获得的结果都要比使用单一的hypothesis要好，对于这一点，我们可以从理论上给予证明，证明方法就是看我们单一的g和f的差距和G和f的差距的大小，如果前者比后者要大，则证明了我们的观点，详细的证明方法如下：</p>
+<p><img src="/2018/10/28/mltech07/1.png" alt="prove"> </p>
+<p>上图是证明的过程和结论，其结论说明了单个g和f的差值的平方等于G和f的差值的平方加上一个正数，这也就支持了我们的理论。</p>
+<p>最后，我们考虑如果在取平均的表达式中T趋近无穷大，也就是说我们利用了几乎所有的hypothesis时的情况。此时：</p>
+<p><img src="/2018/10/28/mltech07/2.png" alt="infinite"> </p>
+<p>此时我们能够降低方差（variance），从而得到更好的性能。</p>
+<h2 id="Linear-and-Any-Blending"><a href="#Linear-and-Any-Blending" class="headerlink" title="Linear and Any Blending"></a>Linear and Any Blending</h2><p>刚刚我们同等对待每一个hypothesis，那么现在我们考虑Linear Blending，它为每一个假设乘以一个权重αt：</p>
+<p><img src="/2018/10/28/mltech07/3.png" alt="lb"> </p>
+<p>看起来我们很难求解，但是我们可以对比使用特征转换的线性回归问题，发现他们是很相似的：</p>
+<p><img src="/2018/10/28/mltech07/4.png" alt="lb and lrt"> </p>
+<p>所以，我们求解的线性的blending问题，可以当做是一个线性模型附带一些约束条件，并且将这些hypothesis当做是特征转换即可。不过实际操作中，对于αt&gt;=转换函数）。</p>
+<p>同样，在进行选择时，我们仍然使用Eval。如果我们使用Ein进行选择，就是在最好的里面选择最好的，那么最终的计算需要考虑所有的模型复杂度。</p>
+<p>当然，除了使用线性的Blending之外，我们也可以使用非线性的Blending(Any Blending)，我们称其为Stacking，它求解一个个函数g~(x)作为参数。区别在于后者学习能力更强，但是也更容易overfit，这一点需要特别注意。</p>
+<h2 id="Bagging-Bootstrap-Aggregation"><a href="#Bagging-Bootstrap-Aggregation" class="headerlink" title="Bagging (Bootstrap Aggregation)"></a>Bagging (Bootstrap Aggregation)</h2><p>我们使用Blending，是因为将很多和不同的假设Hypothesis组合在一起使用能够带来更好的效果，注意这里的hypothesis必须是不同的，否则将会和使用一个没什么区别。那么这些不同的gt是从哪儿来的呢？</p>
+<ol>
+<li>我们可以使用不同的模型（Hypothesis Set）来获得不同的gt。</li>
+<li>可以使用不同的参数，比如在随机梯度下降过程中，分别使用不同的学习率来学习到不同的gt。</li>
+<li>我们可以使用随机算法，比如在中，我们随机获得的分类线是不同的。</li>
+<li>我们也可以通过使用不同的数据来获得不同的gt。</li>
+</ol>
+<p>我们需要使用不同的gt，下面我们要考虑如何使用相同的数据集来模拟出不同的数据。实现这个目的的方法就是Bootstrapping，其意义就是从容量为N的数据中抽取出容量为N的数据副本，但是这个抽取过程是有放回的抽取，这也就保证了基本上每一份数据都是不同的。我们使用Bootstrapping来做Aggregation这种方法就是Bagging。</p>
+<p>如果演算法对数据的分布很敏感，那么Bagging通常能够获得很好的效果！</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习技法》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivation-of-Aggregation"><span class="toc-number">1.</span> <span class="toc-text">Motivation of Aggregation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Uniform-Blending"><span class="toc-number">2.</span> <span class="toc-text">Uniform Blending</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linear-and-Any-Blending"><span class="toc-number">3.</span> <span class="toc-text">Linear and Any Blending</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bagging-Bootstrap-Aggregation"><span class="toc-number">4.</span> <span class="toc-text">Bagging (Bootstrap Aggregation)</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/28/mltech07/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/28/mltech07/&text=23 Blending and Bagging"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/28/mltech07/&is_video=false&description=23 Blending and Bagging"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=23 Blending and Bagging&body=Check out this article: https://vhdsih.github.io/2018/10/28/mltech07/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/28/mltech07/&title=23 Blending and Bagging"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/28/mltech07/&name=23 Blending and Bagging&description=&lt;p&gt;《机器学习技法》系列课程（七）&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/28/mltech07/&t=23 Blending and Bagging"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

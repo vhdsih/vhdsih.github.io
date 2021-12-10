@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习技法》系列课程（五）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21 Kernel Logistic Regression">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/25/mltech05/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习技法》系列课程（五）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/7.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/8.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/9.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/10.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/11.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/12.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/13.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/14.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/15.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/16.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/17.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/19.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/25/mltech05/20.png">
+<meta property="article:published_time" content="2018-10-25T06:42:35.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.492Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/25/mltech05/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>21 Kernel Logistic Regression</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/26/mltech06/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/23/mltech04/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/25/mltech05/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/25/mltech05/&text=21 Kernel Logistic Regression"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/25/mltech05/&is_video=false&description=21 Kernel Logistic Regression"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=21 Kernel Logistic Regression&body=Check out this article: https://vhdsih.github.io/2018/10/25/mltech05/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/25/mltech05/&name=21 Kernel Logistic Regression&description=&lt;p&gt;《机器学习技法》系列课程（五）&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/25/mltech05/&t=21 Kernel Logistic Regression"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Soft-Margin-SVM-as-Regularized-Model"><span class="toc-number">1.</span> <span class="toc-text">Soft-Margin SVM as Regularized Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM-versus-Logistic-Regression"><span class="toc-number">2.</span> <span class="toc-text">SVM versus Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM-for-Soft-Binary-Classification"><span class="toc-number">3.</span> <span class="toc-text">SVM for Soft Binary Classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel-Logistic-Regression"><span class="toc-number">4.</span> <span class="toc-text">Kernel Logistic Regression</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        21 Kernel Logistic Regression
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-25T06:42:35.000Z" itemprop="datePublished">2018-10-25</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习技法》系列课程（五）</p>
+<span id="more"></span>
+
+<h2 id="Soft-Margin-SVM-as-Regularized-Model"><a href="#Soft-Margin-SVM-as-Regularized-Model" class="headerlink" title="Soft-Margin SVM as Regularized Model"></a>Soft-Margin SVM as Regularized Model</h2><p>我们现在回头看看我们学过的几种SVM，最初接触的是Hard-Margin的原始问题，然而由于其涉及到Z空间的复杂度，所以我们提出了Dual形式的SVM。然而Dual并没有完全摆脱Z空间复杂度对SVM计算所带来的影响，由此我们学习了Kernel SVM，将特征转换和向量内积合为一个步骤。然而，如果严格要求没有错误（Hard Margin），可能得到的效果并不好，我们发现如果允许有几个错误点存在，我们的分类任务可能能够做得更好，由此我们提出了Soft-Margin的原始问题，出于和Hard-Margin相同的原因，我们同样对其使用了对偶和核函数的方法，从而得到了不同的SVM。而在实际任务中Soft-Margin的表现往往更好！</p>
+<p><img src="/2018/10/25/mltech05/1.png" alt="wrap up"> </p>
+<p>我们再看一看我们的Soft-Margin SVM。我们在推到它的时候，其中一个重要的步骤是如何记录错误点的错误程度，我们引入一个新的变量ξn来记录错误的程度。如果我们的点是正确的，那么ξn=0。这是由于我们的限制条件所决定的：</p>
+<p><img src="/2018/10/25/mltech05/2.png" alt="s.t."> </p>
+<p>也就是说，它所求的是任何数据点距离SVM的分类面的距离是多少，如果分对了，ξn的结果必然为0，分错了，则可以衡量距离远近，其结果必然是一个正数，所以，我们可以将其转换为如下形式：</p>
+<p><img src="/2018/10/25/mltech05/3.png" alt="unconstrained"> </p>
+<p>可以发现，现在我们连变量ξn都消去了，使用一个max操作来表示我们的soft margin svm问题。上面的表达式我们可以简化表示为下面的形式：</p>
+<p><img src="/2018/10/25/mltech05/4.png" alt="familiar"> </p>
+<p>看到这个形式，我们很熟悉，它就是L2正则化:</p>
+<p><img src="/2018/10/25/mltech05/5.png" alt="l2 r"> </p>
+<p>这两个问题最终都有相同的表示，但是我们却没有使用相同的方法，而是利用QP来解决这个svm问题。为什么不直接使用正则化的解决办法来解决这个问题，原因如下：</p>
+<ol>
+<li>如果这样做，我们推导得到的对偶和核函数等方法就不能使用了。</li>
+<li>表达中含有max项目，这是不可导的，所以难以解决。</li>
+</ol>
+<p>那么我们可以看一看正则化和svm之间的比较：</p>
+<p><img src="/2018/10/25/mltech05/6.png" alt="svm r"> </p>
+<p>可以看到，无论是Harg-Margin还是Soft-Margin的SVM，它们和正则化问题在形式上是等同的。我们使用正则化，从而使用更短的w来降低overfit，而svm通过使用胖的分类界面来简化假设空间，让能够使用的分类面更少，从而降低overfit。而对于soft-margin问题，其参数C越大等价于正则化参数λ越小。</p>
+<p>以上，我们建立了SVM和正则化之间的关系，我们可以将SVM看做是一种正则化模型。</p>
+<h2 id="SVM-versus-Logistic-Regression"><a href="#SVM-versus-Logistic-Regression" class="headerlink" title="SVM versus Logistic Regression"></a>SVM versus Logistic Regression</h2><p>刚刚我们将soft-margin svm变形为如下形式：</p>
+<p><img src="/2018/10/25/mltech05/7.png" alt="svm r"> </p>
+<p>我们令上面表达式中max项为ERRsvm，则我们比较这个ERRsvm和我们之前在二元分类中常用的01ERR。现在我们首先将max项中wTzn + b用s表示，yn用y表示：</p>
+<p><img src="/2018/10/25/mltech05/8.png" alt="cmp"> </p>
+<p>我们可以绘制出两种错误的曲线图：</p>
+<p><img src="/2018/10/25/mltech05/9.png" alt="cmp curve"> </p>
+<p>其中折线部分容易理解，我们的01ERR是一个bool表达式，如果ys &lt; 0表明预测和实际是相反的，所以err=1，否则err=0。而对于紫色的折线，则是svm的ERRsvm，我们可以发现它是01ERR的一个上界，我们通常将它称为hinge error measure。我们可以使用ERRsvm替代01ERR来解决二分类问题，并且，由于它是一个凸函数，也很容易最佳化！</p>
+<p>现在我们来看一看SVM和Logistic Regression的关系。我们在学习LR时，曾经绘制了它的ERRce和01ERR的对比图，在下图的曲线中，表现为橘黄色曲线（我们通过平移将其和01ERR的转折点对齐）。我们能发现，ERRsvm在大部分基本和ERRsce相似。尤其当ys趋近于负无穷和趋近于正无穷时。</p>
+<p><img src="/2018/10/25/mltech05/10.png" alt="lr and svm"> </p>
+<p>如上所述，我们可以说SVM近似于带有L2正则化的Logistic Regression。</p>
+<p>最后，我们对比我们学过的一些用于分类的线性模型：</p>
+<ol>
+<li>PLA。我们使用最小化01ERR来优化模型，它关注于错误点，如果数据是线性可分的，那算法就是可行的，否则我们就需要使用Pocket算法。</li>
+<li>Soft-Margin SVM。我们使用QP（二次规划）来最小化ERRsvm，这是比较容易的并且操作起来有理论保证，我们可以利用现有的二次规划工具。然而如果ys太小（专指小于0），此时，ERRsvm和01ERR相差太远，此时如果使用ERRsvm作为01ERR的上界，那损失可能会很大！</li>
+<li>Regularized logistic regression。可以利用梯度下降或者随机梯度下降来优化该问题，这个方法很容易，并且由于使用了正则化，不容易出现过拟合。然而，它和svm有着相同的缺点，都是在ys太小时不能代表01ERR。</li>
+</ol>
+<p><img src="/2018/10/25/mltech05/11.png" alt="linear models"> </p>
+<p>解决一个带有正则化的LR问题，近似于解决SVM。</p>
+<h2 id="SVM-for-Soft-Binary-Classification"><a href="#SVM-for-Soft-Binary-Classification" class="headerlink" title="SVM for Soft Binary Classification"></a>SVM for Soft Binary Classification</h2><p>下面，我们尝试将SVM应用到二元分类任务（Binary Classification）。</p>
+<p>直观上，我们有两种idea：</p>
+<ol>
+<li>直接使用SVM获得b和w，然后直接带入到LR中，得到g(x) = θ(wTx + b)。这样做很直接，一般结果也还可以，但是却没有使用到LR中比较好的特性和方法。</li>
+<li>使用SVM获得b和w，令其作为LR（with Regularization）的初始值，然后使用LR的方法来完成任务。然而这样做比直接使用LR没能好哪去，并且还增加了复杂度。</li>
+</ol>
+<p>因此，我们的方案调整如下：</p>
+<p><img src="/2018/10/25/mltech05/12.png" alt="two level learning"> </p>
+<p>我们添加了缩放系数A和平移系数B，其中Wsvm和Bsvm是使用SVM计算得到的，而A和B是使用LR优化求解的。这样能够同时利用LR和SVM的优点！如果我们的Wsvm求解得当，那么A应该大于0，如果Bwvm很好，那么B应该接近0。</p>
+<p>从而，我们的新的逻辑回归问题变为了如下形式：</p>
+<p><img src="/2018/10/25/mltech05/13.png" alt="new lr"> </p>
+<p>我们将其称为two-level learning：使用LR在SVM特征转换后的数据上学习！对于解决这样的问题一般分为3个步骤：</p>
+<ol>
+<li>利用SVM获得Bsvm和Wsvm，然后将原始数据通过特征转换转换到Z空间。</li>
+<li>在Z空间的数据上运行LR，获得A和B两个参数的数值。</li>
+<li>返回最终的g(x)。</li>
+</ol>
+<h2 id="Kernel-Logistic-Regression"><a href="#Kernel-Logistic-Regression" class="headerlink" title="Kernel Logistic Regression"></a>Kernel Logistic Regression</h2><p>那如果我们想直接在Z空间完成LR该怎么做呢？我们可以引入核函数（Kernel Function）使用QP来优化求解。然而需要注意的是，LR不是一个QP问题，这是否意味着Kernel function我们无法引入了呢。<br>在回答这个问题之前，我们先回顾一下Kernel Trick为什么能够成立。其中最关键的是我们能让W表示为Zn的线性组合：</p>
+<p><img src="/2018/10/25/mltech05/14.png" alt="kernel trick"> </p>
+<p>我们可以看我们学过的SVM，PLA，LR（by SGD）,他们的W都可以表示为Z的线性组合，也因此，我们可能能够使用这些方法，通过核函数来解决Z空间的分类问题。</p>
+<p><img src="/2018/10/25/mltech05/15.png" alt="kernel yes"> </p>
+<p>那我们看一看我们使用L2正则化（L2-regularized）的线性模型能否使用kernel function，为了证明这个问题，我们利用反证法，首先我们假设是可以的：</p>
+<p><img src="/2018/10/25/mltech05/16.png" alt="assume"> </p>
+<p>为了证明这个问题，我们最重要的思想是将所有的W分解为平行于Zn的部分和垂直于Zn的部分来计算，其具体步骤如下：</p>
+<p>对于上面假设中的表达，后面的项中WT可以分解为垂直Zn和平行Zn的两部分，此时垂直部分乘以Zn结果为0，所以后面的部分等价于平行部分于Zn的内积,也就等于原来的部分。而前面的W平方项目，我们同样拆分并且展开平方项，得到的结果却大于平行项的乘积，能推断出当前的w不是最优解，但是这与假设矛盾，因此得证:</p>
+<p><img src="/2018/10/25/mltech05/17.png" alt="prove"> </p>
+<p>这也就说明了任意一个L2正则化的线性模型都能使用kernel function！</p>
+<p>现在我们将Kernel function应用到LR模型上。我们直接利用zn的线性替代w:</p>
+<p><img src="/2018/10/25/mltech05/19.png" alt="klr"> </p>
+<p>现在我们所有的w项都被β所替代，我们称其为KLR（kernel Logistic Regression）。我们可以将其理解为β的线性模型，也可以理解为w的线性模型：</p>
+<p><img src="/2018/10/25/mltech05/20.png" alt="klr 2"> </p>
+<p>需要注意的是SVM和KLR也有不同之处，前者求解后参数α通常有很多0，而后者的β通常都不是0（前者有限SV起到作用，而后者所有点都起到作用）。</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习技法》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Soft-Margin-SVM-as-Regularized-Model"><span class="toc-number">1.</span> <span class="toc-text">Soft-Margin SVM as Regularized Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM-versus-Logistic-Regression"><span class="toc-number">2.</span> <span class="toc-text">SVM versus Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVM-for-Soft-Binary-Classification"><span class="toc-number">3.</span> <span class="toc-text">SVM for Soft Binary Classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel-Logistic-Regression"><span class="toc-number">4.</span> <span class="toc-text">Kernel Logistic Regression</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/25/mltech05/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/25/mltech05/&text=21 Kernel Logistic Regression"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/25/mltech05/&is_video=false&description=21 Kernel Logistic Regression"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=21 Kernel Logistic Regression&body=Check out this article: https://vhdsih.github.io/2018/10/25/mltech05/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/25/mltech05/&title=21 Kernel Logistic Regression"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/25/mltech05/&name=21 Kernel Logistic Regression&description=&lt;p&gt;《机器学习技法》系列课程（五）&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/25/mltech05/&t=21 Kernel Logistic Regression"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

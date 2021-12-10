@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="在使用SIFT、SURF、ORB等方法对图片进行特征提取和匹配的过程中，基本的工作过程大致如下：  从图片中提取keypoints； 根据keypoints获取特征描述符descriptors； 依据获取的特征描述符对待匹配的两张或多张图片进行特征匹配； 对匹配结果进行筛选，得到匹配效果比较好的特征点； 开始后续的工作…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征提取过程中的keypoints和descriptors">
+<meta property="og:url" content="https://vhdsih.github.io/2018/04/09/keypoint-descriptor/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="在使用SIFT、SURF、ORB等方法对图片进行特征提取和匹配的过程中，基本的工作过程大致如下：  从图片中提取keypoints； 根据keypoints获取特征描述符descriptors； 依据获取的特征描述符对待匹配的两张或多张图片进行特征匹配； 对匹配结果进行筛选，得到匹配效果比较好的特征点； 开始后续的工作…">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-04-09T09:39:12.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.458Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="opencv">
+<meta property="article:tag" content="sift">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>特征提取过程中的keypoints和descriptors</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/04/12/shit1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/01/26/q-of-db/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&text=特征提取过程中的keypoints和descriptors"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&is_video=false&description=特征提取过程中的keypoints和descriptors"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=特征提取过程中的keypoints和descriptors&body=Check out this article: https://vhdsih.github.io/2018/04/09/keypoint-descriptor/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&name=特征提取过程中的keypoints和descriptors&description=&lt;p&gt;在使用SIFT、SURF、ORB等方法对图片进行特征提取和匹配的过程中，基本的工作过程大致如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从图片中提取keypoints；&lt;/li&gt;
+&lt;li&gt;根据keypoints获取特征描述符descriptors；&lt;/li&gt;
+&lt;li&gt;依据获取的特征描述符对待匹配的两张或多张图片进行特征匹配；&lt;/li&gt;
+&lt;li&gt;对匹配结果进行筛选，得到匹配效果比较好的特征点；&lt;/li&gt;
+&lt;li&gt;开始后续的工作…&lt;/li&gt;
+&lt;/ol&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&t=特征提取过程中的keypoints和descriptors"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        特征提取过程中的keypoints和descriptors
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-04-09T09:39:12.000Z" itemprop="datePublished">2018-04-09</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/LAJI/">LAJI</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/opencv/" rel="tag">opencv</a>, <a class="tag-link-link" href="/tags/sift/" rel="tag">sift</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>在使用SIFT、SURF、ORB等方法对图片进行特征提取和匹配的过程中，基本的工作过程大致如下：</p>
+<ol>
+<li>从图片中提取keypoints；</li>
+<li>根据keypoints获取特征描述符descriptors；</li>
+<li>依据获取的特征描述符对待匹配的两张或多张图片进行特征匹配；</li>
+<li>对匹配结果进行筛选，得到匹配效果比较好的特征点；</li>
+<li>开始后续的工作…</li>
+</ol>
+<span id="more"></span>
+
+<p>那么，什么是keypoints和descriptors，以及keypoints和descriptors有什么关系和区别，在特征匹配过程为什么要使用descriptors呢？</p>
+<p>首先，在特征提取之后，我们所获得的是特征的位置信息，或者是近似圆形、椭圆形的区域，这也就是我们所得到的keypoints，但是其仅仅包含了位置信息，这些位置信息不足以描述特征，也没有足够的信息用来对特征进行匹配；</p>
+<p>而对于这些常见的特征提取算法，如SIFT、SURF、ORB等，其提取后获得的keypoints通常位于突出的角点、斑点、边，仅仅利用位置信息并不能完整描述特征。</p>
+<p>我们可以看这样两个例子：</p>
+<ol>
+<li>已有图片1，图片的内容是一只熊，其背景是纯白色。而另一只图片2是仅仅对图片1的少部分像素做了处理后得到的图片，那么对这两张图片中的熊提取了特征以后，得到的keypoints应该是相同的，这两张图片应该被认为是相同或者相似的。但是如果我们得到的仅仅是位置信息，那么当两张图片中的像素位置改变以后，我们就无法继续对这两张图片进行比较了。</li>
+<li>同样有图片1，图片1里现在是一只鸭子，而图片2中的内容则是图片1中的鸭子放大两倍以后的鸭子。此时提从两张图片取出来的keypoints相对于两张图片中的鸭子来说是相同的，因此这两张图片仍然是相同或者说是相似的。但是所不同的是图片2中的keypoints的size是图片1中的2倍，而仅仅使用这些位置信息来完成这次比较仍然很困难。</li>
+</ol>
+<p>因此，在特征比较过程中我们就需要使用另外一种特征表示方式descriptors。它使用vector表示keypoints中的每一个特征点的特征，它包含了每个特征的强度、方向等信息。而descriptor包含如下的特性：</p>
+<ol>
+<li>descriptor与位置信息是相互独立的，对于不同位置的同一个特征，二者的descriptor是相同的。</li>
+<li>descriptor具有健壮性，图片变换（亮度、旋转、平移等）不会影响到特征的识别。但是需要注意的是，没有绝对的健壮性。对于不同的图像变换，可能需要不同设计的descriptor来抵抗图片变换所造成的影响。</li>
+<li>descriptor不受图像缩放的影响。两个不同尺寸的同样的特征，应该视为相同的。</li>
+</ol>
+<p>现在我们就可以使用计算得到的descriptors来比较keypoints，当然匹配方法有很多种。而descriptor是数字的向量,你可以用一些比较简单的欧式距离，或者也可以使用一些更复杂的距离作为相似性度量的方法。</p>
+<blockquote>
+<p>reference:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://answers.opencv.org/question/37985/meaning-of-keypoints-and-descriptors/">Meaning of keypoints and Descriptors</a></li>
+<li><a target="_blank" rel="noopener" href="https://dsp.stackexchange.com/questions/10423/why-do-we-use-keypoint-descriptors">stackexchange.com</a></li>
+</ol>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&text=特征提取过程中的keypoints和descriptors"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&is_video=false&description=特征提取过程中的keypoints和descriptors"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=特征提取过程中的keypoints和descriptors&body=Check out this article: https://vhdsih.github.io/2018/04/09/keypoint-descriptor/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&title=特征提取过程中的keypoints和descriptors"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&name=特征提取过程中的keypoints和descriptors&description=&lt;p&gt;在使用SIFT、SURF、ORB等方法对图片进行特征提取和匹配的过程中，基本的工作过程大致如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从图片中提取keypoints；&lt;/li&gt;
+&lt;li&gt;根据keypoints获取特征描述符descriptors；&lt;/li&gt;
+&lt;li&gt;依据获取的特征描述符对待匹配的两张或多张图片进行特征匹配；&lt;/li&gt;
+&lt;li&gt;对匹配结果进行筛选，得到匹配效果比较好的特征点；&lt;/li&gt;
+&lt;li&gt;开始后续的工作…&lt;/li&gt;
+&lt;/ol&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/04/09/keypoint-descriptor/&t=特征提取过程中的keypoints和descriptors"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

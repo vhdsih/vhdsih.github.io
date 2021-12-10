@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《机器学习基石》系列课程（五） 在第四章中，我们一开始提出来一个问题：Learning好像是不可行的，经过了证明，我们确定了在Hypotheses Set是有限的时候，Learning是可以做到的。然而，在实际的学习任务中，假设空间中往往存在无限多个假设h，那么在这个时候会发生什么呢，Learning能够进行这个结论在这种情况下还能成立吗？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05 Training Versus Testing">
+<meta property="og:url" content="https://vhdsih.github.io/2018/10/09/mlfound5/index.html">
+<meta property="og:site_name" content="vhdsih">
+<meta property="og:description" content="《机器学习基石》系列课程（五） 在第四章中，我们一开始提出来一个问题：Learning好像是不可行的，经过了证明，我们确定了在Hypotheses Set是有限的时候，Learning是可以做到的。然而，在实际的学习任务中，假设空间中往往存在无限多个假设h，那么在这个时候会发生什么呢，Learning能够进行这个结论在这种情况下还能成立吗？">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/7.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/8.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/9.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/10.png">
+<meta property="article:published_time" content="2018-10-09T04:35:08.000Z">
+<meta property="article:modified_time" content="2021-12-10T07:41:11.473Z">
+<meta property="article:author" content="vhdsih">
+<meta property="article:tag" content="林轩田">
+<meta property="article:tag" content="video-note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/09/mlfound5/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>05 Training Versus Testing</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/10/10/mlfound6/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/10/08/mlfound4/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/09/mlfound5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/09/mlfound5/&text=05 Training Versus Testing"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/09/mlfound5/&is_video=false&description=05 Training Versus Testing"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=05 Training Versus Testing&body=Check out this article: https://vhdsih.github.io/2018/10/09/mlfound5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/09/mlfound5/&name=05 Training Versus Testing&description=&lt;p&gt;《机器学习基石》系列课程（五）&lt;/p&gt;
+&lt;p&gt;在第四章中，我们一开始提出来一个问题：Learning好像是不可行的，经过了证明，我们确定了在Hypotheses Set是有限的时候，Learning是可以做到的。然而，在实际的学习任务中，假设空间中往往存在无限多个假设h，那么在这个时候会发生什么呢，Learning能够进行这个结论在这种情况下还能成立吗？&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/09/mlfound5/&t=05 Training Versus Testing"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recap-and-Preview"><span class="toc-number">1.</span> <span class="toc-text">Recap and Preview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Effective-Number-of-Lines"><span class="toc-number">2.</span> <span class="toc-text">Effective Number of Lines</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Effective-Number-of-Hypotheses"><span class="toc-number">3.</span> <span class="toc-text">Effective Number of Hypotheses</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Break-Point"><span class="toc-number">4.</span> <span class="toc-text">Break Point</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        05 Training Versus Testing
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">vhdsih</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-10-09T04:35:08.000Z" itemprop="datePublished">2018-10-09</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/video-note/" rel="tag">video-note</a>, <a class="tag-link-link" href="/tags/%E6%9E%97%E8%BD%A9%E7%94%B0/" rel="tag">林轩田</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>《机器学习基石》系列课程（五）</p>
+<p>在第四章中，我们一开始提出来一个问题：Learning好像是不可行的，经过了证明，我们确定了在Hypotheses Set是有限的时候，Learning是可以做到的。然而，在实际的学习任务中，假设空间中往往存在无限多个假设h，那么在这个时候会发生什么呢，Learning能够进行这个结论在这种情况下还能成立吗？</p>
+<span id="more"></span>
+
+<h2 id="Recap-and-Preview"><a href="#Recap-and-Preview" class="headerlink" title="Recap and Preview"></a>Recap and Preview</h2><p>现在我们先对整体做一个回顾：如果我们假设Hypothesis Set H中假设h的数量是M，那么如果在我们拥有的数据量N是足够多的时候，根据霍夫丁不等式，我们知道任意一个在H中的一个h，它的Ein(h)和Eout(h)是大概相等的，或者说是相差不多的。如果我们找到了一个h，Ein(h)和0很接近，那么也就可以保证Eout(h)也和0接近，由此我们知道Learning是一件可能完成的事情。<br>在这个过程中，有两个核心的问题：</p>
+<ol>
+<li>需要保证Ein(h)和Eout(h)非常接近。</li>
+<li>我们能够找到一个h，使Ein(h)和0非常接近。</li>
+</ol>
+<p>当然，当M是有限的时候，1是能够保证的，但是对于2却不一定能够做到（h数量比较少，不一定能找到一个使Ein(h)逼近0的h）。那么我们就需要一个有很多的（或者说数量是无限的）h的Hypotheses Set。那么一定能够找到一个h，令Ein(h)和0逼近。然而与此同时，坏事情发生的概率却增大了（坏事情定义见四，简单来说就是Ein(h)和Eout(h)相差很大的事件)。当M是一个无限大的数的时候，那么现在的状况可以说是糟糕透了，我们好像根本不能说明Learning能够进行。</p>
+<p>现在我们考虑该怎样接近这件事，首先我们还是要看一看Ein和Eout的霍夫丁不等式：</p>
+<p><img src="/2018/10/09/mlfound5/1.png" alt="hoeffding"> </p>
+<p>我们接下来要做的是尝试寻找一个多项式mh替换M，如果我们能够将这个无限大的M限制在有限的mh以内，由此Learning便为了可能实现的事情了。</p>
+<p><img src="/2018/10/09/mlfound5/2.png" alt="mh"> </p>
+<h2 id="Effective-Number-of-Lines"><a href="#Effective-Number-of-Lines" class="headerlink" title="Effective Number of Lines"></a>Effective Number of Lines</h2><p>我们首先考虑M这个数是怎么来的。<br>我们在使用演算法自由自在地选择h的时候，可能会遇到一些BAD DATA，这些BAD DATA会恶化我们的选择。我们在计算这些BAD DATA发生的概率时使用了union bound方法，即将每一个BAD都or了起来，也就是最终的BAD概率是由每一次BAD概率的加和得到的。这也就意味着我们有一个前提假设是“所有的BAD事件都是没有重叠的”。然而当我们考虑M是无限的时候，union bound是否会失败呢？</p>
+<p><img src="/2018/10/09/mlfound5/3.png" alt="overlap"> </p>
+<p>事实上，就像上图那样，有很多的BAD事件是有重叠的部分的，尤其是那些Eout相近的假设h，此时我们使用union bound来计算BAD的概率，显然是将这些重叠的部分不止一次地重复计算了，由此也导致M变大了。如果我们要计算实际上的M，就要知道这些重叠的部分有多大。</p>
+<p>现在我们设定我们的Hypotheses Set H是二维平面内的直线，那么我们可以知道在H中存在无限条直线。如果我们从我们已有的数据的角度去看这些直线，那会有多少条呢？我们可以设定数据点在直线上方时我们可以将数据标记为o，数据点在下方可以将其标记为x。<br>如果我们只有一个数据点，那么H中只有2条直线，因为从数据点的角度来看，只有一条直线能让它变为o状态，另一条将其变为x状态。如果我们有两个数据点呢？通过枚举，我们可以知道会有4条直线。如果有3个点呢，最多就会有8条直线，然而，可能会出现三个点共线但是同种颜色不相临的情况，这时就不存在一条直线可以将数据点进行标记，也就是所3个点的时候最多是8条。同理，4个数据点的时候由于存在不能区分的情况，只存在14条直线。<br>实际上，我们可以轻易地推论出，数据量N和有效直线数量的关系是：effective(N) &lt;= 2 ** N。现在如果我们能推论出：</p>
+<ol>
+<li>effective(N)可以替代M。</li>
+<li>effective(N)远远小于2 ** N。</li>
+</ol>
+<p>我们就可以说Learning is possible！</p>
+<h2 id="Effective-Number-of-Hypotheses"><a href="#Effective-Number-of-Hypotheses" class="headerlink" title="Effective Number of Hypotheses"></a>Effective Number of Hypotheses</h2><p>现在我们使用Dichotomies(二分类)的概念来继续我们的推论。我们设现有的Hypotheses Set H中是一些直线，H中的每一条直线都能够将点标记为‘o’或者‘x’。Dichotomies的Hypotheses Set是经过上述每一条直线标记后的每一点的状态序列(ooxxx…, etc, depend N)。上面我们经过了讨论，可以知道虽然H是无限的，但是我们的Dichotomies H的上限是2 ** N。<br>我们现在使用Dichotomies H的大小来衡量（或者说替代）M。不过现在它的大小现在还是依赖于我们已经选择好的数据集x1, x2, x3, …。这在以后的证明过程中可能会带来一些麻烦，所以我们从数据集合整体中任意选择N个数据点，取Dichotomy H的大小的最大值作为M的替代着mh(N):</p>
+<p><img src="/2018/10/09/mlfound5/4.png" alt="mhn"> </p>
+<p>我们将其称为Growth Function（成长函数）。它一定是有限的，上限是2 ** N。我们现在看如何计算成长函数：</p>
+<ol>
+<li>一维的点<br>一种情况如下图所示：<br><img src="/2018/10/09/mlfound5/5.png" alt="one dim"><br>mh(N) = N + 1，此时当N很大的时候mh(N) &lt;&lt; 2 ** N；<br>另一种情况：<br><img src="/2018/10/09/mlfound5/6.png" alt="one dim another"><br>此时可以计算：mh(N) = 1 / 2 * N ** 2 + 1 / 2 * N + 1 &lt;&lt; 2 ** N(when N large)。</li>
+<li>凸形集合（convex sets）<br>如果是凸形的封闭曲线的集合对点进行二分类标记，设在曲线内部的点是o，外部的点是x，此时的成长函数是多少呢？<br><img src="/2018/10/09/mlfound5/7.png" alt="convex sets"><br>假设我们有一系列的点x1，x2，…，xn。我们使用Convex曲线将其分为两部分：<br><img src="/2018/10/09/mlfound5/8.png" alt="convex split"><br>我们可以计算得到mh(N) = 2 ** N。</li>
+</ol>
+<h2 id="Break-Point"><a href="#Break-Point" class="headerlink" title="Break Point"></a>Break Point</h2><p>上文中我们举出了几个简单的例子观察成长函数：</p>
+<p><img src="/2018/10/09/mlfound5/9.png" alt="sum"> </p>
+<p>如果现在我们使用成长函数mh(N)替换M：</p>
+<p><img src="/2018/10/09/mlfound5/2.png" alt="sum"> </p>
+<p>那么，当mh(N)是多项式的时候，那么是可以替换的，此时&lt;=符号是成立的，但是如果mh(N)是指数形式的，就不能肯定了。我们的问题是对于平面的假设或者一般的Perceptrons，mh(N)是多项式的吗？</p>
+<p>我们知道对于2D perceptrons，其grouth function的上界是2 ** N，也就是从某一个点开始，有一些情况是无法分类的，我们把这种点称为Break Point。从Break Point我们可以看到一些希望。</p>
+<p><img src="/2018/10/09/mlfound5/10.png" alt="breakpoint"> </p>
+<p>通过对Break Point进行观察，我们可以提出一种假说：成长函数的成长速度和Break Point是有关系的，都是和N的（break point - 1）次幂方有关的。如果我们真的能够证明这件事，我们只要找到了Break Point，我们就能证明Learning的可行性！</p>
+<blockquote>
+<p>文章内容和图片均来自“国立台湾大学林轩田老师”的《机器学习基石》课程！</p>
+</blockquote>
+<p>— END —</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recap-and-Preview"><span class="toc-number">1.</span> <span class="toc-text">Recap and Preview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Effective-Number-of-Lines"><span class="toc-number">2.</span> <span class="toc-text">Effective Number of Lines</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Effective-Number-of-Hypotheses"><span class="toc-number">3.</span> <span class="toc-text">Effective Number of Hypotheses</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Break-Point"><span class="toc-number">4.</span> <span class="toc-text">Break Point</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://vhdsih.github.io/2018/10/09/mlfound5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/10/09/mlfound5/&text=05 Training Versus Testing"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/10/09/mlfound5/&is_video=false&description=05 Training Versus Testing"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=05 Training Versus Testing&body=Check out this article: https://vhdsih.github.io/2018/10/09/mlfound5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://vhdsih.github.io/2018/10/09/mlfound5/&title=05 Training Versus Testing"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://vhdsih.github.io/2018/10/09/mlfound5/&name=05 Training Versus Testing&description=&lt;p&gt;《机器学习基石》系列课程（五）&lt;/p&gt;
+&lt;p&gt;在第四章中，我们一开始提出来一个问题：Learning好像是不可行的，经过了证明，我们确定了在Hypotheses Set是有限的时候，Learning是可以做到的。然而，在实际的学习任务中，假设空间中往往存在无限多个假设h，那么在这个时候会发生什么呢，Learning能够进行这个结论在这种情况下还能成立吗？&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://vhdsih.github.io/2018/10/09/mlfound5/&t=05 Training Versus Testing"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    vhdsih
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
