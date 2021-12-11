@@ -13,29 +13,29 @@
 <meta property="og:site_name" content="vhdsih">
 <meta property="og:description" content="《机器学习技法》系列课程（三） 在上一节我们学习了Dual SVM，它简化了非线性SVM的计算，但是实际上它的计算仍然依赖于特征变换后空间Z的复杂度，本章将引入Kernel Function来解决这一问题。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://vhdsih.github.io/.io//1.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//2.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//3.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//4.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//5.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//6.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//7.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//8.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//9.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//10.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//11.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//12.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//13.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//14.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//15.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//16.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/5.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/6.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/7.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/8.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/9.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/10.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/11.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/12.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/13.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/14.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/15.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/22/mltech03/16.png">
 <meta property="article:published_time" content="2018-10-22T08:30:54.000Z">
 <meta property="article:modified_time" content="2021-12-10T07:41:11.486Z">
 <meta property="article:author" content="vhdsih">
 <meta property="article:tag" content="林轩田">
 <meta property="article:tag" content="video-note">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://vhdsih.github.io/.io//1.png">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/22/mltech03/1.png">
     
     
       
@@ -181,50 +181,50 @@
 <span id="more"></span>
 
 <h2 id="Kernel-Trick"><a href="#Kernel-Trick" class="headerlink" title="Kernel Trick"></a>Kernel Trick</h2><p>我们的目标是令SVM彻底摆脱对Z空间复杂度的依赖，这件事我们实际上已经完成了一部分：</p>
-<p><img src="/.io//1.png" alt="half-way done"> </p>
+<p><img src="1.png" alt="half-way done"> </p>
 <p>我们通过引入对偶（Dual）SVM，使我们的最优化问题只包含N个α参数。然而我们在计算Qd矩阵，其每一个元素都需要计算Z空间中两个向量的内积，它的复杂度就会很高，因为其需要进行两个步骤：首先进行特征转换，将X空间中的向量转换到Z空间，其次，计算Z空间向量的内积。</p>
 <p>我们考虑能不能将特征转换和计算乘积放到一起来简化计算，我们首先考虑2维转换后的向量内积，我们任取两个向量x，x‘：</p>
-<p><img src="/.io//2.png" alt="2 transform + inner product"> </p>
+<p><img src="2.png" alt="2 transform + inner product"> </p>
 <p>我们可以发现，一个特征转换后的向量的内积可能可以转换为原始空间向量的乘积问题，那么现在，由于我们无需进行特征转换就能得到原来需要的结果，其计算复杂度就会大大降低了！</p>
 <p>我们将这种同时实现特征转换和向量内积的函数称为核函数（Kernel Function），上面我们已经求解，向二维空间进行特征变换的核函数是：</p>
-<p><img src="/.io//3.png" alt="kernel function 2"> </p>
+<p><img src="3.png" alt="kernel function 2"> </p>
 <p>我们可以将这个Kernel function带入到我们的Dual SVM中，从而可以求解qnm，b等：</p>
-<p><img src="/.io//4.png" alt="gsvm"> </p>
+<p><img src="4.png" alt="gsvm"> </p>
 <p>我们将这种方法称为Kernel trick：使用一个高效的kernel function来避免使用特征变换所带来的Z空间的复杂度！</p>
 <p>当然，Kernel SVM仍然可以使用QP（二次规划）来求解：</p>
-<p><img src="/.io//5.png" alt="qp for ksvm"> </p>
+<p><img src="5.png" alt="qp for ksvm"> </p>
 <p>此时的复杂度是O(N * N)，QP有N个参数和N + 1个限制条件，对于上面的3和4，他们的时间复杂度都是O(n)，n代表<br>SV的数目。</p>
 <h2 id="Polynomial-Kernel"><a href="#Polynomial-Kernel" class="headerlink" title="Polynomial Kernel"></a>Polynomial Kernel</h2><p>我们已经引入了一个二次的核函数，然而，核函数并不唯一，我们可以对其进行缩放：</p>
-<p><img src="/.io//6.png" alt="poly 2 kernel"> </p>
+<p><img src="6.png" alt="poly 2 kernel"> </p>
 <p>尽管上述三种核函数都是二次核函数，能力是相同的，然而其所代表的空间变换不同，内积不同从而会有不同的SVM分类界面！而这几种中K2比较简单，很常用！</p>
-<p><img src="/.io//7.png" alt="poly 2 kernel"> </p>
+<p><img src="7.png" alt="poly 2 kernel"> </p>
 <p>上图给出了一个二次核函数的一般形式，它使用起来要比我们在上一章的要简单。然而其参数γ对分类结果起到很大的影响，下面我们看一看不同的γ对SVM有什么影响：</p>
-<p><img src="/.io//8.png" alt="different 2 kernel f"> </p>
+<p><img src="8.png" alt="different 2 kernel f"> </p>
 <p>随着γ的变换，我们的gsvm和sv也同时在变化，然而看起来我们却很难说哪一个gsvm更好。在这里我们需要注意的是，如果我们改变了kernel function，那么我们同时也改变了我们对margin（胖胖的分类界面）的定义！</p>
 <p>当然，我们一直说的都是一个2维度的Kernel function，我们可以将其推广到q维空间变换：</p>
-<p><img src="/.io//9.png" alt="q dim kernel f"> </p>
+<p><img src="9.png" alt="q dim kernel f"> </p>
 <p>我们的特征转换已经嵌入到上面各个核函数中的两个参数中了，我们使用这些多项式核函数可以避免Z空间的复杂度对计算的影响！我们将这些使用了多项式核函数的SVM称为多项式核函数。</p>
 <p>现在我们看我们之前使用的线性SVM，实际上可以将其看做是Kernel SVM的一种特殊的情况：Linear Kernel。</p>
-<p><img src="/.io//10.png" alt="linear kernel f"> </p>
+<p><img src="10.png" alt="linear kernel f"> </p>
 <p>现在面对这么多核函数，那么该选择哪一个更好呢？依然还是线性优先（奥卡姆剃刀定律）！</p>
 <h2 id="Gaussian-Kernel"><a href="#Gaussian-Kernel" class="headerlink" title="Gaussian Kernel"></a>Gaussian Kernel</h2><p>上面我们讨论的都是有限空间变换下的核函数，那么如果面对的是无限空间的变换呢？当然，我们仍然有办法。当然，直观上我们难以推断，所以我们使用逆推法来寻找一个包含无限维特征变换的核函数，为了简单起见，我们现在令我们的数据x是一个长度为1的向量：</p>
-<p><img src="/.io//11.png" alt="when you face infinite dim"> </p>
+<p><img src="11.png" alt="when you face infinite dim"> </p>
 <p>上面利用了泰勒展开式对exp(X)进行泰勒展开，从而推断出高斯函数中包含了一个无限维度的变换，所以，我们可以使用高斯核函数来解决无限维特征变换问题：</p>
-<p><img src="/.io//12.png" alt="gaussian kernel"> </p>
+<p><img src="12.png" alt="gaussian kernel"> </p>
 <p>此时我们使用高斯核函数求解SVM的分类界面：</p>
-<p><img src="/.io//13.png" alt="gsvm for gaussian"> </p>
+<p><img src="13.png" alt="gsvm for gaussian"> </p>
 <p>我们可以发现，实际上gsvm是由n个高斯函数线性组合而成，n是支撑向量SV的数码，同时，这些高斯函数的中心都是相对应的SV。我们也将高斯核函数称为Radial Basis Function<br>(RBF)。</p>
 <p>需要注意的是高斯函数中参数的选择，我们选择不同的γ，我们的SVM结果最后差别很大：</p>
-<p><img src="/.io//14.png" alt="gaussian para"> </p>
+<p><img src="14.png" alt="gaussian para"> </p>
 <p>大的γ可能会导致overfit，所以我们在选择参数上还是要小心！</p>
 <p>现在，我们通过引入核函数，将特征转换和向量内积问题组合到了一起，此时我们能够大大提高计算效率，同时我们也能够节约存储空间；通过使用高斯核函数，对于无限维特征转换问题，我们也基本能够解决！</p>
 <h2 id="Comparison-of-Kernels"><a href="#Comparison-of-Kernels" class="headerlink" title="Comparison of Kernels"></a>Comparison of Kernels</h2><p>现在我们比较不同的核函数：</p>
 <p>线性核函数是最简单、快速、直观并容易解释的，但是前提条件是数据必须是线性可分的，否则我们不能使用它。</p>
 <p>多项式核函数，相对于线性核函数，它有着更少的限制，它是由多项式组成的，通过改变多项式的幂次我们可以更加灵活的对其控制，然而它在计算上会有很大的难度，并且参数太多导致选择更困难。因此对于对于多项式核函数，可能选择较小的Q更好。</p>
-<p><img src="/.io//15.png" alt="cons for poly k"> </p>
+<p><img src="15.png" alt="cons for poly k"> </p>
 <p>高斯核函数，能力更强，能够得到复杂多样的边界，参数只有一个更容易选择，然而它在计算上比线性的要慢，并且由于不会计算w，所以难以解释，并且存在overfit的问题，但是它仍然是最受欢迎的核函数之一！</p>
 <p>我们学习了上面三种核函数，当然还存在其他核函数！我们看看核函数实际的意义是什么：我们对X空间的特征进行特征变换，在Z空间计算二者的内积，在某种意义上，我们的核函数代表了两个向量的相似程度。但是任何计算相似度的方法都能够作为核函数吗，答案是否定的，作为核函数的充要条件是Mercer’s condition:</p>
-<p><img src="/.io//16.png" alt="mercer"> </p>
+<p><img src="16.png" alt="mercer"> </p>
 <p>即：矩阵必须是对称的，其次K是半正定的！</p>
 <p>如果我们想定义新的核函数，当然是可行的，但是却很难做到！</p>
 <blockquote>

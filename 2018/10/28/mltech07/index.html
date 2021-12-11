@@ -13,17 +13,17 @@
 <meta property="og:site_name" content="vhdsih">
 <meta property="og:description" content="《机器学习技法》系列课程（七）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://vhdsih.github.io/.io//1.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//2.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//3.png">
-<meta property="og:image" content="https://vhdsih.github.io/.io//4.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/1.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/2.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/3.png">
+<meta property="og:image" content="https://vhdsih.github.io/2018/10/28/mltech07/4.png">
 <meta property="article:published_time" content="2018-10-28T09:42:46.000Z">
 <meta property="article:modified_time" content="2021-12-10T07:41:11.498Z">
 <meta property="article:author" content="vhdsih">
 <meta property="article:tag" content="林轩田">
 <meta property="article:tag" content="video-note">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://vhdsih.github.io/.io//1.png">
+<meta name="twitter:image" content="https://vhdsih.github.io/2018/10/28/mltech07/1.png">
     
     
       
@@ -196,15 +196,15 @@
 </blockquote>
 <p>和分类问题类似，如果gt是相同的，那和使用一个gt没有区别，如果不同，对多个取平均可能会比单个的表现要好，因为一般来说，总会存在一些gt要小于f，而另一些要大于f，平均后和f比会更加接近。</p>
 <p>如果我们使用了多个假设函数，甚至是很简单的uniform blending，我们最终获得的结果都要比使用单一的hypothesis要好，对于这一点，我们可以从理论上给予证明，证明方法就是看我们单一的g和f的差距和G和f的差距的大小，如果前者比后者要大，则证明了我们的观点，详细的证明方法如下：</p>
-<p><img src="/.io//1.png" alt="prove"> </p>
+<p><img src="1.png" alt="prove"> </p>
 <p>上图是证明的过程和结论，其结论说明了单个g和f的差值的平方等于G和f的差值的平方加上一个正数，这也就支持了我们的理论。</p>
 <p>最后，我们考虑如果在取平均的表达式中T趋近无穷大，也就是说我们利用了几乎所有的hypothesis时的情况。此时：</p>
-<p><img src="/.io//2.png" alt="infinite"> </p>
+<p><img src="2.png" alt="infinite"> </p>
 <p>此时我们能够降低方差（variance），从而得到更好的性能。</p>
 <h2 id="Linear-and-Any-Blending"><a href="#Linear-and-Any-Blending" class="headerlink" title="Linear and Any Blending"></a>Linear and Any Blending</h2><p>刚刚我们同等对待每一个hypothesis，那么现在我们考虑Linear Blending，它为每一个假设乘以一个权重αt：</p>
-<p><img src="/.io//3.png" alt="lb"> </p>
+<p><img src="3.png" alt="lb"> </p>
 <p>看起来我们很难求解，但是我们可以对比使用特征转换的线性回归问题，发现他们是很相似的：</p>
-<p><img src="/.io//4.png" alt="lb and lrt"> </p>
+<p><img src="4.png" alt="lb and lrt"> </p>
 <p>所以，我们求解的线性的blending问题，可以当做是一个线性模型附带一些约束条件，并且将这些hypothesis当做是特征转换即可。不过实际操作中，对于αt&gt;=转换函数）。</p>
 <p>同样，在进行选择时，我们仍然使用Eval。如果我们使用Ein进行选择，就是在最好的里面选择最好的，那么最终的计算需要考虑所有的模型复杂度。</p>
 <p>当然，除了使用线性的Blending之外，我们也可以使用非线性的Blending(Any Blending)，我们称其为Stacking，它求解一个个函数g~(x)作为参数。区别在于后者学习能力更强，但是也更容易overfit，这一点需要特别注意。</p>
