@@ -6,7 +6,7 @@
   <link href="https://vhdsih.github.io/atom.xml" rel="self"/>
   
   <link href="https://vhdsih.github.io/"/>
-  <updated>2021-12-10T07:41:11.458Z</updated>
+  <updated>2023-10-17T15:40:22.913Z</updated>
   <id>https://vhdsih.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>随便写写，添添生气</title>
+    <link href="https://vhdsih.github.io/2023/10/17/recent-2023-10/"/>
+    <id>https://vhdsih.github.io/2023/10/17/recent-2023-10/</id>
+    <published>2023-10-17T15:23:44.000Z</published>
+    <updated>2023-10-17T15:40:22.913Z</updated>
+    
+    <content type="html"><![CDATA[<p>写博客是一件困难的事。想学的太多，落实的太少，大多都是无疾而终了。</p><p>加州旅馆我已经循环了好久，突然有了想要学会的冲动。想做的事情无需等待，等待只会消减来之不易的热情。嗯，吉他已经下单一段时间了，最近还在练呢，不过学起来挺慢的，总之还是练的少吧！</p><p>口琴虽然没有完全搁置，但是最近吹的次数少了很多，今年把告白之夜学熟练就好了。</p><p>我内心里是遵守规则的人，但是最近两次不知不觉闯了红灯而且被恶语相向，我，嗯。</p><p>经常性地被拒绝真是一件很难让人开心的事情。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;写博客是一件困难的事。想学的太多，落实的太少，大多都是无疾而终了。&lt;/p&gt;
+&lt;p&gt;加州旅馆我已经循环了好久，突然有了想要学会的冲动。想做的事情无需等待，等待只会消减来之不易的热情。嗯，吉他已经下单一段时间了，最近还在练呢，不过学起来挺慢的，总之还是练的少吧！&lt;/p&gt;
+&lt;p&gt;</summary>
+      
+    
+    
+    
+    <category term="life" scheme="https://vhdsih.github.io/categories/life/"/>
+    
+    
+    <category term="life" scheme="https://vhdsih.github.io/tags/life/"/>
+    
+  </entry>
   
   <entry>
     <title>Learning Rust</title>
