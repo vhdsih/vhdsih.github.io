@@ -38,6 +38,13 @@
     
     <!-- title -->
     <title>LinuxShell3 - more commands</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -55,9 +62,9 @@
 <body class="max-width mx-auto px3 ltr">
     
       <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
   <span id="menu">
     <span id="nav">
       <ul>
@@ -80,13 +87,13 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2018/05/03/install-opencv-on-windows/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2018/05/03/install-opencv-on-windows/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2018/04/17/LinuxShell2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2018/04/17/LinuxShell2/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
       </ul>
       <span id="i-prev" class="info" style="display:none;">Previous post</span>
       <span id="i-next" class="info" style="display:none;">Next post</span>
@@ -100,7 +107,7 @@
   <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&text=LinuxShell3 - more commands"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&is_video=false&description=LinuxShell3 - more commands"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=LinuxShell3 - more commands&body=Check out this article: https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinuxShell3 - more commands&body=Check out this article: https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
@@ -110,32 +117,35 @@
 </ul>
 
     </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E5%BD%95%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">终端录制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-number">2.</span> <span class="toc-text">校验和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%92%8C%E6%95%A3%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">加密和散列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E3%80%81%E5%94%AF%E4%B8%80%E3%80%81%E9%87%8D%E5%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">排序、唯一、重复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">临时文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">6.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E9%80%9F"><span class="toc-number">7.</span> <span class="toc-text">并行加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">批量操作</span></a></li></ol>
-    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E5%BD%95%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">终端录制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-number">2.</span> <span class="toc-text">校验和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%92%8C%E6%95%A3%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">加密和散列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E3%80%81%E5%94%AF%E4%B8%80%E3%80%81%E9%87%8D%E5%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">排序、唯一、重复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">临时文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">6.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E9%80%9F"><span class="toc-number">7.</span> <span class="toc-text">并行加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">批量操作</span></a></li></ol>
+      </div>
+    
   </span>
 </div>
 
     
-    <div class="content index py4">
+    <div class="content index py4 ">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
-    <h1 class="posttitle" itemprop="name headline">
+    <h1 class="posttitle p-name" itemprop="name headline">
         LinuxShell3 - more commands
     </h1>
 
 
 
     <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">vhdsih</span>
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">vhdsih</span>
       </span>
       
     <div class="postdate">
       
-        <time datetime="2018-04-28T05:31:28.000Z" itemprop="datePublished">2018-04-28</time>
+        <time datetime="2018-04-28T05:31:28.000Z" class="dt-published" itemprop="datePublished">2018-04-28</time>
         
       
     </div>
@@ -143,15 +153,15 @@
 
       
     <div class="article-category">
-        <i class="fas fa-archive"></i>
+        <i class="fa-solid fa-archive"></i>
         <a class="category-link" href="/categories/System/">System</a>
     </div>
 
 
       
     <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/Linux-Shell/" rel="tag">Linux Shell</a>
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Linux-Shell/" rel="tag">Linux Shell</a>
     </div>
 
 
@@ -159,7 +169,7 @@
   </header>
   
 
-  <div class="content" itemprop="articleBody">
+  <div class="content e-content" itemprop="articleBody">
     <h2 id="终端录制"><a href="#终端录制" class="headerlink" title="终端录制"></a>终端录制</h2><p>使用 script 和 scriptreplay 可以实现终端命令的录制播放。通常，录制视频需要大量的空间，而使用此命令得到的仅仅是文本文件，大小一般是KB级别的。 </p>
 <span id="more"></span>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 录制</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> script -t 2&gt; timing.log -a output.session</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Input Your Commands</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">exit</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 播放</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> scriptreplay timing.log output.session</span></span><br></pre></td></tr></table></figure>
@@ -341,25 +351,28 @@
 
     <div id="nav-footer" style="display: none">
       <ul>
-         
+        
           <li><a href="/">Home</a></li>
-         
+        
           <li><a href="/archives/">Articles</a></li>
-         
+        
           <li><a href="/tags/">Tag</a></li>
-         
+        
           <li><a href="/categories/">Category</a></li>
-         
+        
           <li><a href="/about/">About</a></li>
-         
+        
           <li><a href="/atom.xml">Rss</a></li>
         
       </ul>
     </div>
 
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E5%BD%95%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">终端录制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-number">2.</span> <span class="toc-text">校验和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%92%8C%E6%95%A3%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">加密和散列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E3%80%81%E5%94%AF%E4%B8%80%E3%80%81%E9%87%8D%E5%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">排序、唯一、重复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">临时文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">6.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E9%80%9F"><span class="toc-number">7.</span> <span class="toc-text">并行加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">批量操作</span></a></li></ol>
-    </div>
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E5%BD%95%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">终端录制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-number">2.</span> <span class="toc-text">校验和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E5%92%8C%E6%95%A3%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">加密和散列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E3%80%81%E5%94%AF%E4%B8%80%E3%80%81%E9%87%8D%E5%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">排序、唯一、重复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">临时文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2"><span class="toc-number">6.</span> <span class="toc-text">文件分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E9%80%9F"><span class="toc-number">7.</span> <span class="toc-text">并行加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">批量操作</span></a></li></ol>
+      </div>
+    
 
     <div id="share-footer" style="display: none">
       <ul>
@@ -367,7 +380,7 @@
   <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&text=LinuxShell3 - more commands"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&is_video=false&description=LinuxShell3 - more commands"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=LinuxShell3 - more commands&body=Check out this article: https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LinuxShell3 - more commands&body=Check out this article: https://vhdsih.github.io/2018/04/28/LinuxShell3/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://vhdsih.github.io/2018/04/28/LinuxShell3/&title=LinuxShell3 - more commands"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
@@ -379,10 +392,12 @@
     </div>
 
     <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
     </div>
 
   </div>
@@ -394,7 +409,7 @@
     Copyright &copy;
     
     
-    2016-2022
+    2016-2023
     vhdsih
   </div>
   <div class="footer-right">
@@ -423,12 +438,12 @@
 
 
 
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
 
 
     <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 
 
@@ -436,14 +451,14 @@
 <!-- clipboard -->
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
   
   <script type="text/javascript">
   $(function() {
     // copy-btn HTML
     var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
     // mount it!
     $(".highlight table").before(btn);
     var clip = new ClipboardJS('.btn-copy', {
@@ -463,13 +478,9 @@
 
 <!-- search -->
 
-<!-- Google Analytics -->
-
 <!-- Baidu Analytics -->
 
 <!-- Cloudflare Analytics -->
-
-<!-- Umami Analytics -->
 
 <!-- Disqus Comments -->
 
